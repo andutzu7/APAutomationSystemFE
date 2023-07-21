@@ -1,0 +1,27 @@
+[
+    {
+        "description": "Item1",
+        "quantity": 20,
+        "price": 23.4
+    },
+    {
+        "description": "Item2",
+        "quantity": 10,
+        "price": 35
+    },
+    {
+        "description": "Item3",
+        "quantity": 14,
+        "price": 55.99
+    },
+    {
+        "description": "Item4",
+        "quantity": 5,
+        "price": 100
+    },
+    {
+        "description": "Item5",
+        "quantity": 35,
+        "price": 30
+    }
+]

@@ -1,0 +1,41 @@
+<mat-card fxLayoutAlign="center">
+    <mat-card-title>
+        Create purchase order
+    </mat-card-title>
+    <mat-card-content>
+        <form onsubmit="">
+            <mat-form-field>
+                <mat-label>Buyer</mat-label>
+                <mat-select>
+                  <mat-option  *ngFor="let company of companies" value="company.uuid">{{company.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Seller</mat-label>
+                <mat-select>
+                  <mat-option  *ngFor="let company of companies" value="company.uuid">{{company.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-card>
+                Items
+
+                <mat-form-field>
+                    <mat-label>Item</mat-label>
+                    <mat-select>
+                      <mat-option  *ngFor="let item of items" value="item.description">{{item.description}} -> {{item.price}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Quantity</mat-label>
+                    <input matInput type="number" placeholder="Item quantity" formControlName="itemQuantity" min="1" max="10">
+
+                </mat-form-field>
+    
+            </mat-card>
+
+        
+        </form>
+    </mat-card-content>
+</mat-card>
