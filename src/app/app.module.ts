@@ -20,7 +20,7 @@ import { OrdersService } from './services/orders.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    BuyerModule
+    BuyerModule,
   ],
   providers: [CompaniesService, ItemsService, OrdersService],
   bootstrap: [AppComponent]

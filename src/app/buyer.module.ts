@@ -12,7 +12,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {HttpClientModule} from '@angular/common/http'
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const MaterialComponents = [
   MatButtonModule
@@ -32,7 +32,9 @@ const MaterialComponents = [
     MatSelectModule,
     MatCardModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     MaterialComponents,
@@ -47,7 +49,9 @@ const MaterialComponents = [
     MatSelectModule,
     MatCardModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class BuyerModule { }
