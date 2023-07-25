@@ -1,0 +1,35 @@
+<mat-accordion *ngIf="purchaseOrder">
+    <mat-expansion-panel *ngFor="let item of purchaseOrder.items">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{item.description}}
+
+            </mat-panel-title>
+            <mat-panel-description>
+                Price:
+                <b><span matPrefix>$&nbsp;</span>{{item.price}}</b>
+
+            </mat-panel-description>
+            <mat-panel-description>
+                x
+                <b>{{item.quantity}}</b>
+
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <button mat-button type="button" (click)="remove(item)">Remove</button>
+        <!-- <mat-form-field>
+            <input matInput placeholder="Age">
+        </mat-form-field> -->
+<!-- 
+        <mat-form-field>
+            <input matInput placeholder="Age">
+        </mat-form-field> -->
+    </mat-expansion-panel>
+
+</mat-accordion>
+
+<button mat-button type="button" (click)="openDialog()">Add more items</button>
+
+
+

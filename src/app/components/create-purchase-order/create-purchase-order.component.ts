@@ -6,6 +6,7 @@ import { Item } from '../../models/item';
 import { ItemsService } from '../../services/items.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Router } from '@angular/router';
+import { Order } from 'src/app/models/order';
 
 
 @Component({
@@ -52,10 +53,15 @@ export class CreatePurchaseOrderComponent implements OnInit {
     }
     else {
       this.error = false;
-      this.ordersService.createPurchaseOrder(newOrder).subscribe(response => {
-        this.router.navigateByUrl('/');
 
-        console.log(response)
+      const newItem = newOrder.item;
+      newItem.quantity = newOrder.quantity;
+
+      const orderItems :Item[] = [newItem];
+      const orderPayload : Order = new Order(newOrder.buyer, newOrder.seller, orderItems)
+
+      this.ordersService.createPurchaseOrder(orderPayload).subscribe(response => {
+        this.router.navigateByUrl('/purchase-order/'+response.identifier);
       }
       )
     }

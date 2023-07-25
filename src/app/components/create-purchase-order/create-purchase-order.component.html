@@ -23,8 +23,8 @@
                 <mat-form-field>
                     <mat-label>Item</mat-label>
                     <mat-select formControlName="item">
-                        <mat-option *ngFor="let item of items" [value]="item">{{item.description}} ->
-                            {{item.price}}</mat-option>
+                        <mat-option *ngFor="let item of items" [value]="item">{{item.description}}: 
+                            <span matPrefix>$&nbsp;</span>{{item.price}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field>
