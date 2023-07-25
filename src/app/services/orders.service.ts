@@ -18,6 +18,13 @@ export class OrdersService {
         )
     }
 
+    savePurchaseOrder(identifier: string): Observable<Order> {
+        return this.httpClient.patch<Order>(
+            this.ordersUrl + '/' + identifier,
+            {}
+        )
+    }
+
     updatePurchaseOrder(identifier: string, orderRequest: Order) {
         return this.httpClient.put<Order>(
             this.ordersUrl + '/' + identifier,

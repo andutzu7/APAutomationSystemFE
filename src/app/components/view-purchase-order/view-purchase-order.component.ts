@@ -38,16 +38,26 @@ export class ViewPurchaseOrderComponent {
     updatedOrderPayload.items = updatedItems;
 
     this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, updatedOrderPayload).subscribe(() => {
-      console.log('update op response')
+      console.log('update op response')     
     })
+   
   }
 
+  send():void{
+    this.ordersService.savePurchaseOrder(this.purchaseOrder.identifier).subscribe(response =>
+      {
+        console.log(response)
+        this.purchaseOrder = response;
+      }
+    );
+  }
 
   openDialog(): void {
     let dialogRef = this.dialog.open(NewItemDialogComponent, {
       width: '300px',
       data: { order: this.purchaseOrder }
     });
+    
 
     dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
