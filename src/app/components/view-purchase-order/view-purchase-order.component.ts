@@ -1,11 +1,10 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Order } from 'src/app/models/order';
 import { OrdersService } from 'src/app/services/orders.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { Item } from '../../models/item';
-import { ItemsService } from '../../services/items.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.component';
 
 @Component({
   selector: 'app-view-purchase-order',
@@ -45,7 +44,7 @@ export class ViewPurchaseOrderComponent {
 
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(NewOrderDialog, {
+    let dialogRef = this.dialog.open(NewItemDialogComponent, {
       width: '300px',
       data: { order: this.purchaseOrder }
     });
@@ -56,61 +55,3 @@ export class ViewPurchaseOrderComponent {
   }
 }
 
-
-@Component({
-  selector: 'app-view-purchase-order',
-  templateUrl: './view-purchase-order-dialog.component.html',
-})
-export class NewOrderDialog {
-  orderForm !: FormGroup
-  availableItems!: Item[];
-  error: boolean = false;
-
-  constructor(
-    public dialogRef: MatDialogRef<NewOrderDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private ordersService: OrdersService,
-    private itemsService: ItemsService,) { }
-
-  ngOnInit(): void {
-    this.createForm();
-    this.availableItems = this.itemsService.getAllItems()
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  private createForm() {
-    this.orderForm = new FormGroup({
-      item: new FormControl<Item>({}, [Validators.required]),
-      quantity: new FormControl<number>(1, [Validators.required])
-    });
-  }
-
-  onSubmit() {
-    const newOrder = this.orderForm.value;
-
-    if (newOrder.item.description == null) {
-      this.error = true;
-    }
-    else {
-      this.error = false;
-
-      // it maintains identifier, buyer and seller from already existing order, but 'items' field is updated
-      const existingOrderItems: Item[] = this.data.order.items;
-      const newItem = newOrder.item;
-
-      newItem.quantity = newOrder.quantity;
-      existingOrderItems.push(newItem)
-
-      const orderPayload: Order = new Order(this.data.order.buyer, this.data.order.seller, existingOrderItems)
-      const identifier: string = this.data.order.identifier;
-
-      this.ordersService.updatePurchaseOrder(identifier, orderPayload).subscribe(() => {
-        console.log('update op response')
-      })
-    }
-  }
-
-}

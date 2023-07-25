@@ -8,8 +8,9 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { CompaniesService } from './services/companies.service';
 import { ItemsService } from './services/items.service';
 import { OrdersService } from './services/orders.service';
-import { NewOrderDialog, ViewPurchaseOrderComponent } from './components/view-purchase-order/view-purchase-order.component';
+import {  ViewPurchaseOrderComponent } from './components/view-purchase-order/view-purchase-order.component';
 import { ViewPurchaseOrdersComponent } from './components/view-purchase-orders/view-purchase-orders.component';
+import { NewItemDialogComponent } from './components/new-item-dialog/new-item-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { ViewPurchaseOrdersComponent } from './components/view-purchase-orders/v
     ToolbarComponent,
     ViewPurchaseOrderComponent,
     ViewPurchaseOrdersComponent,
-    NewOrderDialog
+    NewItemDialogComponent
   ],
   imports: [
     BrowserModule,
