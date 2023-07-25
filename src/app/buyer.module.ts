@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const MaterialComponents = [
   MatButtonModule
@@ -40,7 +41,8 @@ const MaterialComponents = [
     ReactiveFormsModule,
     MatGridListModule,
     MatTableModule,
-    MatCheckboxModule 
+    MatCheckboxModule,
+    MatDialogModule 
   ],
   exports: [
     MaterialComponents,
@@ -60,7 +62,8 @@ const MaterialComponents = [
     ReactiveFormsModule,
     MatGridListModule,
     MatTableModule,
-    MatCheckboxModule 
+    MatCheckboxModule,
+    MatDialogModule 
   ]
 })
 export class BuyerModule { }
