@@ -5,9 +5,7 @@ import { CompaniesService } from '../../services/companies.service';
 import { Item } from '../../models/item';
 import { ItemsService } from '../../services/items.service';
 import { OrdersService } from 'src/app/services/orders.service';
-import { Order } from 'src/app/models/order';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,20 +14,14 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./create-purchase-order.component.css']
 })
 export class CreatePurchaseOrderComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'name', 'price', 'quantity'];
-  selection = new SelectionModel<Item>(true, []);
-
   companies!: Company[]
   items!: Item[]
 
   orderForm !: FormGroup
-  dataSource !: MatTableDataSource<Item>
-
-  createdOrder ?: Order = undefined;
-
-  error : boolean = false;
+  error: boolean = false;
 
   constructor(
+    private router: Router,
     private companiesService: CompaniesService,
     private itemsService: ItemsService,
     private ordersService: OrdersService,
@@ -38,7 +30,6 @@ export class CreatePurchaseOrderComponent implements OnInit {
   ngOnInit(): void {
     this.companies = this.companiesService.getAllCompanies()
     this.items = this.itemsService.getAllItems()
-    this.dataSource = new MatTableDataSource<Item>(this.items);
 
     this.createForm();
   }
@@ -47,46 +38,25 @@ export class CreatePurchaseOrderComponent implements OnInit {
     this.orderForm = new FormGroup({
       buyer: new FormControl<Company>({}, [Validators.required]),
       seller: new FormControl<Company>({}, [Validators.required]),
-      items: new FormControl<Item[]>([])
+      item: new FormControl<Item>({}, [Validators.required]),
+      quantity: new FormControl<number>(1, [Validators.required])
     });
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Item): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'}`;
-  }
 
   onSubmit() {
-    const newOrder: Order = <Order> this.orderForm.value;
-    newOrder.items = this.selection.selected
-    
-    if(newOrder.buyer.companyIdentifier == null || newOrder.seller.companyIdentifier == null){
-        this.error = true;
+    const newOrder = this.orderForm.value;
+
+    if (newOrder.buyer.companyIdentifier == null || newOrder.seller.companyIdentifier == null || newOrder.item.description == null) {
+      this.error = true;
     }
-    else{
+    else {
       this.error = false;
-      this.ordersService.createPurchaseOrder(newOrder).subscribe(response => 
-        {
-          this.createdOrder = response;
-          console.log(this.createdOrder)
-        }
+      this.ordersService.createPurchaseOrder(newOrder).subscribe(response => {
+        this.router.navigateByUrl('/');
+
+        console.log(response)
+      }
       )
     }
 
