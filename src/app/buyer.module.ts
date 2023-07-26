@@ -13,6 +13,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {HttpClientModule} from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const MaterialComponents = [
   MatButtonModule
@@ -34,7 +38,11 @@ const MaterialComponents = [
     MatInputModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatDialogModule 
   ],
   exports: [
     MaterialComponents,
@@ -51,7 +59,11 @@ const MaterialComponents = [
     MatInputModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatDialogModule 
   ]
 })
 export class BuyerModule { }

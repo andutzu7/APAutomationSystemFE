@@ -1,0 +1,34 @@
+<mat-accordion *ngIf="purchaseOrder">
+    <mat-expansion-panel *ngFor="let item of purchaseOrder.items">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{item.description}}
+
+            </mat-panel-title>
+            <mat-panel-description>
+                Price:
+                <b><span matPrefix>$&nbsp;</span>{{item.price}}</b>
+
+            </mat-panel-description>
+            <mat-panel-description>
+                x
+                <b>{{item.quantity}}</b>
+
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="remove(item)">Remove</button>
+    </mat-expansion-panel>
+
+    <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="openDialog()">Add more items</button>
+
+
+    <mat-card>
+        <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="send()">Send order</button>
+    </mat-card>
+    
+
+</mat-accordion>
+
+
+

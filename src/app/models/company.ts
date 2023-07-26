@@ -1,9 +1,9 @@
 export class Company {
-    uuid: string;
-    name: string;
+    companyIdentifier?: string;
+    name?: string;
 
-    constructor(uuid:string, name:string){
-        this.uuid = uuid;
+    constructor(companyIdentifier:string, name:string){
+        this.companyIdentifier = companyIdentifier;
         this.name = name;
     }
 }

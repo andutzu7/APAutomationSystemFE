@@ -8,7 +8,7 @@ export class Order {
     items: Item[];
     orderStatus!: string;
 
-    constructor(buyer: Company, seller: Company, items: Item[], price: number){
+    constructor(buyer: Company, seller: Company, items: Item[]){
         this.buyer = buyer;
         this.seller = seller;
         this.items = items;
