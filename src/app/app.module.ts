@@ -11,6 +11,8 @@ import { OrdersService } from './services/orders.service';
 import {  ViewPurchaseOrderComponent } from './components/view-purchase-order/view-purchase-order.component';
 import { ViewPurchaseOrdersComponent } from './components/view-purchase-orders/view-purchase-orders.component';
 import { NewItemDialogComponent } from './components/new-item-dialog/new-item-dialog.component';
+import { CreateInvoiceComponent } from './components/create-invoice/create-invoice.component';
+import { ViewInvoicesComponent } from './components/view-invoices/view-invoices.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { NewItemDialogComponent } from './components/new-item-dialog/new-item-di
     ViewPurchaseOrderComponent,
     ViewPurchaseOrdersComponent,
     NewItemDialogComponent
+    CreateInvoiceComponent,
+    ViewInvoicesComponent,
   ],
   imports: [
     BrowserModule,

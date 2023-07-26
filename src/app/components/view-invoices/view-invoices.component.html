@@ -1,0 +1,65 @@
+<table>
+    <thead>
+        <tr>
+            <th>Invoice Number</th>
+            <th>Buyer Name</th>
+            <th>Seller Name</th>
+            <th>Details</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let invoice of invoices">
+            <td>{{ invoice.identifier }}</td>
+            <td>{{ invoice.buyer.name }}</td>
+            <td>{{ invoice.seller.name }}</td>
+            <td>
+                <button type="button" (click)="invoice_popup = true; updateSelectedInvoiceValue(invoice.identifier) ">
+                    More Details
+                </button>
+            </td>
+            <td>
+                <button type="button" (click)="deleteInvoice(invoice.identifier) ">
+                    ➖
+
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="overlay" *ngIf="invoice_popup">
+    <div class="popup">
+        <h2>Invoice details</h2>
+        <a class="close" (click)="invoice_popup = false">&times;</a>
+        <div class="content">
+            <h3>Transaction ID: {{selectedInvoice.identifier }}</h3>
+            <h3>Buyer Name: {{ selectedInvoice.buyer.name }}</h3>
+            <h3>Seller Name: {{ selectedInvoice.seller.name }}</h3>
+            <h3>Items</h3>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Item description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of selectedInvoice.items">
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.price}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Taxes amount: N/A </h3>
+            <h3>Total amount: N/A </h3>
+        </div>
+    </div>
+</div>
