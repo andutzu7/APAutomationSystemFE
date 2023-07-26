@@ -10,12 +10,16 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { CompaniesService } from './services/companies.service';
 import { ItemsService } from './services/items.service';
 import { OrdersService } from './services/orders.service';
+import { CreateInvoiceComponent } from './components/create-invoice/create-invoice.component';
+import { ViewInvoicesComponent } from './components/view-invoices/view-invoices.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreatePurchaseOrderComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    CreateInvoiceComponent,
+    ViewInvoicesComponent
   ],
   imports: [
     BrowserModule,
