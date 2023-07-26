@@ -19,7 +19,7 @@ import { ViewInvoicesComponent } from './components/view-invoices/view-invoices.
     CreatePurchaseOrderComponent,
     ToolbarComponent,
     CreateInvoiceComponent,
-    ViewInvoicesComponent
+    ViewInvoicesComponent,
   ],
   imports: [
     BrowserModule,

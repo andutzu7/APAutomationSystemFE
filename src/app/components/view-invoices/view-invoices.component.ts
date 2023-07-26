@@ -13,7 +13,7 @@ export class ViewInvoicesComponent {
   private invoiceService: InvoiceService;
   public invoices!: any;
   public selectedInvoice!: Invoice;
-  popup = false
+  invoice_popup = false;
 
 
   constructor(private service: InvoiceService) {
@@ -21,16 +21,29 @@ export class ViewInvoicesComponent {
   }
 
   ngOnInit() {
+    this.getInvoices();
+  }
+
+  getInvoices() {
     this.invoiceService.getInvoices().subscribe(data => {
-      this.invoices = data;
+    this.invoices = data;
     });
 
   }
-
   async updateSelectedInvoiceValue(uuid: string) {
 
     let data = await firstValueFrom(this.invoiceService.getInvoice(uuid));
     this.selectedInvoice = data;
+
+  }
+  /**
+   * deleteInvoice
+   uuid:string */
+  public deleteInvoice(uuid: string) {
+    if (confirm("Are you sure?")) {
+      this.invoiceService.deleteInvoice(uuid).subscribe(data => { });
+      this.getInvoices();
+    }
 
   }
 

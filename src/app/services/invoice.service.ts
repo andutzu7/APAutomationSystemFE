@@ -19,7 +19,11 @@ export class InvoiceService{
 
         return this.httpClient.get<Invoice>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getMapping}/${uuid}`);
     }
+    deleteInvoice(uuid:string){
 
+        return this.httpClient.delete(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getMapping}/${uuid}`);
+
+    }
 
 
 }
