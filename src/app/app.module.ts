@@ -21,7 +21,7 @@ import { ViewInvoicesComponent } from './components/view-invoices/view-invoices.
     ToolbarComponent,
     ViewPurchaseOrderComponent,
     ViewPurchaseOrdersComponent,
-    NewItemDialogComponent
+    NewItemDialogComponent,
     CreateInvoiceComponent,
     ViewInvoicesComponent,
   ],
