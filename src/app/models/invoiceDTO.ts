@@ -1,7 +1,7 @@
 import { Company } from "./company";
 import { Item } from "./item";
 
-export class Invoice{
+export class InvoiceDTO{
 
     identifier!: string;
     buyer!: Company;

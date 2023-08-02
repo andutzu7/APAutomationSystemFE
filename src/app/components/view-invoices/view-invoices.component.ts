@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
-import { Invoice } from 'src/app/models/invoice';
 import { InvoiceService } from 'src/app/services/invoice.service';
 
 @Component({
@@ -11,10 +10,8 @@ import { InvoiceService } from 'src/app/services/invoice.service';
 export class ViewInvoicesComponent {
 
   private invoiceService: InvoiceService;
-  public invoices!: any;
-  public selectedInvoice!: Invoice;
-  invoice_popup = false;
-
+  public invoiceDDOList!: any;
+  public columnsToDisplay = ['idColumn', 'buyerColumn','sellerColumn','moreDetailsColumn','deleteColumn'];
 
   constructor(private service: InvoiceService) {
     this.invoiceService = service;
@@ -26,14 +23,8 @@ export class ViewInvoicesComponent {
 
   getInvoices() {
     this.invoiceService.getInvoices().subscribe(data => {
-    this.invoices = data;
+    this.invoiceDDOList= data;
     });
-
-  }
-  async updateSelectedInvoiceValue(uuid: string) {
-
-    let data = await firstValueFrom(this.invoiceService.getInvoice(uuid));
-    this.selectedInvoice = data;
 
   }
   /**

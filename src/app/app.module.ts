@@ -8,7 +8,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { CompaniesService } from './services/companies.service';
 import { ItemsService } from './services/items.service';
 import { OrdersService } from './services/orders.service';
-import {  ViewPurchaseOrderComponent } from './components/view-purchase-order/view-purchase-order.component';
+import { ViewPurchaseOrderComponent } from './components/view-purchase-order/view-purchase-order.component';
 import { ViewPurchaseOrdersComponent } from './components/view-purchase-orders/view-purchase-orders.component';
 import { NewItemDialogComponent } from './components/new-item-dialog/new-item-dialog.component';
 import { CreateInvoiceComponent } from './components/create-invoice/create-invoice.component';
@@ -21,7 +21,7 @@ import { ViewInvoicesComponent } from './components/view-invoices/view-invoices.
     ToolbarComponent,
     ViewPurchaseOrderComponent,
     ViewPurchaseOrdersComponent,
-    NewItemDialogComponent
+    NewItemDialogComponent,
     CreateInvoiceComponent,
     ViewInvoicesComponent,
   ],
