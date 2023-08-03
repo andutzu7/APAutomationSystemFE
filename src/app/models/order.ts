@@ -1,10 +1,22 @@
 import { Company } from "./company";
 import { Item } from "./item";
 
-export class Order {
+export class OrderRequest {
+    buyer: string;
+    seller: string;
+    items: Item[];
+
+    constructor(buyer: string, seller: string, items: Item[]){
+        this.buyer = buyer;
+        this.seller = seller;
+        this.items = items;
+    }
+}
+
+export class OrderResponse {
     identifier!: string;
-    buyer: Company;
-    seller: Company;
+    buyer!: Company;
+    seller!: Company;
     items: Item[];
     orderStatus!: string;
 
@@ -14,4 +26,3 @@ export class Order {
         this.items = items;
     }
 }
-

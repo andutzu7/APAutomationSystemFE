@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Item } from 'src/app/models/item';
-import { Order } from 'src/app/models/order';
+import { OrderRequest, OrderResponse } from 'src/app/models/order';
 import { ItemsService } from 'src/app/services/items.service';
 import { OrdersService } from 'src/app/services/orders.service';
 
@@ -27,10 +27,6 @@ export class NewItemDialogComponent {
     this.availableItems = this.itemsService.getAllItems()
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
   private createForm() {
     this.orderForm = new FormGroup({
       item: new FormControl<Item>({}, [Validators.required]),
@@ -38,29 +34,51 @@ export class NewItemDialogComponent {
     });
   }
 
-  onSubmit() {
-    const newOrder = this.orderForm.value;
+  private createUpdatedOrderRequest(existingOrder: OrderResponse, newItemForm: FormGroup): OrderRequest {
+    const updatedOrderItems: Item[] = existingOrder.items.slice();
+    const newItem = newItemForm.value.item;
 
-    if (newOrder.item.description == null) {
+    newItem.quantity = newItemForm.value.quantity;
+    updatedOrderItems.push(newItem);
+
+    const orderPayload: OrderRequest = new OrderRequest(
+      existingOrder.buyer.companyIdentifier,
+      existingOrder.seller.companyIdentifier,
+      updatedOrderItems
+    )
+
+    return orderPayload;
+  }
+
+  onSubmit() {
+    const newOrderItem = this.orderForm.value;
+
+    if (newOrderItem.item.description == null) {
       this.error = true;
     }
     else {
       this.error = false;
 
       // it maintains identifier, buyer and seller from already existing order, but 'items' field is updated
-      const existingOrderItems: Item[] = this.data.order.items;
-      const newItem = newOrder.item;
+      // const updatedOrderItems: Item[] = this.data.order.items.slice();
+      // const newItem = newOrderItem.item;
 
-      newItem.quantity = newOrder.quantity;
-      existingOrderItems.push(newItem)
+      // newItem.quantity = newOrderItem.quantity;
+      // updatedOrderItems.push(newItem)
 
-      const orderPayload: Order = new Order(this.data.order.buyer, this.data.order.seller, existingOrderItems)
+      // const orderPayload: OrderRequest = new OrderRequest(this.data.order.buyer.companyIdentifier, this.data.order.seller.companyIdentifier, updatedOrderItems)
+      
+      const orderPayload: OrderRequest = this.createUpdatedOrderRequest(this.data.order, this.orderForm)
       const identifier: string = this.data.order.identifier;
 
-      this.ordersService.updatePurchaseOrder(identifier, orderPayload).subscribe(() => {
-        console.log('update op response')
+      this.ordersService.updatePurchaseOrder(identifier, orderPayload).subscribe(resp => {
+        console.log("Response: " + resp.items)
       })
     }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
 

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Order } from 'src/app/models/order';
+import { OrderRequest, OrderResponse } from 'src/app/models/order';
 import { OrdersService } from 'src/app/services/orders.service';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Item } from '../../models/item';
 import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.component';
 
@@ -12,12 +12,12 @@ import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.compo
   styleUrls: ['./view-purchase-order.component.css']
 })
 export class ViewPurchaseOrderComponent {
-  purchaseOrder !: Order;
+  purchaseOrder !: OrderResponse;
 
   constructor(private route: ActivatedRoute,
     private ordersService: OrdersService,
     public dialog: MatDialog,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPurchaseOrder();
@@ -25,30 +25,31 @@ export class ViewPurchaseOrderComponent {
 
   getPurchaseOrder(): void {
     const id = this.route.snapshot.paramMap.get('id');
+
     this.ordersService.getPurchaseOrder(id!).subscribe(p => {
       this.purchaseOrder = p
     });
   }
 
-  remove(item: Item): void {
-    let updatedItems: Item[] = this.purchaseOrder.items;
+  removeItem(item: Item): void {
+    let updatedItems: Item[] = this.purchaseOrder.items.slice();
     updatedItems = updatedItems.filter(it => it !== item);
 
-    const updatedOrderPayload: Order = this.purchaseOrder;
-    updatedOrderPayload.items = updatedItems;
+    const updatedOrderPayload: OrderRequest = new OrderRequest(
+      this.purchaseOrder.buyer.companyIdentifier,
+      this.purchaseOrder.seller.companyIdentifier,
+      updatedItems
+    );
 
-    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, updatedOrderPayload).subscribe(() => {
-      console.log('update op response')     
+    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, updatedOrderPayload).subscribe(resp => {
+      this.purchaseOrder = resp;
     })
-   
   }
 
-  send():void{
-    this.ordersService.savePurchaseOrder(this.purchaseOrder.identifier).subscribe(response =>
-      {
-        console.log(response)
-        this.purchaseOrder = response;
-      }
+  saveOrder(): void {
+    this.ordersService.savePurchaseOrder(this.purchaseOrder.identifier).subscribe(response => {
+      this.purchaseOrder = response;
+    }
     );
   }
 
@@ -57,10 +58,10 @@ export class ViewPurchaseOrderComponent {
       width: '300px',
       data: { order: this.purchaseOrder }
     });
-    
 
     dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
+      this.getPurchaseOrder();
     });
   }
 }

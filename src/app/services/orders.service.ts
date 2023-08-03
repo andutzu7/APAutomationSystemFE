@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Order } from "../models/order";
+import { OrderRequest, OrderResponse } from "../models/order";
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 
@@ -11,36 +11,36 @@ export class OrdersService {
 
     constructor(private httpClient: HttpClient) { }
 
-    createPurchaseOrder(orderRequest: Order): Observable<Order> {
-        return this.httpClient.post<Order>(
+    createPurchaseOrder(orderRequest: OrderRequest): Observable<OrderResponse> {
+        return this.httpClient.post<OrderResponse>(
             this.ordersUrl,
             orderRequest
         )
     }
 
-    savePurchaseOrder(identifier: string): Observable<Order> {
-        return this.httpClient.patch<Order>(
+    savePurchaseOrder(identifier: string): Observable<OrderResponse> {
+        return this.httpClient.patch<OrderResponse>(
             this.ordersUrl + '/' + identifier,
             {}
         )
     }
 
-    updatePurchaseOrder(identifier: string, orderRequest: Order) {
-        return this.httpClient.put<Order>(
+    updatePurchaseOrder(identifier: string, orderRequest: OrderRequest) {
+        return this.httpClient.put<OrderResponse>(
             this.ordersUrl + '/' + identifier,
             orderRequest
         )
     }
 
-    getPurchaseOrder(id: string): Observable<Order> {
-        return this.httpClient.get<Order>(
+    getPurchaseOrder(id: string): Observable<OrderResponse> {
+        return this.httpClient.get<OrderResponse>(
             this.ordersUrl + '/' + id
         )
     }
 
 
-    getPurchaseOrders(): Observable<Order[]> {
-        return this.httpClient.get<Order[]>(
+    getPurchaseOrders(): Observable<OrderResponse[]> {
+        return this.httpClient.get<OrderResponse[]>(
             this.ordersUrl
         )
     }

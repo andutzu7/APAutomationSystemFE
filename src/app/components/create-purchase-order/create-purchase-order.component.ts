@@ -6,7 +6,7 @@ import { Item } from '../../models/item';
 import { ItemsService } from '../../services/items.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Router } from '@angular/router';
-import { Order } from 'src/app/models/order';
+import { OrderRequest } from 'src/app/models/order';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.companies = this.companiesService.getAllCompanies()
+    this.getCompanies();
     this.items = this.itemsService.getAllItems()
 
     this.createForm();
@@ -37,18 +37,24 @@ export class CreatePurchaseOrderComponent implements OnInit {
 
   private createForm() {
     this.orderForm = new FormGroup({
-      buyer: new FormControl<Company>({}, [Validators.required]),
-      seller: new FormControl<Company>({}, [Validators.required]),
+      buyer: new FormControl<string>("", [Validators.required]),
+      seller: new FormControl<string>("", [Validators.required]),
       item: new FormControl<Item>({}, [Validators.required]),
       quantity: new FormControl<number>(1, [Validators.required])
     });
   }
 
+  getCompanies(): void {
+    this.companiesService.getAllCompanies().subscribe(resp => {
+      this.companies = resp;
+    });
+
+  }
 
   onSubmit() {
     const newOrder = this.orderForm.value;
 
-    if (newOrder.buyer.companyIdentifier == null || newOrder.seller.companyIdentifier == null || newOrder.item.description == null) {
+    if (newOrder.buyer == null || newOrder.seller == null || newOrder.item.description == null) {
       this.error = true;
     }
     else {
@@ -58,7 +64,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
       newItem.quantity = newOrder.quantity;
 
       const orderItems :Item[] = [newItem];
-      const orderPayload : Order = new Order(newOrder.buyer, newOrder.seller, orderItems)
+      const orderPayload : OrderRequest = new OrderRequest(newOrder.buyer, newOrder.seller, orderItems)
 
       this.ordersService.createPurchaseOrder(orderPayload).subscribe(response => {
         this.router.navigateByUrl('/purchase-order/'+response.identifier);
