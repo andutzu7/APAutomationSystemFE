@@ -11,8 +11,10 @@ import { OrdersService } from './services/orders.service';
 import { ViewPurchaseOrderComponent } from './components/view-purchase-order/view-purchase-order.component';
 import { ViewPurchaseOrdersComponent } from './components/view-purchase-orders/view-purchase-orders.component';
 import { NewItemDialogComponent } from './components/new-item-dialog/new-item-dialog.component';
-import { CreateInvoiceComponent } from './components/create-invoice/create-invoice.component';
-import { ViewInvoicesComponent } from './components/view-invoices/view-invoices.component';
+import { CreateInvoiceComponent } from './components/features/create-invoice/create-invoice.component';
+import { ViewInvoicesComponent } from './components/ui/view-invoices/view-invoices.component';
+import { InvoiceRenderer } from './components/ui/invoice-renderer/invoice-renderer.component';
+import { InvoicesHandlerComponent } from './invoices-handler/invoices-handler.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { ViewInvoicesComponent } from './components/view-invoices/view-invoices.
     NewItemDialogComponent,
     CreateInvoiceComponent,
     ViewInvoicesComponent,
+    InvoiceRenderer,
+    InvoicesHandlerComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +35,6 @@ import { ViewInvoicesComponent } from './components/view-invoices/view-invoices.
     BuyerModule,
   ],
   providers: [CompaniesService, ItemsService, OrdersService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

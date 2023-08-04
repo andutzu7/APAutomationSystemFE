@@ -13,8 +13,8 @@ export class InvoiceService{
     
     constructor(private httpClient: HttpClient){}
 
-    getInvoices(): Observable<InvoiceDDO>{
-        return this.httpClient.get<InvoiceDDO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getMapping}`);
+    getInvoices(): Observable<InvoiceDDO[]>{
+        return this.httpClient.get<InvoiceDDO[]>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getMapping}`);
     }
     getInvoice(uuid:string):Observable<InvoiceDTO>{
 

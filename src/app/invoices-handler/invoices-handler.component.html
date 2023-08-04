@@ -1,0 +1,8 @@
+<ng-container *ngIf="(this.invoiceDDOList | async) as invoiceList ">
+    <app-view-invoices [invoiceDDOList]="invoiceList" (invoiceCommand)='executeCommand($event)'></app-view-invoices>
+</ng-container>
+
+
+<ng-container *ngIf="(this.individualInvoice| async) as individualInvoice ">
+    <invoice-renderer [individualInvoice]="individualInvoice"></invoice-renderer>
+</ng-container>
