@@ -13,7 +13,6 @@ const routes: Routes = [
     { path: 'purchase-order', component: CreatePurchaseOrderComponent },
     { path: 'invoices/create', component: CreateInvoiceComponent },
     { path: 'invoices/view', component: InvoicesHandlerComponent},
-]
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
