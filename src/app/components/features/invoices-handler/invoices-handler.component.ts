@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
 import { InvoiceService } from 'src/app/services/invoice.service';
-import { InvoiceRenderer } from '../components/ui/invoice-renderer/invoice-renderer.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InvoiceDDO } from 'src/app/models/invoiceDDO';
 import { InvoiceDTO } from 'src/app/models/invoiceDTO';
 
@@ -16,40 +14,45 @@ export class InvoicesHandlerComponent {
   private invoiceService: InvoiceService;
   public invoiceDDOList!: Observable<InvoiceDDO[]>;
   public individualInvoice!: Observable<InvoiceDTO>;
+  public invoicesData!: { invoiceDDOList: Observable<InvoiceDDO[]>, individualInvoice: Observable<InvoiceDTO> }
 
   constructor(private service: InvoiceService) {
     this.invoiceService = service;
   }
-
   ngOnInit() {
-    this.invoiceDDOList = this.getInvoices();
+    this.getInvoices();
+    this.invoicesData = {
+      invoiceDDOList: this.invoiceDDOList,
+      individualInvoice: this.individualInvoice,
+    }
   }
-
   getInvoices() {
-    return this.invoiceService.getInvoices();
+    this.invoiceDDOList = this.invoiceService.getInvoices();
   }
-
   deleteInvoice(invoiceId: string) {
+    this.invoiceService.deleteInvoice(invoiceId).subscribe(answer => {
 
-    this.invoiceService.deleteInvoice(invoiceId);
+      //atm response is void, for the future check for its resp code
+      this.getInvoices();
+      this.invoicesData = {
+        invoiceDDOList: this.invoiceDDOList,
+        individualInvoice: this.individualInvoice,
+      }
+    });
   }
-
   getInvoice(invoiceId: string) {
-    return this.invoiceService.getInvoice(invoiceId);
+    this.invoicesData.individualInvoice = this.invoiceService.getInvoice(invoiceId);
   }
   executeCommand(invoiceCommand: any) {
 
     switch (invoiceCommand.action) {
 
       case 'delete':
-
         this.deleteInvoice(invoiceCommand.id);
-        console.log('delete')
         break;
       case 'display':
-        this.individualInvoice=this.getInvoice(invoiceCommand.id)
+        this.getInvoice(invoiceCommand.id)
         break;
-
 
     }
 

@@ -4,7 +4,7 @@ import { CreatePurchaseOrderComponent } from "./components/create-purchase-order
 import { ViewPurchaseOrderComponent } from "./components/view-purchase-order/view-purchase-order.component";
 import { ViewPurchaseOrdersComponent } from "./components/view-purchase-orders/view-purchase-orders.component";
 import { CreateInvoiceComponent } from "./components/features/create-invoice/create-invoice.component";
-import { InvoicesHandlerComponent } from "./invoices-handler/invoices-handler.component";
+import { InvoicesHandlerComponent } from "./components/features/invoices-handler/invoices-handler.component";
 
 const routes: Routes = [
     { path: 'new-purchase-order', component: CreatePurchaseOrderComponent },

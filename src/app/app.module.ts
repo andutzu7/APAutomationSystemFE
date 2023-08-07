@@ -14,7 +14,7 @@ import { NewItemDialogComponent } from './components/new-item-dialog/new-item-di
 import { CreateInvoiceComponent } from './components/features/create-invoice/create-invoice.component';
 import { ViewInvoicesComponent } from './components/ui/view-invoices/view-invoices.component';
 import { InvoiceRenderer } from './components/ui/invoice-renderer/invoice-renderer.component';
-import { InvoicesHandlerComponent } from './invoices-handler/invoices-handler.component';
+import { InvoicesHandlerComponent } from './components/features/invoices-handler/invoices-handler.component';
 
 @NgModule({
   declarations: [
