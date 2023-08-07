@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { Invoice } from "../models/invoice";
+import { InvoiceDDO } from "../models/invoiceDDO";
+import { InvoiceDTO } from "../models/invoiceDTO";
 import { InvoiceApiPaths } from "src/assets/invoice-api-paths";
 
 
@@ -12,12 +13,12 @@ export class InvoiceService{
     
     constructor(private httpClient: HttpClient){}
 
-    getInvoices(): Observable<Invoice>{
-        return this.httpClient.get<Invoice>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getMapping}`);
+    getInvoices(): Observable<InvoiceDDO[]>{
+        return this.httpClient.get<InvoiceDDO[]>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getMapping}`);
     }
-    getInvoice(uuid:string):Observable<Invoice>{
+    getInvoice(uuid:string):Observable<InvoiceDTO>{
 
-        return this.httpClient.get<Invoice>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getMapping}/${uuid}`);
+        return this.httpClient.get<InvoiceDTO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getMapping}/${uuid}`);
     }
     deleteInvoice(uuid:string){
 
