@@ -5,6 +5,7 @@ import { ViewPurchaseOrderComponent } from "./components/view-purchase-order/vie
 import { ViewPurchaseOrdersComponent } from "./components/view-purchase-orders/view-purchase-orders.component";
 import { CreateInvoiceComponent } from "./components/features/create-invoice/create-invoice.component";
 import { InvoicesHandlerComponent } from "./components/features/invoices-handler/invoices-handler.component";
+import { InvoiceRenderer } from "./components/ui/invoice-renderer/invoice-renderer.component";
 
 const routes: Routes = [
     { path: 'new-purchase-order', component: CreatePurchaseOrderComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
     { path: 'purchase-order', component: CreatePurchaseOrderComponent },
     { path: 'invoices/create', component: CreateInvoiceComponent },
     { path: 'invoices/view', component: InvoicesHandlerComponent},
+    { path: 'invoices/view/:id', component: InvoiceRenderer },
 ]
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
