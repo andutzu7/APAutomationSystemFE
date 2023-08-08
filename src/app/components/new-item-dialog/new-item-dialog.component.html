@@ -16,16 +16,19 @@
     </mat-form-field>
   </mat-card>
   <div mat-dialog-actions>
-    <button type="button" mat-button (click)="onNoClick()">Cancel</button>
+    <button type="button" mat-button (click)="onClose()">Close</button>
     <button type="button" mat-button (click)="onSubmit()" cdkFocusInitial>Add</button>
     <!-- <button mat-button [mat-dialog-close]="data" (click)="onSubmit()" cdkFocusInitial>Add</button> -->
   </div>                                          
 </form>
 
-<mat-card *ngIf="error==true">
+<mat-error *ngIf="inputError==true">
   <mat-card-header>
       <p>
           Please introduce all required fields.
       </p>
   </mat-card-header>
-</mat-card>
+</mat-error>
+
+
+

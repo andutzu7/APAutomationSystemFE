@@ -17,10 +17,10 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="removeItem(item)">Remove</button>
+        <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="removeOrderItem(item)">Remove</button>
     </mat-expansion-panel>
 
-    <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="openDialog()">Add more items</button>
+    <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="addOrderItem()">Add more items</button>
 
 
     <mat-card>
@@ -29,5 +29,12 @@
 
 </mat-accordion>
 
-
+<!-- <mat-error *ngIf="responseError!=null">
+    <mat-card-header>
+        <p>
+            {{responseError}}
+        </p>
+    </mat-card-header>
+  </mat-error>
+   -->
 
