@@ -2,15 +2,19 @@ import { Company } from "./company";
 import { Item } from "./item";
 
 export class OrderRequest {
+    identifier: any;
     buyer: string;
     seller: string;
     items: Item[];
+    orderStatus: any;
     version?: number;
 
-    constructor(buyer: string, seller: string, items: Item[]){
+    constructor(identifier: any, buyer: string, seller: string, items: Item[], orderStatus: any){
+        this.identifier = identifier;
         this.buyer = buyer;
         this.seller = seller;
         this.items = items;
+        this.orderStatus = orderStatus;
     }
 }
 

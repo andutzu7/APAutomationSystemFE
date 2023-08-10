@@ -53,8 +53,8 @@ export class CreatePurchaseOrderComponent implements OnInit {
 
   onSubmit() {
     const newOrder = this.orderForm.value;
-
-    if (newOrder.buyer == null || newOrder.seller == null || newOrder.item.description == null) {
+    console.log(newOrder)
+    if (newOrder.buyer == '' || newOrder.seller == '' || newOrder.item.description == null) {
       this.error = true;
     }
     else {
@@ -64,7 +64,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
       newItem.quantity = newOrder.quantity;
 
       const orderItems :Item[] = [newItem];
-      const orderPayload : OrderRequest = new OrderRequest(newOrder.buyer, newOrder.seller, orderItems)
+      const orderPayload : OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null)
 
       this.ordersService.createPurchaseOrder(orderPayload).subscribe(response => {
         this.router.navigateByUrl('/purchase-order/'+response.identifier);

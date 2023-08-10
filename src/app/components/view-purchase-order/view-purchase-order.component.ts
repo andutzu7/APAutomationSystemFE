@@ -49,8 +49,26 @@ export class ViewPurchaseOrderComponent {
   }
 
   saveOrder(): void {
-    this.ordersService.savePurchaseOrder(this.purchaseOrder.identifier).subscribe(response => {
-      this.purchaseOrder = response;
+    const orderPayload: OrderRequest = new OrderRequest(
+      this.purchaseOrder.identifier,
+      this.purchaseOrder.buyer.companyIdentifier,
+      this.purchaseOrder.seller.companyIdentifier,
+      this.purchaseOrder.items,
+      "SAVED"
+    )
+    orderPayload.version = this.purchaseOrder.version;
+
+    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
+    {
+      next: (resp) => {
+        this.purchaseOrder = resp;
+        this.showSuccess("Successfully saved!")
+      },
+      error: (e) => {
+        if (e.status === 412) {
+          this.showError(e.error.details);
+        }
+      }
     }
     );
   }
@@ -66,14 +84,16 @@ export class ViewPurchaseOrderComponent {
     });
   }
 
-  createRemoveItemRequest(item: Item): OrderRequest {
+  private createRemoveItemRequest(item: Item): OrderRequest {
     let updatedItems: Item[] = this.purchaseOrder.items.slice();
     updatedItems = updatedItems.filter(it => it !== item);
 
     const updatedOrderPayload: OrderRequest = new OrderRequest(
+      this.purchaseOrder.identifier,
       this.purchaseOrder.buyer.companyIdentifier,
       this.purchaseOrder.seller.companyIdentifier,
-      updatedItems
+      updatedItems,
+      this.purchaseOrder.orderStatus
     );
     updatedOrderPayload.version = this.purchaseOrder.version;
 
@@ -88,6 +108,11 @@ export class ViewPurchaseOrderComponent {
     })
   }
 
+  showSuccess(successMessage: string) {
+    this.snackBar.open(successMessage, "", {
+      duration: 1000,
+    });
+  }
 
 }
 

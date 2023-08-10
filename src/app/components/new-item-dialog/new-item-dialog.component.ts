@@ -103,9 +103,11 @@ export class NewItemDialogComponent {
     }
 
     const orderPayload: OrderRequest = new OrderRequest(
+      existingOrder.identifier,
       existingOrder.buyer.companyIdentifier,
       existingOrder.seller.companyIdentifier,
-      updatedOrderItems
+      updatedOrderItems,
+      existingOrder.orderStatus
     )
 
     return orderPayload;
