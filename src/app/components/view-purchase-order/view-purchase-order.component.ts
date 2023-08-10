@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Order } from 'src/app/models/order';
+import { OrderRequest, OrderResponse } from 'src/app/models/order';
 import { OrdersService } from 'src/app/services/orders.service';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Item } from '../../models/item';
 import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.component';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-purchase-order',
@@ -12,12 +13,13 @@ import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.compo
   styleUrls: ['./view-purchase-order.component.css']
 })
 export class ViewPurchaseOrderComponent {
-  purchaseOrder !: Order;
+  purchaseOrder !: OrderResponse;
 
   constructor(private route: ActivatedRoute,
     private ordersService: OrdersService,
     public dialog: MatDialog,
-  ) {}
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.getPurchaseOrder();
@@ -25,43 +27,92 @@ export class ViewPurchaseOrderComponent {
 
   getPurchaseOrder(): void {
     const id = this.route.snapshot.paramMap.get('id');
+
     this.ordersService.getPurchaseOrder(id!).subscribe(p => {
       this.purchaseOrder = p
     });
   }
 
-  remove(item: Item): void {
-    let updatedItems: Item[] = this.purchaseOrder.items;
-    updatedItems = updatedItems.filter(it => it !== item);
+  removeOrderItem(item: Item): void {
+    const updatedOrderPayload: OrderRequest = this.createRemoveItemRequest(item);
 
-    const updatedOrderPayload: Order = this.purchaseOrder;
-    updatedOrderPayload.items = updatedItems;
-
-    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, updatedOrderPayload).subscribe(() => {
-      console.log('update op response')     
-    })
-   
+    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, updatedOrderPayload).subscribe(
+      (resp) => {
+        this.purchaseOrder = resp;
+      },
+      (error) => {
+        if (error.status === 412) {
+          this.showError(error.error.details);
+        }
+      }
+    )
   }
 
-  send():void{
-    this.ordersService.savePurchaseOrder(this.purchaseOrder.identifier).subscribe(response =>
-      {
-        console.log(response)
-        this.purchaseOrder = response;
+  saveOrder(): void {
+    const orderPayload: OrderRequest = new OrderRequest(
+      this.purchaseOrder.identifier,
+      this.purchaseOrder.buyer.companyIdentifier,
+      this.purchaseOrder.seller.companyIdentifier,
+      this.purchaseOrder.items,
+      "SAVED"
+    )
+    orderPayload.version = this.purchaseOrder.version;
+
+    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
+    {
+      next: (resp) => {
+        this.purchaseOrder = resp;
+        this.showSuccess("Successfully saved!")
+      },
+      error: (e) => {
+        if (e.status === 412) {
+          this.showError(e.error.details);
+        }
       }
+    }
     );
   }
 
-  openDialog(): void {
+  addOrderItem(): void {
     let dialogRef = this.dialog.open(NewItemDialogComponent, {
       width: '300px',
       data: { order: this.purchaseOrder }
     });
-    
 
     dialogRef.afterClosed().subscribe(() => {
-      console.log('The dialog was closed');
+      this.getPurchaseOrder();
     });
   }
+
+  private createRemoveItemRequest(item: Item): OrderRequest {
+    let updatedItems: Item[] = this.purchaseOrder.items.slice();
+    updatedItems = updatedItems.filter(it => it !== item);
+
+    const updatedOrderPayload: OrderRequest = new OrderRequest(
+      this.purchaseOrder.identifier,
+      this.purchaseOrder.buyer.companyIdentifier,
+      this.purchaseOrder.seller.companyIdentifier,
+      updatedItems,
+      this.purchaseOrder.orderStatus
+    );
+    updatedOrderPayload.version = this.purchaseOrder.version;
+
+    return updatedOrderPayload;
+  }
+
+  showError(errorMessage: string){
+    let snackBarRef = this.snackBar.open(errorMessage, "RELOAD")
+
+    snackBarRef.onAction().subscribe(()=>{
+      window.location.reload()
+    })
+  }
+
+  showSuccess(successMessage: string) {
+    this.snackBar.open(successMessage, "", {
+      duration: 1000,
+    });
+  }
+
 }
 
