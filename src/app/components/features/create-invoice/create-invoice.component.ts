@@ -1,39 +1,41 @@
 import { Component } from '@angular/core';
-import { Item } from 'src/app/models/item';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Company } from 'src/app/models/company';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CompaniesService } from 'src/app/services/companies.service';
+import { Item } from 'src/app/models/item';
 import { ItemsService } from 'src/app/services/items.service';
-import { OrdersService } from 'src/app/services/orders.service';
-import { FormControl } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { Order } from 'src/app/models/order';
+import { CompaniesService } from 'src/app/services/companies.service';
+import { Router } from '@angular/router';
+import { InvoiceDPO } from 'src/app/models/invoiceDPO';
+import { MatTableDataSource } from '@angular/material/table';
+import { InvoiceService } from 'src/app/services/invoice.service';
 
 @Component({
   selector: 'app-create-invoice',
   templateUrl: './create-invoice.component.html',
-  styleUrls: ['./create-invoice.component.css']
+  styleUrls: ['./create-invoice.component.css'],
 })
 export class CreateInvoiceComponent {
 
-  companies!: Company[]
-  items!: Item[]
+  fromPO: boolean = false;
+  companies!: Company[];
+  items!: Item[];
+  invoiceItemList: Item[] = [];
+  public itemsTableDataSource = new MatTableDataSource();
+  public columnsToDisplay = ['itemNameColumn', 'priceColumn', 'itemQuantityColumn'];
 
-  orderForm !: FormGroup
+  orderForm !: FormGroup;
   error: boolean = false;
 
   constructor(
     private router: Router,
-    private companiesService: CompaniesService,
+    private invoiceService: InvoiceService,
     private itemsService: ItemsService,
-    private ordersService: OrdersService,
+    private companiesService: CompaniesService,
   ) { }
 
   ngOnInit(): void {
-    this.companies = this.companiesService.getAllCompanies()
-    this.items = this.itemsService.getAllItems()
-
+    this.getCompanies();
+    this.items = this.itemsService.getAllItems();
     this.createForm();
   }
 
@@ -45,28 +47,42 @@ export class CreateInvoiceComponent {
       quantity: new FormControl<number>(1, [Validators.required])
     });
   }
+  getCompanies() {
+    this.companiesService.getCompanies().subscribe(answer => {
 
+      this.companies = answer;
+
+    })
+
+  }
+
+  addItem() {
+
+    if (Object.keys(this.orderForm.value.item).length != 0) {
+      this.invoiceItemList.push(this.orderForm.value.item)
+    }
+    this.itemsTableDataSource.data = this.invoiceItemList;
+  }
 
   onSubmit() {
-    const newOrder = this.orderForm.value;
+    const newInvoice = this.orderForm.value;
 
-    if (newOrder.buyer.companyIdentifier == null || newOrder.seller.companyIdentifier == null || newOrder.item.description == null) {
+    if (newInvoice.buyer.companyIdentifier == null || newInvoice.seller.companyIdentifier == null || newInvoice.item.description == null) {
       this.error = true;
     }
     else {
       this.error = false;
 
-      const newItem = newOrder.item;
-      newItem.quantity = newOrder.quantity;
+      const invoiceDPO: InvoiceDPO = new InvoiceDPO(newInvoice.buyer.companyIdentifier, newInvoice.seller.companyIdentifier, this.invoiceItemList);
 
-      const orderItems :Item[] = [newItem];
-      const orderPayload : Order = new Order(newOrder.buyer, newOrder.seller, orderItems)
-
-      this.ordersService.createPurchaseOrder(orderPayload).subscribe(response => {
-        this.router.navigateByUrl('/purchase-order/'+response.identifier);
+      this.invoiceService.createInvoice(invoiceDPO).subscribe(response => {
+        this.router.navigateByUrl('/invoices/view/' + response.identifier);
       }
       )
     }
 
+  }
+  toggleForm() {
+    this.fromPO = !this.fromPO;
   }
 }

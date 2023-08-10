@@ -11,10 +11,11 @@ import { OrdersService } from './services/orders.service';
 import { ViewPurchaseOrderComponent } from './components/view-purchase-order/view-purchase-order.component';
 import { ViewPurchaseOrdersComponent } from './components/view-purchase-orders/view-purchase-orders.component';
 import { NewItemDialogComponent } from './components/new-item-dialog/new-item-dialog.component';
-import { CreateInvoiceComponent } from './components/features/create-invoice/create-invoice.component';
-import { ViewInvoicesComponent } from './components/ui/view-invoices/view-invoices.component';
+import { ViewInvoicesComponent } from './components/features/view-invoices/view-invoices.component';
 import { InvoiceRenderer } from './components/ui/invoice-renderer/invoice-renderer.component';
 import { InvoicesHandlerComponent } from './components/features/invoices-handler/invoices-handler.component';
+import { CreateInvoiceComponent } from './components/features/create-invoice/create-invoice.component';
+import { CreateInvoiceFormComponent } from './components/ui/create-invoice-form/create-invoice-form.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,11 @@ import { InvoicesHandlerComponent } from './components/features/invoices-handler
     ViewPurchaseOrderComponent,
     ViewPurchaseOrdersComponent,
     NewItemDialogComponent,
-    CreateInvoiceComponent,
     ViewInvoicesComponent,
     InvoiceRenderer,
-    InvoicesHandlerComponent
+    InvoicesHandlerComponent,
+    CreateInvoiceComponent,
+    CreateInvoiceFormComponent,
   ],
   imports: [
     BrowserModule,
