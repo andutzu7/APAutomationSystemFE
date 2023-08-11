@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 import { InvoiceDPO } from 'src/app/models/invoiceDPO';
 import { MatTableDataSource } from '@angular/material/table';
 import { InvoiceService } from 'src/app/services/invoice.service';
+import { InvoiceDTO } from 'src/app/models/invoiceDTO';
+import { OrdersService } from 'src/app/services/orders.service';
+import { Order } from 'src/app/models/order';
 
 @Component({
   selector: 'app-create-invoice',
@@ -21,24 +24,38 @@ export class CreateInvoiceComponent {
   items!: Item[];
   invoiceItemList: Item[] = [];
   public itemsTableDataSource = new MatTableDataSource();
-  public columnsToDisplay = ['itemNameColumn', 'priceColumn', 'itemQuantityColumn'];
+  public selectedOrder!: Order;
+
+
+  public columnsToDisplay = ['itemNameColumn', 'priceColumn', 'itemQuantityColumn', 'deleteColumn'];
+  displayedColumns: string[] = ['identifier', 'buyer', 'seller', 'status'];
 
   orderForm !: FormGroup;
   error: boolean = false;
+
+  purchaseOrdersDataSource!: MatTableDataSource<Order>
 
   constructor(
     private router: Router,
     private invoiceService: InvoiceService,
     private itemsService: ItemsService,
+    private ordersService: OrdersService,
     private companiesService: CompaniesService,
   ) { }
 
   ngOnInit(): void {
     this.getCompanies();
     this.items = this.itemsService.getAllItems();
+    this.getPurchaseOrders();
     this.createForm();
   }
 
+  getPurchaseOrders(): void {
+    this.ordersService.getPurchaseOrders().subscribe(answer => {
+      this.purchaseOrdersDataSource = new MatTableDataSource<Order>(answer);
+    });
+
+  }
   private createForm() {
     this.orderForm = new FormGroup({
       buyer: new FormControl<Company>({}, [Validators.required]),
@@ -82,7 +99,29 @@ export class CreateInvoiceComponent {
     }
 
   }
+  sendInvoiceFromOR() {
+
+    if (this.selectedOrder != null) {
+      this.invoiceService.createInvoiceFromPO(this.selectedOrder).subscribe(response => {
+        this.router.navigateByUrl('/invoices/view/' + response.identifier);
+      });
+    }
+  }
   toggleForm() {
     this.fromPO = !this.fromPO;
   }
+  toggleSelectedPO(order: Order) {
+    this.selectedOrder = order;
+  }
+  removeItem(item: Item) {
+    const itemIndex = this.invoiceItemList.indexOf(item)
+    if (itemIndex != -1) {
+
+      this.invoiceItemList.splice(itemIndex, 1);
+
+
+      this.itemsTableDataSource.data = this.invoiceItemList;
+    }
+  }
+
 }

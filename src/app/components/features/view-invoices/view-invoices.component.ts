@@ -40,16 +40,6 @@ export class ViewInvoicesComponent {
     })
   }
 
-  openInvoiceDialog() {
-
-    const dialogConfig = new MatDialogConfig();
-
-    // this.invoicesData.individualInvoice.subscribe(invoiceData => {
-    //   let invoiceRendererRef = this.dialog.open(InvoiceRenderer);
-    //   invoiceRendererRef.componentInstance.individualInvoice = invoiceData;
-    // })
-
-  }
 
   deleteInvoice(invoiceId: string) {
     this.invoiceService.deleteInvoice(invoiceId).subscribe(answer => {
@@ -57,7 +47,6 @@ export class ViewInvoicesComponent {
       this.invoiceDDOList=this.invoiceDDOList.filter((invoice)=>(invoice.identifier != invoiceId))
       //de filtrat lista
       this.invoiceDataSource.data=this.invoiceDDOList;
-      console.log(this.invoiceDataSource.data)
     });
   }
 }

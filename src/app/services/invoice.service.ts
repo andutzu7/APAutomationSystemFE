@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { InvoiceDDO } from "../models/invoiceDDO";
 import { InvoiceDTO } from "../models/invoiceDTO";
+import { Order } from "../models/order";
 import { InvoiceDPO } from "../models/invoiceDPO";
 import { InvoiceApiPaths } from "src/assets/invoice-api-paths";
 
@@ -28,7 +29,17 @@ export class InvoiceService {
     }
     createInvoice(invoiceDPO: InvoiceDPO) {
 
-        return this.httpClient.post<InvoiceDPO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.postInvoicesMapping}`, invoiceDPO);
+        return this.httpClient.post<InvoiceDTO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.postInvoicesMapping}`, invoiceDPO);
+    }
+    updateInvoice(uuid: string, invoiceDTO: InvoiceDTO) {
+
+        return this.httpClient.put<InvoiceDTO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.putInvoicesMapping}/${uuid}`, invoiceDTO);
+
+    }
+    createInvoiceFromPO(orderRequest: Order): Observable<InvoiceDTO> {
+        return this.httpClient.post<InvoiceDTO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.createInvoiceFromOR}`, orderRequest);
+        
     }
 
 }
+
