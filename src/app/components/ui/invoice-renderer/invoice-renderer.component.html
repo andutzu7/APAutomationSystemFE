@@ -59,8 +59,7 @@
 
 
   <mat-card>
-    <button [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button type="button" (click)="send()" routerLink="/invoices/view/{{individualInvoice.identifier}}">Send
-      order</button>
+    <button [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button type="button" (click)="send()" routerLink="/invoices/view/{{individualInvoice.identifier}}">Mark as paid</button>
   </mat-card>
 
 

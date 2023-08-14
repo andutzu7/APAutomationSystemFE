@@ -8,7 +8,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { Order } from 'src/app/models/order';
 
 @Component({
   selector: 'invoice-renderer',
