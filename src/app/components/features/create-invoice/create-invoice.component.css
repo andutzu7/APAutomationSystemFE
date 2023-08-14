@@ -1,0 +1,7 @@
+.custom-table-row{
+    background-color: rgb(230, 230, 230);
+}
+
+.selected {
+    background-color: rgb(110, 255, 110);
+  }

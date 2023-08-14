@@ -9,5 +9,14 @@ export class InvoiceDTO{
     items!: Item[];
     taxes!: number;
     totalAmount!: number;
+    invoiceStatus!: string;
+    version!: number;
+
+    constructor(buyer: Company, seller: Company, items: Item[]){
+        this.buyer = buyer;
+        this.seller = seller;
+        this.items = items;
+    }
+
 
 }

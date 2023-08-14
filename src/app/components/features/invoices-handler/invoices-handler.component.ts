@@ -19,43 +19,8 @@ export class InvoicesHandlerComponent {
   constructor(private service: InvoiceService) {
     this.invoiceService = service;
   }
-  ngOnInit() {
-    this.getInvoices();
-    this.invoicesData = {
-      invoiceDDOList: this.invoiceDDOList,
-      individualInvoice: this.individualInvoice,
-    }
-  }
-  getInvoices() {
-    this.invoiceDDOList = this.invoiceService.getInvoices();
-  }
-  deleteInvoice(invoiceId: string) {
-    this.invoiceService.deleteInvoice(invoiceId).subscribe(answer => {
-
-      //atm response is void, for the future check for its resp code
-      this.getInvoices();
-      this.invoicesData = {
-        invoiceDDOList: this.invoiceDDOList,
-        individualInvoice: this.individualInvoice,
-      }
-    });
-  }
   getInvoice(invoiceId: string) {
     this.invoicesData.individualInvoice = this.invoiceService.getInvoice(invoiceId);
-  }
-  executeCommand(invoiceCommand: any) {
-
-    switch (invoiceCommand.action) {
-
-      case 'delete':
-        this.deleteInvoice(invoiceCommand.id);
-        break;
-      case 'display':
-        this.getInvoice(invoiceCommand.id)
-        break;
-
-    }
-
   }
 }
 

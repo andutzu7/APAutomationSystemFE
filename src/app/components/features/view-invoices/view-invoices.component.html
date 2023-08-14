@@ -1,5 +1,6 @@
 <h1>Invoices</h1>
-<table mat-table [dataSource]="this.invoicesData.invoiceDDOList">
+<table mat-table [dataSource]="this.invoiceDataSource">
+
 
   <ng-container matColumnDef="idColumn">
     <th mat-header-cell *matHeaderCellDef> Identifier </th>
@@ -19,15 +20,24 @@
   <ng-container matColumnDef="moreDetailsColumn">
     <th mat-header-cell *matHeaderCellDef> More Details </th>
     <td mat-cell *matCellDef="let invoiceDDO">
-     <button mat-button (click)="emitInvoiceCommand(invoiceDDO.identifier,'display');openInvoiceDialog()">Show</button>
+     <button mat-button >Show</button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="newTabColumn">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let invoiceDDO">
+     <button mat-button routerLink="/invoices/view/{{invoiceDDO.identifier}}" >View in separate tab</button>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="deleteColumn">
     <th mat-header-cell *matHeaderCellDef> </th>
     <td mat-cell *matCellDef="let invoiceDDO">
-     <button mat-button (click)="emitInvoiceCommand(invoiceDDO.identifier,'delete')">Delete</button>
+     <button mat-button (click)="deleteInvoice(invoiceDDO.identifier)">Delete</button>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
   <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+    
