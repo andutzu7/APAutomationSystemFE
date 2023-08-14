@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'purchase-order', component: CreatePurchaseOrderComponent },
     { path: 'invoices/create', component: CreateInvoiceComponent },
     { path: 'invoices/view', component: InvoicesHandlerComponent},
-    { path: 'invoices/view/:id', component: InvoiceRenderer },
+    { path: 'invoices/view/:id', component: InvoiceRenderer }
 ]
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

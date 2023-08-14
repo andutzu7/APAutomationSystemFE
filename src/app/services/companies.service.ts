@@ -10,6 +10,8 @@ import { InvoiceApiPaths } from "src/assets/invoice-api-paths";
 })
 export class CompaniesService{
 
+    private companiesUrl = "http://localhost:8080/api/companies";
+
     constructor(private httpClient: HttpClient) { }
 
     getCompanies(): Observable<Company[]> {
@@ -28,12 +30,11 @@ export class CompaniesService{
 
         return this.httpClient.post<Company>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.postCompaniesMapping}`, invoiceDPO);
     }
-    getAllCompanies(): Company[] {
-        return [
-            new Company(uuidv4(), "CompanyA"),
-            new Company(uuidv4(), "CompanyB"),
-            new Company(uuidv4(), "CompanyC"),
-            new Company(uuidv4(), "CompanyD"),
-        ]
+ 
+    getAllCompanies(): Observable<Company[]> {
+        return this.httpClient.get<Company[]>(
+            this.companiesUrl
+        )
     }
+
 }

@@ -1,6 +1,6 @@
 export class Company {
-    companyIdentifier?: string;
-    name?: string;
+    companyIdentifier: string;
+    name: string;
 
     constructor(companyIdentifier:string, name:string){
         this.companyIdentifier = companyIdentifier;
