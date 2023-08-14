@@ -9,7 +9,7 @@ import { InvoiceDPO } from 'src/app/models/invoiceDPO';
 import { MatTableDataSource } from '@angular/material/table';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { OrdersService } from 'src/app/services/orders.service';
-import { Order } from 'src/app/models/order';
+import { OrderResponse } from 'src/app/models/order';
 
 @Component({
   selector: 'app-create-invoice',
@@ -23,7 +23,7 @@ export class CreateInvoiceComponent {
   items!: Item[];
   invoiceItemList: Item[] = [];
   public itemsTableDataSource = new MatTableDataSource();
-  public selectedOrder!: Order;
+  public selectedOrder!: OrderResponse;
 
 
   public columnsToDisplay = ['itemNameColumn', 'priceColumn', 'itemQuantityColumn', 'deleteColumn'];
@@ -32,7 +32,7 @@ export class CreateInvoiceComponent {
   orderForm !: FormGroup;
   error: boolean = false;
 
-  purchaseOrdersDataSource!: MatTableDataSource<Order>
+  purchaseOrdersDataSource!: MatTableDataSource<OrderResponse>
 
   constructor(
     private router: Router,
@@ -51,14 +51,14 @@ export class CreateInvoiceComponent {
 
   getPurchaseOrders(): void {
     this.ordersService.getPurchaseOrders().subscribe(answer => {
-      this.purchaseOrdersDataSource = new MatTableDataSource<Order>(answer);
+      this.purchaseOrdersDataSource = new MatTableDataSource<OrderResponse>(answer);
     });
 
   }
   private createForm() {
     this.orderForm = new FormGroup({
-      buyer: new FormControl<Company>({}, [Validators.required]),
-      seller: new FormControl<Company>({}, [Validators.required]),
+      buyer: new FormControl<string>("", [Validators.required]),
+      seller: new FormControl<string>("", [Validators.required]),
       item: new FormControl<Item>({}, [Validators.required]),
       quantity: new FormControl<number>(1, [Validators.required])
     });
@@ -109,7 +109,7 @@ export class CreateInvoiceComponent {
   toggleForm() {
     this.fromPO = !this.fromPO;
   }
-  toggleSelectedPO(order: Order) {
+  toggleSelectedPO(order: OrderResponse) {
     this.selectedOrder = order;
   }
   removeItem(item: Item) {
