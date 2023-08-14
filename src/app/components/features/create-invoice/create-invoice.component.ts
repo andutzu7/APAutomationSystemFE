@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { InvoiceDPO } from 'src/app/models/invoiceDPO';
 import { MatTableDataSource } from '@angular/material/table';
 import { InvoiceService } from 'src/app/services/invoice.service';
-import { InvoiceDTO } from 'src/app/models/invoiceDTO';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Order } from 'src/app/models/order';
 
