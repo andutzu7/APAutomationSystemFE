@@ -48,7 +48,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
 
 
   getCompanies(): void {
-    this.companiesService.getAllCompanies().subscribe(
+    this.companiesService.getCompanies().subscribe(
       resp => {
         this.companies = resp;
       });
