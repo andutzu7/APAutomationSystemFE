@@ -8,10 +8,9 @@ import { InvoicesHandlerComponent } from "./components/features/invoices-handler
 import { InvoiceRenderer } from "./components/ui/invoice-renderer/invoice-renderer.component";
 
 const routes: Routes = [
-    { path: 'new-purchase-order', component: CreatePurchaseOrderComponent },
-    { path: 'purchase-order/:id', component: ViewPurchaseOrderComponent },
-    { path: 'purchase-order', component: ViewPurchaseOrdersComponent },
     { path: 'purchase-order', component: CreatePurchaseOrderComponent },
+    { path: 'purchase-orders/:id', component: ViewPurchaseOrderComponent },
+    { path: 'purchase-orders', component: ViewPurchaseOrdersComponent },
     { path: 'invoices/create', component: CreateInvoiceComponent },
     { path: 'invoices/view', component: InvoicesHandlerComponent},
     { path: 'invoices/view/:id', component: InvoiceRenderer }

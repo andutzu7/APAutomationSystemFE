@@ -5,7 +5,7 @@ import { OrdersService } from 'src/app/services/orders.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Item } from '../../models/item';
 import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.component';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-purchase-order',
@@ -28,49 +28,10 @@ export class ViewPurchaseOrderComponent {
   getPurchaseOrder(): void {
     const id = this.route.snapshot.paramMap.get('id');
 
-    this.ordersService.getPurchaseOrder(id!).subscribe(p => {
-      this.purchaseOrder = p
-    });
-  }
-
-  removeOrderItem(item: Item): void {
-    const updatedOrderPayload: OrderRequest = this.createRemoveItemRequest(item);
-
-    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, updatedOrderPayload).subscribe(
-      (resp) => {
-        this.purchaseOrder = resp;
-      },
-      (error) => {
-        if (error.status === 412) {
-          this.showError(error.error.details);
-        }
-      }
-    )
-  }
-
-  saveOrder(): void {
-    const orderPayload: OrderRequest = new OrderRequest(
-      this.purchaseOrder.identifier,
-      this.purchaseOrder.buyer.companyIdentifier,
-      this.purchaseOrder.seller.companyIdentifier,
-      this.purchaseOrder.items,
-      "SAVED"
-    )
-    orderPayload.version = this.purchaseOrder.version;
-
-    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
-    {
-      next: (resp) => {
-        this.purchaseOrder = resp;
-        this.showSuccess("Successfully saved!")
-      },
-      error: (e) => {
-        if (e.status === 412) {
-          this.showError(e.error.details);
-        }
-      }
-    }
-    );
+    this.ordersService.getPurchaseOrder(id!).subscribe(
+      order => {
+        this.purchaseOrder = order
+      });
   }
 
   addOrderItem(): void {
@@ -84,6 +45,56 @@ export class ViewPurchaseOrderComponent {
     });
   }
 
+  removeOrderItem(item: Item): void {
+    const updatedOrderPayload: OrderRequest = this.createRemoveItemRequest(item);
+
+    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, updatedOrderPayload).subscribe(
+      {
+        next: (resp) => {
+          this.purchaseOrder = resp;
+        },
+        error: (e) => {
+          if (e.status === 412) {
+            this.showError(e.error.details);
+          }
+        }
+      }
+    );
+  }
+
+  saveOrder(): void {
+    const orderPayload: OrderRequest = this.createSaveOrderRequest();
+
+    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
+      {
+        next: (resp) => {
+          this.purchaseOrder = resp;
+          this.showSuccess("Successfully saved!")
+        },
+        error: (e) => {
+          if (e.status === 412) {
+            this.showError(e.error.details);
+          }
+        }
+      }
+    );
+  }
+
+
+  private createSaveOrderRequest(): OrderRequest {
+    const orderPayload: OrderRequest = new OrderRequest(
+      this.purchaseOrder.identifier,
+      this.purchaseOrder.buyer.companyIdentifier,
+      this.purchaseOrder.seller.companyIdentifier,
+      this.purchaseOrder.items,
+      "SAVED"
+    )
+    orderPayload.version = this.purchaseOrder.version;
+
+    return orderPayload;
+  }
+
+
   private createRemoveItemRequest(item: Item): OrderRequest {
     let updatedItems: Item[] = this.purchaseOrder.items.slice();
     updatedItems = updatedItems.filter(it => it !== item);
@@ -95,15 +106,16 @@ export class ViewPurchaseOrderComponent {
       updatedItems,
       this.purchaseOrder.orderStatus
     );
+
     updatedOrderPayload.version = this.purchaseOrder.version;
 
     return updatedOrderPayload;
   }
 
-  showError(errorMessage: string){
+  showError(errorMessage: string) {
     let snackBarRef = this.snackBar.open(errorMessage, "RELOAD")
 
-    snackBarRef.onAction().subscribe(()=>{
+    snackBarRef.onAction().subscribe(() => {
       window.location.reload()
     })
   }

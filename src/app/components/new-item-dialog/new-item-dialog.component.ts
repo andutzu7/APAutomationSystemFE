@@ -5,7 +5,7 @@ import { Item } from 'src/app/models/item';
 import { OrderRequest, OrderResponse } from 'src/app/models/order';
 import { ItemsService } from 'src/app/services/items.service';
 import { OrdersService } from 'src/app/services/orders.service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-new-item-dialog',
@@ -24,10 +24,17 @@ export class NewItemDialogComponent {
     private itemsService: ItemsService,
     private snackBar: MatSnackBar) { }
 
+
   ngOnInit(): void {
     this.createForm();
     this.availableItems = this.itemsService.getAllItems()
   }
+
+
+  onClose(): void {
+    this.dialogRef.close();
+  }
+
 
   private createForm() {
     this.orderForm = new FormGroup({
@@ -35,6 +42,7 @@ export class NewItemDialogComponent {
       quantity: new FormControl<number>(1, [Validators.required])
     });
   }
+
 
   onSubmit() {
     const newOrderItem = this.orderForm.value;
@@ -48,6 +56,7 @@ export class NewItemDialogComponent {
       // it maintains identifier, buyer and seller from already existing order, but 'items' field is updated
       const orderPayload: OrderRequest = this.createUpdatedOrderRequest(this.data.order, this.orderForm)
       orderPayload.version = this.data.order.version;
+
       const identifier: string = this.data.order.identifier;
 
       this.ordersService.updatePurchaseOrder(identifier, orderPayload).subscribe(
@@ -66,6 +75,7 @@ export class NewItemDialogComponent {
     }
   }
 
+
   showError(errorMessage: string) {
     let snackBarRef = this.snackBar.open(errorMessage, "RELOAD");
 
@@ -74,15 +84,13 @@ export class NewItemDialogComponent {
     });
   }
 
+
   showSuccess(successMessage: string) {
     this.snackBar.open(successMessage, "", {
       duration: 1000,
     });
   }
 
-  onClose(): void {
-    this.dialogRef.close();
-  }
 
   private createUpdatedOrderRequest(existingOrder: OrderResponse, newItemForm: FormGroup): OrderRequest {
     const updatedOrderItems: Item[] = existingOrder.items.slice();

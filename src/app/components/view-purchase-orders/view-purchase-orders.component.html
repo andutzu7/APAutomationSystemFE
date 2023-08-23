@@ -21,5 +21,5 @@
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr class="custom-table-row" mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="/purchase-order/{{row.identifier}}"></tr>
+    <tr class="custom-table-row" mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="/purchase-orders/{{row.identifier}}"></tr>
   </table>

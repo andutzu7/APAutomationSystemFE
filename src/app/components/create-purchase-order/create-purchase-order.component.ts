@@ -28,12 +28,14 @@ export class CreatePurchaseOrderComponent implements OnInit {
     private ordersService: OrdersService,
   ) { }
 
+
   ngOnInit(): void {
     this.getCompanies();
     this.items = this.itemsService.getAllItems()
 
     this.createForm();
   }
+
 
   private createForm() {
     this.orderForm = new FormGroup({
@@ -44,16 +46,18 @@ export class CreatePurchaseOrderComponent implements OnInit {
     });
   }
 
-  getCompanies(): void {
-    this.companiesService.getAllCompanies().subscribe(resp => {
-      this.companies = resp;
-    });
 
+  getCompanies(): void {
+    this.companiesService.getAllCompanies().subscribe(
+      resp => {
+        this.companies = resp;
+      });
   }
+
 
   onSubmit() {
     const newOrder = this.orderForm.value;
-    console.log(newOrder)
+
     if (newOrder.buyer == '' || newOrder.seller == '' || newOrder.item.description == null) {
       this.error = true;
     }
@@ -63,12 +67,13 @@ export class CreatePurchaseOrderComponent implements OnInit {
       const newItem = newOrder.item;
       newItem.quantity = newOrder.quantity;
 
-      const orderItems :Item[] = [newItem];
-      const orderPayload : OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null)
+      const orderItems: Item[] = [newItem];
+      const orderPayload: OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null)
 
-      this.ordersService.createPurchaseOrder(orderPayload).subscribe(response => {
-        this.router.navigateByUrl('/purchase-order/'+response.identifier);
-      }
+      this.ordersService.createPurchaseOrder(orderPayload).subscribe(
+        response => {
+          this.router.navigateByUrl('/purchase-orders/' + response.identifier);
+        }
       )
     }
 

@@ -17,15 +17,11 @@
     <button mat-menu-item [matMenuTriggerFor]="invoices">Invoices</button>
   </mat-menu>
 
-    <mat-menu #purchaseOrders="matMenu">
-        <button mat-menu-item routerLink="/new-purchase-order">Create</button>
-        <button mat-menu-item routerLink="/purchase-order">View</button>
-    </mat-menu>
-
   <mat-menu #purchaseOrders="matMenu">
     <button mat-menu-item routerLink="/purchase-order">Create</button>
-    <button mat-menu-item>View</button>
+    <button mat-menu-item routerLink="/purchase-orders">View</button>
   </mat-menu>
+
   <mat-menu #invoices="matMenu">
     <button mat-menu-item routerLink="/invoices/create">Create</button>
     <button mat-menu-item routerLink="/invoices/view">View</button>
