@@ -9,5 +9,9 @@ export enum ApiPaths {
     // postCompaniesMapping = 'companies',
 
     ordersMapping = 'orders',
-    companiesMapping = 'companies'
+    companiesMapping = 'companies',
+    
+    authMapping = "users",
+    loginMapping = "login",
+    registerMapping = "register"
  }

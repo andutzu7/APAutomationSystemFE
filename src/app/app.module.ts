@@ -16,6 +16,9 @@ import { InvoiceRenderer } from './components/ui/invoice-renderer/invoice-render
 import { InvoicesHandlerComponent } from './components/features/invoices-handler/invoices-handler.component';
 import { CreateInvoiceComponent } from './components/features/create-invoice/create-invoice.component';
 import { CreateInvoiceFormComponent } from './components/ui/create-invoice-form/create-invoice-form.component';
+import { LoginComponent } from './components/login/login.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,13 +33,18 @@ import { CreateInvoiceFormComponent } from './components/ui/create-invoice-form/
     InvoicesHandlerComponent,
     CreateInvoiceComponent,
     CreateInvoiceFormComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     BuyerModule,
   ],
-  providers: [CompaniesService, ItemsService, OrdersService],
+  providers: [
+    CompaniesService, 
+    ItemsService, 
+    OrdersService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
