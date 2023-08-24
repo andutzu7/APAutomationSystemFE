@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { ApiPaths } from "src/assets/api-paths";
 import { LoginRequest, LoginResponse } from '../models/login';
 import { shareReplay, tap } from 'rxjs/operators';
+import { RegisterRequest } from '../models/register';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,14 @@ export class AuthService {
   }
 
 
+  register(username: string, password: string, company: string, roles: string[]) {
+    let registerRequest: RegisterRequest = new RegisterRequest(username, password, company, roles);
+
+    return this.httpClient.post<RegisterRequest>(
+      `${ApiPaths.base}/${ApiPaths.authMapping}/${ApiPaths.registerMapping}`,
+      registerRequest
+    )
+  }
 
   login(username: string, password: string) {
     let loginRequest: LoginRequest = new LoginRequest(username, password);
@@ -29,6 +39,7 @@ export class AuthService {
     );
   }
 
+
   private setSession(loginResponse: LoginResponse) {
     console.log(loginResponse)
     localStorage.setItem('jwt', loginResponse.jwsToken)
@@ -36,9 +47,6 @@ export class AuthService {
 
 
   logout() {
-    // remove user from local storage and set current user to null
     localStorage.removeItem('jwt');
-
-    // this.router.navigate(['/account/login']);
   }
 }
