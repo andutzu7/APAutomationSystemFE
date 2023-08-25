@@ -16,7 +16,7 @@
 
             <p>
                 <mat-form-field>
-                    <mat-select formControlName="companyUUID" aria-required="true" placeholder="Company">
+                    <mat-select formControlName="companyIdentifier" aria-required="true" placeholder="Company">
                         <mat-option *ngFor="let company of companies"
                             [value]="company.companyIdentifier">{{company.name}}</mat-option>
                     </mat-select>
@@ -26,15 +26,15 @@
             <p>
                 <mat-form-field>
                     <mat-label>User roles</mat-label>
-                    <mat-select formControlName="userRoles" multiple>
+                    <mat-select [formControl]="userRoles" multiple>
                         <mat-select-trigger>
-                            {{ roles?.[0] || '' }}
-                            <span *ngIf="(roles.length || 0) > 1" class="example-additional-selection">
-                                (+{{ (roles.length-1 || 0) - 1 }} {{ roles.length === 2 ? 'other' : 'others' }})
-                            </span>
+                          {{ registerForm.get('userRoles')?.value ? registerForm.get('userRoles')?.value[0] : '' }}
+                          <span *ngIf="registerForm.get('userRoles')?.value?.length > 1" class="example-additional-selection">
+                            (+{{ getNumberOfSelectedRoles() - 1 }} {{ getNumberOfSelectedRoles() === 2 ? 'other' : 'others' }})
+                          </span>
                         </mat-select-trigger>
                         <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
-                    </mat-select>
+                      </mat-select>
                 </mat-form-field>
             </p>
 

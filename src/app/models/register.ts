@@ -3,13 +3,13 @@ import { Roles } from "./roles";
 export class RegisterRequest {
     username: string;
     password: string;
-    company: string;
+    companyIdentifier: string;
     roles: string[];
 
-    constructor(username: string, password: string, company: string, roles: string[]) {
+    constructor(username: string, password: string, companyIdentifier: string, roles: string[]) {
         this.username = username;
         this.password = password;
-        this.company = company;
+        this.companyIdentifier = companyIdentifier;
         this.roles = roles;
     }
 }

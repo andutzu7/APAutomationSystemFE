@@ -10,7 +10,10 @@
     <a mat-button class="companyName" routerLink="/">
       <span>AP automation</span>
     </a>
-
+    <span class="example-spacer"></span>
+    <button *ngIf="isLoggedIn" mat-icon-button (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
   </mat-toolbar>
   <mat-menu #menu="matMenu">
     <button mat-menu-item [matMenuTriggerFor]="purchaseOrders">Purchase Order</button>
@@ -26,4 +29,6 @@
     <button mat-menu-item routerLink="/invoices/create">Create</button>
     <button mat-menu-item routerLink="/invoices/view">View</button>
   </mat-menu>
+
+
 </div>

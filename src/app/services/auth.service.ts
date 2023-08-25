@@ -4,6 +4,7 @@ import { ApiPaths } from "src/assets/api-paths";
 import { LoginRequest, LoginResponse } from '../models/login';
 import { shareReplay, tap } from 'rxjs/operators';
 import { RegisterRequest } from '../models/register';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { RegisterRequest } from '../models/register';
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router:Router) {
   }
 
 
@@ -48,5 +49,14 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('jwt');
+    this.router.navigateByUrl('/login')
+  }
+
+  public isUserLoggedIn():boolean{
+    if(localStorage.getItem('jwt')){
+      return true;
+    }
+
+    return false;
   }
 }
