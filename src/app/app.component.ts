@@ -16,6 +16,9 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         const isLoggedIn = this.authService.isUserLoggedIn();
         this.toolbarService.updateLoggedInStatus(isLoggedIn);
+        
+        let userRoles:string[] = authService.getUserRoles();
+        toolbarService.updateUserRoles(userRoles);
       }
     });
   }

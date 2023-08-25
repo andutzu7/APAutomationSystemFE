@@ -9,10 +9,31 @@
   min-width: 300px;
 }
 
+mat-card {
+  width: 500px;
+}
+
+mat-card-content > form {
+  justify-content: center;
+  width: 100%;
+}
+
+mat-card-content > form > p {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+p > mat-form-field{
+  width: 93%;
+}
+
+
 mat-card-title,
 mat-card-content {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .error {

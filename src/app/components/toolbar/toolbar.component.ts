@@ -9,6 +9,7 @@ import { ToolbarService } from 'src/app/services/toolbar.service';
 })
 export class ToolbarComponent {
   isLoggedIn: boolean = false;
+  userRoles: string[] = [];
 
   constructor(private toolbarService:ToolbarService, private authService:AuthService){
   }
@@ -16,6 +17,10 @@ export class ToolbarComponent {
   ngOnInit(): void {
     this.toolbarService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
+    });
+
+    this.toolbarService.userRoles$.subscribe((roles) => {
+      this.userRoles = roles;
     });
   }
 

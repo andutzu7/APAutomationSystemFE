@@ -1,4 +1,3 @@
-import { Roles } from "./roles";
 
 export class RegisterRequest {
     username: string;

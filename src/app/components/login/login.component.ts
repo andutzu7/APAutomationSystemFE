@@ -39,7 +39,7 @@ export class LoginComponent {
         .subscribe({
           next: () => {
             console.log("User is logged in")
-            this.router.navigateByUrl('/purchase-orders');
+            this.router.navigateByUrl('/');
           },
           error: (e) =>{
             console.log(e)
