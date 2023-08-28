@@ -19,8 +19,7 @@ const routes: Routes = [
     { path: 'purchase-orders', component: ViewPurchaseOrdersComponent, canActivate: [rolesGuard], data:{expectedRoles: ['BUYER_CUSTOMER', 'SUPPLIER_ACCOUNTING', 'SUPPLIER_MANAGEMENT']} },
     { path: 'invoices/create', component: CreateInvoiceComponent, canActivate: [rolesGuard], data:{expectedRoles: ['SUPPLIER_ACCOUNTING']} },
     { path: 'invoices/view', component: InvoicesHandlerComponent, canActivate: [rolesGuard], data:{expectedRoles: ['BUYER_FINANCE', 'SUPPLIER_ACCOUNTING']}},
-    { path: 'invoices/view/:id', component: InvoiceRenderer, canActivate: [rolesGuard], data:{expectedRoles: ['BUYER_FINANCE', 'SUPPLIER_ACCOUNTING']} },
-    { path: '**', redirectTo: 'login'}
+    { path: 'invoices/view/:id', component: InvoiceRenderer, canActivate: [rolesGuard], data:{expectedRoles: ['BUYER_FINANCE', 'SUPPLIER_ACCOUNTING']} }
 ]
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

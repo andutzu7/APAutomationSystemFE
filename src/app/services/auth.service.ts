@@ -6,15 +6,30 @@ import { shareReplay, tap } from 'rxjs/operators';
 import { RegisterRequest } from '../models/register';
 import { Router } from '@angular/router';
 import decode from 'jwt-decode';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
+  private userRolesSubject = new BehaviorSubject<string[]>([]);
+  userRoles$ = this.userRolesSubject.asObservable();
+
+  
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
+
+  updateLoggedInStatus(status: boolean) {
+    this.isLoggedInSubject.next(status);
+  }
+
+  updateUserRoles(roles: string[]) {
+    this.userRolesSubject.next(roles);
+  }
 
   public register(username: string, password: string, company: string, roles: string[]) {
     let registerRequest: RegisterRequest = new RegisterRequest(username, password, company, roles);
@@ -50,6 +65,7 @@ export class AuthService {
   public logout() {
     localStorage.removeItem('jwt');
     this.router.navigateByUrl('/login')
+    window.location.reload()
   }
 
 

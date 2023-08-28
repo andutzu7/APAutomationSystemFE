@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { ToolbarService } from './services/toolbar.service';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'APAFinanceFE';
 
-  constructor(private router: Router, private toolbarService: ToolbarService, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService) {
     if (!authService.isUserLoggedIn()) {
       router.navigate(['login']);
     }
@@ -19,10 +18,10 @@ export class AppComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const isLoggedIn = this.authService.isUserLoggedIn();
-        this.toolbarService.updateLoggedInStatus(isLoggedIn);
+        this.authService.updateLoggedInStatus(isLoggedIn);
         
         let userRoles:string[] = authService.getUserRoles();
-        toolbarService.updateUserRoles(userRoles);
+        this.authService.updateUserRoles(userRoles);
       }
     });
   }

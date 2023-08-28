@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Item } from '../../models/item';
 import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-view-purchase-order',
@@ -14,15 +15,21 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class ViewPurchaseOrderComponent {
   purchaseOrder !: OrderResponse;
+  userRoles: string[] = [];
 
   constructor(private route: ActivatedRoute,
     private ordersService: OrdersService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.getPurchaseOrder();
+
+    this.authService.userRoles$.subscribe((roles) => {
+      this.userRoles = roles;
+    });
   }
 
   getPurchaseOrder(): void {
@@ -80,6 +87,24 @@ export class ViewPurchaseOrderComponent {
     );
   }
 
+  approveOrder(): void{
+    const orderPayload: OrderRequest = this.createApproveOrderRequest();
+
+    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
+      {
+        next: (resp) => {
+          this.purchaseOrder = resp;
+          this.showSuccess("Successfully approved!")
+        },
+        error: (e) => {
+          if (e.status === 412) {
+            this.showError(e.error.details);
+          }
+        }
+      }
+    );
+  }
+
 
   private createSaveOrderRequest(): OrderRequest {
     const orderPayload: OrderRequest = new OrderRequest(
@@ -94,6 +119,18 @@ export class ViewPurchaseOrderComponent {
     return orderPayload;
   }
 
+  private createApproveOrderRequest(): OrderRequest {
+    const orderPayload: OrderRequest = new OrderRequest(
+      this.purchaseOrder.identifier,
+      this.purchaseOrder.buyer.companyIdentifier,
+      this.purchaseOrder.seller.companyIdentifier,
+      this.purchaseOrder.items,
+      "APPROVED"
+    )
+    orderPayload.version = this.purchaseOrder.version;
+
+    return orderPayload;
+  }
 
   private createRemoveItemRequest(item: Item): OrderRequest {
     let updatedItems: Item[] = this.purchaseOrder.items.slice();

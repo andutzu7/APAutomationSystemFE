@@ -7,7 +7,6 @@ import { ItemsService } from '../../services/items.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Router } from '@angular/router';
 import { OrderRequest } from 'src/app/models/order';
-import { ToolbarService } from 'src/app/services/toolbar.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -36,7 +35,6 @@ export class CreatePurchaseOrderComponent implements OnInit {
   ngOnInit(): void {
     this.getCompanies();
     this.items = this.itemsService.getAllItems()
-
 
     this.createForm();
   }

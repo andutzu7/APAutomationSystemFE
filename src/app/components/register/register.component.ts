@@ -61,6 +61,7 @@ export class RegisterComponent {
     .subscribe({
       next: () => {
         console.log("Successfully registered new user")
+        window.location.reload()
       },
       error: (e) =>{
         console.log(e.error)
