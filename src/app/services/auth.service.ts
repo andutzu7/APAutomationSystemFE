@@ -12,7 +12,7 @@ import decode from 'jwt-decode';
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient, private router:Router) {
+  constructor(private httpClient: HttpClient, private router: Router) {
   }
 
 
@@ -53,8 +53,8 @@ export class AuthService {
   }
 
 
-  public isUserLoggedIn():boolean{
-    if(localStorage.getItem('jwt')){
+  public isUserLoggedIn(): boolean {
+    if (localStorage.getItem('jwt')) {
       return true;
     }
 
@@ -62,16 +62,30 @@ export class AuthService {
   }
 
 
-  public getUserRoles(): string[]{
-     const token = localStorage.getItem('jwt');
+  public getUserRoles(): string[] {
+    const token = localStorage.getItem('jwt');
 
-     if(!token){
+    if (!token) {
       return [];
-     }
+    }
 
-     const tokenPayload: { [key: string]: any } = decode(token);
-     const userRoles: string[] = tokenPayload['roles'];
+    const tokenPayload: { [key: string]: any } = decode(token);
+    const userRoles: string[] = tokenPayload['roles'];
 
-     return userRoles;
+    return userRoles;
+  }
+
+
+  public getUsersCompany(): string  {
+    const token = localStorage.getItem('jwt');
+
+    if (!token) {
+      return "";
+    }
+
+    const tokenPayload: { [key: string]: any } = decode(token);
+    const companyIdentifier: string = tokenPayload['company'];
+
+    return companyIdentifier;
   }
 }

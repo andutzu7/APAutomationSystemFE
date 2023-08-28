@@ -12,6 +12,10 @@ export class AppComponent {
   title = 'APAFinanceFE';
 
   constructor(private router: Router, private toolbarService: ToolbarService, private authService: AuthService) {
+    if (!authService.isUserLoggedIn()) {
+      router.navigate(['login']);
+    }
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const isLoggedIn = this.authService.isUserLoggedIn();

@@ -1,7 +1,7 @@
 <div>
   <mat-toolbar color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
-      <button mat-icon-button [matMenuTriggerFor]="menu" #matMenuTrigger="matMenuTrigger"
+      <button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu" #matMenuTrigger="matMenuTrigger"
         (click)="matMenuTrigger.openMenu();">
         <mat-icon>menu</mat-icon>
       </button>
@@ -15,9 +15,10 @@
       <mat-icon>exit_to_app</mat-icon>
     </button>
   </mat-toolbar>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item [matMenuTriggerFor]="purchaseOrders">Purchase Order</button>
-    <button mat-menu-item [matMenuTriggerFor]="invoices">Invoices</button>
+  <mat-menu  #menu="matMenu" >
+    <button *ngIf="userRoles.includes('BUYER_CUSTOMER') || userRoles.includes('SUPPLIER_ACCOUNTING') || userRoles.includes('SUPPLIER_MANAGEMENT')" mat-menu-item [matMenuTriggerFor]="purchaseOrders">Purchase Order</button>
+    <button *ngIf="userRoles.includes('BUYER_FINANCE') || userRoles.includes('SUPPLIER_ACCOUNTING')" mat-menu-item [matMenuTriggerFor]="invoices">Invoices</button>
+    <button *ngIf="userRoles.includes('ADMIN')" mat-menu-item [matMenuTriggerFor]="register">Register user</button>
   </mat-menu>
 
   <mat-menu #purchaseOrders="matMenu">
@@ -33,5 +34,8 @@
     <button *ngIf="userRoles.includes('BUYER_FINANCE') || userRoles.includes('SUPPLIER_ACCOUNTING')"  mat-menu-item routerLink="/invoices/view">View</button>
   </mat-menu>
   
+  <mat-menu #register="matMenu">
+    <button mat-menu-item routerLink="/register">Register</button>
+  </mat-menu>
   
 </div>

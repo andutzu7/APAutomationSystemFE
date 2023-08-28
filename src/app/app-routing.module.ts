@@ -8,8 +8,8 @@ import { InvoicesHandlerComponent } from "./components/features/invoices-handler
 import { InvoiceRenderer } from "./components/ui/invoice-renderer/invoice-renderer.component";
 import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
-import { authGuard } from "./helpers/auth.guard";
 import { rolesGuard } from "./helpers/roles.guard";
+import { authGuard } from "./helpers/auth.guard";
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -20,7 +20,7 @@ const routes: Routes = [
     { path: 'invoices/create', component: CreateInvoiceComponent, canActivate: [rolesGuard], data:{expectedRoles: ['SUPPLIER_ACCOUNTING']} },
     { path: 'invoices/view', component: InvoicesHandlerComponent, canActivate: [rolesGuard], data:{expectedRoles: ['BUYER_FINANCE', 'SUPPLIER_ACCOUNTING']}},
     { path: 'invoices/view/:id', component: InvoiceRenderer, canActivate: [rolesGuard], data:{expectedRoles: ['BUYER_FINANCE', 'SUPPLIER_ACCOUNTING']} },
-    //{ path: '', component: AppComponent, canActivate: [authGuard]  }
+    { path: '**', redirectTo: 'login'}
 ]
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

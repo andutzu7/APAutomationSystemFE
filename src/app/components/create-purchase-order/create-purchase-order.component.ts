@@ -7,6 +7,8 @@ import { ItemsService } from '../../services/items.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Router } from '@angular/router';
 import { OrderRequest } from 'src/app/models/order';
+import { ToolbarService } from 'src/app/services/toolbar.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -15,8 +17,9 @@ import { OrderRequest } from 'src/app/models/order';
   styleUrls: ['./create-purchase-order.component.css']
 })
 export class CreatePurchaseOrderComponent implements OnInit {
-  companies!: Company[]
-  items!: Item[]
+  companies!: Company[];
+  items!: Item[];
+  buyerCompany!: Company;
 
   orderForm !: FormGroup
   error: boolean = false;
@@ -26,12 +29,14 @@ export class CreatePurchaseOrderComponent implements OnInit {
     private companiesService: CompaniesService,
     private itemsService: ItemsService,
     private ordersService: OrdersService,
+    private authService: AuthService
   ) { }
 
 
   ngOnInit(): void {
     this.getCompanies();
     this.items = this.itemsService.getAllItems()
+
 
     this.createForm();
   }
@@ -51,6 +56,9 @@ export class CreatePurchaseOrderComponent implements OnInit {
     this.companiesService.getCompanies().subscribe(
       resp => {
         this.companies = resp;
+
+        const buyerIdentifier = this.authService.getUsersCompany();
+        this.buyerCompany = this.companies.filter(company => company.companyIdentifier == buyerIdentifier)[0];
       });
   }
 

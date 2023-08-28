@@ -7,7 +7,7 @@
             <mat-form-field>
                 <mat-label>Buyer</mat-label>
                 <mat-select formControlName="buyer" aria-required="true">
-                    <mat-option *ngFor="let company of companies" [value]="company.companyIdentifier">{{company.name}}</mat-option>
+                    <mat-option [value]="buyerCompany.companyIdentifier">{{buyerCompany.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
