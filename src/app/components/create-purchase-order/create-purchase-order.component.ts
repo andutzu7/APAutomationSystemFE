@@ -53,10 +53,10 @@ export class CreatePurchaseOrderComponent implements OnInit {
   getCompanies(): void {
     this.companiesService.getCompanies().subscribe(
       resp => {
-        this.companies = resp;
-
         const buyerIdentifier = this.authService.getUserCompany();
-        this.buyerCompany = this.companies.filter(company => company.companyIdentifier == buyerIdentifier)[0];
+
+        this.companies = resp.filter(company => company.companyIdentifier != buyerIdentifier);
+        this.buyerCompany = resp.filter(company => company.companyIdentifier == buyerIdentifier)[0];
       });
   }
 

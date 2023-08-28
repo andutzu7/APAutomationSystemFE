@@ -2,12 +2,13 @@
     <mat-card-title>
         Create purchase order
     </mat-card-title>
+    
     <mat-card-content>
         <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
             <mat-form-field>
                 <mat-label>Buyer</mat-label>
                 <mat-select formControlName="buyer" aria-required="true">
-                    <mat-option [value]="buyerCompany.companyIdentifier">{{buyerCompany.name}}</mat-option>
+                    <mat-option [value]="buyerCompany?.companyIdentifier">{{buyerCompany?.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
