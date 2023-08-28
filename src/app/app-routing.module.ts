@@ -9,7 +9,6 @@ import { InvoiceRenderer } from "./components/ui/invoice-renderer/invoice-render
 import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { rolesGuard } from "./helpers/roles.guard";
-import { authGuard } from "./helpers/auth.guard";
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent},

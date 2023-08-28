@@ -55,7 +55,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
       resp => {
         this.companies = resp;
 
-        const buyerIdentifier = this.authService.getUsersCompany();
+        const buyerIdentifier = this.authService.getUserCompany();
         this.buyerCompany = this.companies.filter(company => company.companyIdentifier == buyerIdentifier)[0];
       });
   }

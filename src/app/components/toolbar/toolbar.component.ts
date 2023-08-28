@@ -9,13 +9,14 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ToolbarComponent {
   isLoggedIn: boolean = false;
   userRoles: string[] = [];
+  username: string = "";
 
-  constructor(private authService:AuthService){
-  }
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
+      this.username = this.authService.getUsername();
     });
 
     this.authService.userRoles$.subscribe((roles) => {
@@ -23,7 +24,7 @@ export class ToolbarComponent {
     });
   }
 
-  logout(){
+  logout() {
     this.authService.logout()
   }
 }

@@ -11,27 +11,27 @@
       <span>AP automation</span>
     </a>
     <span class="example-spacer"></span>
+    <span>{{username}}</span>
     <button *ngIf="isLoggedIn" mat-icon-button (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
     </button>
   </mat-toolbar>
   <mat-menu  #menu="matMenu" >
-    <button *ngIf="userRoles.includes('BUYER_CUSTOMER') || userRoles.includes('SUPPLIER_ACCOUNTING') || userRoles.includes('SUPPLIER_MANAGEMENT')" mat-menu-item [matMenuTriggerFor]="purchaseOrders">Purchase Order</button>
-    <button *ngIf="userRoles.includes('BUYER_FINANCE') || userRoles.includes('SUPPLIER_ACCOUNTING')" mat-menu-item [matMenuTriggerFor]="invoices">Invoices</button>
-    <button *ngIf="userRoles.includes('ADMIN')" mat-menu-item [matMenuTriggerFor]="register">Register user</button>
+    <button *ngIf="userRoles != undefined && (userRoles.includes('BUYER_CUSTOMER') || userRoles.includes('SUPPLIER_ACCOUNTING') || userRoles.includes('SUPPLIER_MANAGEMENT'))" mat-menu-item [matMenuTriggerFor]="purchaseOrders">Purchase Order</button>
+    <button *ngIf="userRoles != undefined && (userRoles.includes('BUYER_FINANCE') || userRoles.includes('SUPPLIER_ACCOUNTING'))" mat-menu-item [matMenuTriggerFor]="invoices">Invoices</button>
+    <button *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))" mat-menu-item [matMenuTriggerFor]="register">Register user</button>
   </mat-menu>
 
   <mat-menu #purchaseOrders="matMenu">
-    <button *ngIf="userRoles.includes('BUYER_CUSTOMER')" mat-menu-item
+    <button *ngIf="userRoles != undefined && (userRoles.includes('BUYER_CUSTOMER'))" mat-menu-item
       routerLink="/purchase-order">Create</button>
     <button
-      *ngIf="userRoles.includes('BUYER_CUSTOMER') || userRoles.includes('SUPPLIER_ACCOUNTING') || userRoles.includes('SUPPLIER_MANAGEMENT')"
       mat-menu-item routerLink="/purchase-orders">View</button>
   </mat-menu>
 
   <mat-menu #invoices="matMenu">
-    <button *ngIf="userRoles.includes('SUPPLIER_ACCOUNTING')" mat-menu-item routerLink="/invoices/create">Create</button>
-    <button *ngIf="userRoles.includes('BUYER_FINANCE') || userRoles.includes('SUPPLIER_ACCOUNTING')"  mat-menu-item routerLink="/invoices/view">View</button>
+    <button *ngIf="userRoles != undefined && (userRoles.includes('SUPPLIER_ACCOUNTING'))" mat-menu-item routerLink="/invoices/create">Create</button>
+    <button  mat-menu-item routerLink="/invoices/view">View</button>
   </mat-menu>
   
   <mat-menu #register="matMenu">

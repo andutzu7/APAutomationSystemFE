@@ -18,7 +18,7 @@ export class AuthService {
   private userRolesSubject = new BehaviorSubject<string[]>([]);
   userRoles$ = this.userRolesSubject.asObservable();
 
-  
+
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
@@ -55,17 +55,16 @@ export class AuthService {
     );
   }
 
-
-  private setSession(loginResponse: LoginResponse) {
-    console.log(loginResponse)
-    localStorage.setItem('jwt', loginResponse.jwsToken)
-  }
-
-
   public logout() {
     localStorage.removeItem('jwt');
     this.router.navigateByUrl('/login')
     window.location.reload()
+  }
+
+
+  private setSession(loginResponse: LoginResponse) {
+    console.log(loginResponse)
+    localStorage.setItem('jwt', loginResponse.jwsToken)
   }
 
 
@@ -79,29 +78,50 @@ export class AuthService {
 
 
   public getUserRoles(): string[] {
-    const token = localStorage.getItem('jwt');
+    if(this.isLoggedIn$){
+      const tokenPayload: { [key: string]: any } = this.getUserToken();
+      const userRoles: string[] = tokenPayload['roles'];
 
-    if (!token) {
-      return [];
+      return userRoles;
     }
 
-    const tokenPayload: { [key: string]: any } = decode(token);
-    const userRoles: string[] = tokenPayload['roles'];
-
-    return userRoles;
+    return [];
   }
 
 
-  public getUsersCompany(): string  {
+  public getUserCompany(): string  {
+    if(this.isLoggedIn$){
+      const tokenPayload: { [key: string]: any } = this.getUserToken();
+      const companyIdentifier: string = tokenPayload['company'];
+
+      return companyIdentifier;
+    }
+
+    return "";
+  }
+
+  public getUsername(): string {
+    if(this.isLoggedIn$){
+      const tokenPayload: { [key: string]: any } = this.getUserToken();
+      const username: string = tokenPayload['sub'];
+
+      return username;
+    }
+
+    return ""
+  }
+
+
+  private getUserToken():{ [key: string]: any }{
     const token = localStorage.getItem('jwt');
 
     if (!token) {
-      return "";
+      return {};
     }
 
     const tokenPayload: { [key: string]: any } = decode(token);
-    const companyIdentifier: string = tokenPayload['company'];
-
-    return companyIdentifier;
+    return tokenPayload;
   }
 }
+
+
