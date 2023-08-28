@@ -1,0 +1,25 @@
+<mat-expansion-panel hideToggle
+    *ngIf="userRoles != undefined && (userRoles.includes('BUYER_CUSTOMER') || userRoles.includes('SUPPLIER_ACCOUNTING') || userRoles.includes('SUPPLIER_MANAGEMENT'))">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Purchase Orders
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <button *ngIf="userRoles != undefined && (userRoles.includes('BUYER_CUSTOMER'))" mat-button
+      routerLink="/purchase-order">Create</button>
+    <button mat-button routerLink="/purchase-orders">View</button>
+</mat-expansion-panel>
+
+<mat-expansion-panel hideToggle
+    *ngIf="userRoles != undefined && (userRoles.includes('BUYER_FINANCE') || userRoles.includes('SUPPLIER_ACCOUNTING'))">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Invoices
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <button *ngIf="userRoles != undefined && (userRoles.includes('SUPPLIER_ACCOUNTING'))" mat-button
+      routerLink="/invoices/create">Create</button>
+    <button mat-button routerLink="/invoices/view">View</button>
+</mat-expansion-panel>
+
+<button  *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))" mat-button routerLink="/register">Register new user</button>

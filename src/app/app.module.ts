@@ -20,6 +20,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
 import { RegisterComponent } from './components/register/register.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RegisterComponent } from './components/register/register.component';
     CreateInvoiceFormComponent,
     LoginComponent,
     RegisterComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
