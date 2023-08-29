@@ -5,7 +5,7 @@ import { OrdersService } from 'src/app/services/orders.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Item } from '../../../../models/item';
 import { NewItemDialogComponent } from '../../../ui/new-item-dialog/new-item-dialog.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -65,7 +65,7 @@ export class ViewPurchaseOrderComponent {
   }
 
   saveOrder(): void {
-    const orderPayload: OrderRequest = this.createSaveOrderRequest();
+    const orderPayload: OrderRequest = this.createUpdateOrderRequest("SAVED");
 
     this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
       {
@@ -78,7 +78,7 @@ export class ViewPurchaseOrderComponent {
   }
 
   approveOrder(): void{
-    const orderPayload: OrderRequest = this.createApproveOrderRequest();
+    const orderPayload: OrderRequest = this.createUpdateOrderRequest("APPROVED");
 
     this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
       {
@@ -90,27 +90,13 @@ export class ViewPurchaseOrderComponent {
     );
   }
 
-
-  private createSaveOrderRequest(): OrderRequest {
+  private createUpdateOrderRequest(orderStatus: String): OrderRequest {
     const orderPayload: OrderRequest = new OrderRequest(
       this.purchaseOrder.identifier,
       this.purchaseOrder.buyer.companyIdentifier,
       this.purchaseOrder.seller.companyIdentifier,
       this.purchaseOrder.items,
-      "SAVED"
-    )
-    orderPayload.version = this.purchaseOrder.version;
-
-    return orderPayload;
-  }
-
-  private createApproveOrderRequest(): OrderRequest {
-    const orderPayload: OrderRequest = new OrderRequest(
-      this.purchaseOrder.identifier,
-      this.purchaseOrder.buyer.companyIdentifier,
-      this.purchaseOrder.seller.companyIdentifier,
-      this.purchaseOrder.items,
-      "APPROVED"
+      orderStatus
     )
     orderPayload.version = this.purchaseOrder.version;
 

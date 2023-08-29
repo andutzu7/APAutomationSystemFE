@@ -65,26 +65,12 @@ export class NewItemDialogComponent {
             this.data.order = resp;
             this.showSuccess("Successfully added!")
           },
-          error: (e) => {
-            if (e.status === 412) {
-              this.showError(e.error.details);
-            }
-          }
         }
       )
     }
   }
 
-  // TODO: replace with global error handler
-  showError(errorMessage: string) {
-    let snackBarRef = this.snackBar.open(errorMessage, "RELOAD");
-
-    snackBarRef.onAction().subscribe(() => {
-      window.location.reload()
-    });
-  }
-
-
+  
   showSuccess(successMessage: string) {
     this.snackBar.open(successMessage, "", {
       duration: 1000,
