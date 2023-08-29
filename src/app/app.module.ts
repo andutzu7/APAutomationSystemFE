@@ -12,10 +12,8 @@ import { ViewPurchaseOrderComponent } from './components/view-purchase-order/vie
 import { ViewPurchaseOrdersComponent } from './components/view-purchase-orders/view-purchase-orders.component';
 import { NewItemDialogComponent } from './components/new-item-dialog/new-item-dialog.component';
 import { ViewInvoicesComponent } from './components/features/view-invoices/view-invoices.component';
-import { InvoiceRenderer } from './components/ui/invoice-renderer/invoice-renderer.component';
-import { InvoicesHandlerComponent } from './components/features/invoices-handler/invoices-handler.component';
+import { InvoiceRenderer } from './components/features/invoice-renderer/invoice-renderer.component';
 import { CreateInvoiceComponent } from './components/features/create-invoice/create-invoice.component';
-import { CreateInvoiceFormComponent } from './components/ui/create-invoice-form/create-invoice-form.component';
 import { LoginComponent } from './components/login/login.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
@@ -32,9 +30,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     NewItemDialogComponent,
     ViewInvoicesComponent,
     InvoiceRenderer,
-    InvoicesHandlerComponent,
     CreateInvoiceComponent,
-    CreateInvoiceFormComponent,
     LoginComponent,
     RegisterComponent,
     SidenavComponent,
