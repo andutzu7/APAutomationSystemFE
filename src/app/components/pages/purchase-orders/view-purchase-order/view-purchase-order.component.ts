@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { OrderRequest, OrderResponse } from 'src/app/models/order';
 import { OrdersService } from 'src/app/services/orders.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Item } from '../../models/item';
-import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.component';
+import { Item } from '../../../../models/item';
+import { NewItemDialogComponent } from '../../../ui/new-item-dialog/new-item-dialog.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 

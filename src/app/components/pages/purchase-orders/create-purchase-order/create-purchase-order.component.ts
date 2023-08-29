@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Company } from '../../models/company';
-import { CompaniesService } from '../../services/companies.service';
-import { Item } from '../../models/item';
-import { ItemsService } from '../../services/items.service';
+import { Company } from '../../../../models/company';
+import { CompaniesService } from '../../../../services/companies.service';
+import { Item } from '../../../../models/item';
+import { ItemsService } from '../../../../services/items.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { Router } from '@angular/router';
 import { OrderRequest } from 'src/app/models/order';

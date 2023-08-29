@@ -1,14 +1,14 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { CreatePurchaseOrderComponent } from "./components/create-purchase-order/create-purchase-order.component";
-import { ViewPurchaseOrderComponent } from "./components/view-purchase-order/view-purchase-order.component";
-import { ViewPurchaseOrdersComponent } from "./components/view-purchase-orders/view-purchase-orders.component";
-import { CreateInvoiceComponent } from "./components/features/create-invoice/create-invoice.component";
-import { InvoiceRenderer } from "./components/features/invoice-renderer/invoice-renderer.component";
-import { LoginComponent } from "./components/login/login.component";
-import { RegisterComponent } from "./components/register/register.component";
+import { CreatePurchaseOrderComponent } from "./components/pages/purchase-orders/create-purchase-order/create-purchase-order.component";
+import { ViewPurchaseOrderComponent } from "./components/pages/purchase-orders/view-purchase-order/view-purchase-order.component";
+import { ViewPurchaseOrdersComponent } from "./components/pages/purchase-orders/view-purchase-orders/view-purchase-orders.component";
+import { CreateInvoiceComponent } from "./components/pages/invoices/create-invoice/create-invoice.component";
+import { InvoiceRenderer } from "./components/pages/invoices/invoice-renderer/invoice-renderer.component";
+import { LoginComponent } from "./components/pages/auth/login/login.component";
+import { RegisterComponent } from "./components/pages/auth/register/register.component";
 import { rolesGuard } from "./helpers/roles.guard";
-import { ViewInvoicesComponent } from "./components/features/view-invoices/view-invoices.component";
+import { ViewInvoicesComponent } from "./components/pages/invoices/view-invoices/view-invoices.component";
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
