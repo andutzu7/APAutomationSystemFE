@@ -47,3 +47,7 @@ mat-card-content {
   display: flex;
   justify-content: flex-end;
 }
+
+mat-progress-bar {
+  width: 90%;
+}

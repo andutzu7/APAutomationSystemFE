@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   loginForm !: FormGroup
+  loading: boolean= false;
 
   constructor(
     private router: Router,
@@ -31,6 +32,7 @@ export class LoginComponent {
 
   submit() {
     if (this.loginForm.valid) {
+      this.loading = true;
       let username: string = this.loginForm.value.username;
       let password: string = this.loginForm.value.password;
 

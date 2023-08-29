@@ -11,7 +11,8 @@ import { RolesService } from 'src/app/services/roles.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-
+  loading: boolean= false;
+  
   registerForm: FormGroup;
   companies!: Company[];
   roles!: string[];
@@ -50,7 +51,8 @@ export class RegisterComponent {
   }
 
   submit() {
-    console.log(this.registerForm.value)
+    this.loading = true;
+
     let username: string = this.registerForm.value.username;
     let password: string = this.registerForm.value.password;
     let companyIdentifier: string = this.registerForm.value.companyIdentifier;

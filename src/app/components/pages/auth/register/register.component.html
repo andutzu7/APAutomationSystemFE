@@ -43,7 +43,10 @@
                 <button style="width:50%" [disabled]="registerForm.invalid" type="submit" mat-raised-button
                     color="primary">Submit</button>
             </div>
+            <br>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
         </form>
+       
     </mat-card-content>
 
 
