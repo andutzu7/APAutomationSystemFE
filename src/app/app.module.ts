@@ -19,6 +19,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
 import { RegisterComponent } from './components/pages/auth/register/register.component';
 import { SidenavComponent } from './components/ui/sidenav/sidenav.component';
+import { ErrorsInterceptor } from './helpers/errors.interceptor';
+import { ErrorComponent } from './components/pages/error/error/error.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { SidenavComponent } from './components/ui/sidenav/sidenav.component';
     LoginComponent,
     RegisterComponent,
     SidenavComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { SidenavComponent } from './components/ui/sidenav/sidenav.component';
     CompaniesService, 
     ItemsService, 
     OrdersService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

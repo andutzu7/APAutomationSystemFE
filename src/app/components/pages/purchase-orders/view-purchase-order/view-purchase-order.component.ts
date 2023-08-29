@@ -60,11 +60,6 @@ export class ViewPurchaseOrderComponent {
         next: (resp) => {
           this.purchaseOrder = resp;
         },
-        error: (e) => {
-          if (e.status === 412) {
-            this.showError(e.error.details);
-          }
-        }
       }
     );
   }
@@ -78,11 +73,6 @@ export class ViewPurchaseOrderComponent {
           this.purchaseOrder = resp;
           this.showSuccess("Successfully saved!")
         },
-        error: (e) => {
-          if (e.status === 412) {
-            this.showError(e.error.details);
-          }
-        }
       }
     );
   }
@@ -96,11 +86,6 @@ export class ViewPurchaseOrderComponent {
           this.purchaseOrder = resp;
           this.showSuccess("Successfully approved!")
         },
-        error: (e) => {
-          if (e.status === 412) {
-            this.showError(e.error.details);
-          }
-        }
       }
     );
   }
@@ -147,15 +132,6 @@ export class ViewPurchaseOrderComponent {
     updatedOrderPayload.version = this.purchaseOrder.version;
 
     return updatedOrderPayload;
-  }
-
-  // TODO: replace with global error handler
-  showError(errorMessage: string) {
-    let snackBarRef = this.snackBar.open(errorMessage, "RELOAD")
-
-    snackBarRef.onAction().subscribe(() => {
-      window.location.reload()
-    })
   }
 
   showSuccess(successMessage: string) {

@@ -20,7 +20,6 @@ export const rolesGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  // TODO: redirect to error page
-  router.navigateByUrl("/");
+  router.navigateByUrl("/error");
   return false;
 };
