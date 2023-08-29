@@ -149,6 +149,7 @@ export class ViewPurchaseOrderComponent {
     return updatedOrderPayload;
   }
 
+  // TODO: replace with global error handler
   showError(errorMessage: string) {
     let snackBarRef = this.snackBar.open(errorMessage, "RELOAD")
 
