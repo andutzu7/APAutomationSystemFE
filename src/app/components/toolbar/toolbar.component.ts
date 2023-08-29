@@ -8,7 +8,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ToolbarComponent {
   isLoggedIn: boolean = false;
-  userRoles: string[] = [];
   username: string = "";
 
   @Input('sidenav') sidenav: any;
@@ -19,10 +18,6 @@ export class ToolbarComponent {
     this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
       this.username = this.authService.getUsername();
-    });
-
-    this.authService.userRoles$.subscribe((roles) => {
-      this.userRoles = roles;
     });
   }
 
