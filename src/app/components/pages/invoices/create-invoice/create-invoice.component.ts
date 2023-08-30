@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { OrderResponse } from 'src/app/models/order';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-create-invoice',
@@ -30,6 +31,7 @@ export class CreateInvoiceComponent {
   displayedColumns: string[] = ['identifier', 'buyer', 'seller', 'status'];
 
   orderForm !: FormGroup;
+  sellerCompany!: Company;
   error: boolean = false;
 
   purchaseOrdersDataSource!: MatTableDataSource<OrderResponse>
@@ -40,18 +42,21 @@ export class CreateInvoiceComponent {
     private itemsService: ItemsService,
     private ordersService: OrdersService,
     private companiesService: CompaniesService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.getCompanies();
     this.items = this.itemsService.getAllItems();
-    this.getPurchaseOrders();
+    this.getFilteredPurchaseOrders();
     this.createForm();
   }
 
-  getPurchaseOrders(): void {
+  getFilteredPurchaseOrders(): void {
     this.ordersService.getPurchaseOrders().subscribe(answer => {
-      this.purchaseOrdersDataSource = new MatTableDataSource<OrderResponse>(answer);
+      const sellerIdentifier = this.authService.getUserCompany();
+      let purchaseOrderFilteredList= answer.filter(purchaseOrder => purchaseOrder.seller.companyIdentifier == sellerIdentifier);
+      this.purchaseOrdersDataSource = new MatTableDataSource<OrderResponse>(purchaseOrderFilteredList);
     });
 
   }
@@ -66,7 +71,9 @@ export class CreateInvoiceComponent {
   getCompanies() {
     this.companiesService.getCompanies().subscribe(answer => {
 
-      this.companies = answer;
+      const sellerIdentifier = this.authService.getUserCompany();
+      this.sellerCompany = answer.filter(company => company.companyIdentifier == sellerIdentifier)[0];
+      this.companies = answer.filter(company => company.companyIdentifier != sellerIdentifier)
 
     })
 
@@ -92,11 +99,11 @@ export class CreateInvoiceComponent {
       const invoiceDPO: InvoiceDPO = new InvoiceDPO(newInvoice.buyer.companyIdentifier, newInvoice.seller.companyIdentifier, this.invoiceItemList);
 
       this.invoiceService.createInvoice(invoiceDPO).subscribe(response => {
+         console.log(response)
         this.router.navigateByUrl('/invoices/view/' + response.identifier);
       }
       )
     }
-
   }
   sendInvoiceFromOR() {
 
