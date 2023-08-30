@@ -5,7 +5,7 @@ import { InvoiceDDO } from "../models/invoiceDDO";
 import { InvoiceDTO } from "../models/invoiceDTO";
 import { OrderResponse } from "../models/order";
 import { InvoiceDPO } from "../models/invoiceDPO";
-import { InvoiceApiPaths } from "src/assets/invoice-api-paths";
+import { ApiPaths } from "src/assets/api-paths";
 
 
 @Injectable({
@@ -16,28 +16,28 @@ export class InvoiceService {
     constructor(private httpClient: HttpClient) { }
 
     getInvoices(): Observable<InvoiceDDO[]> {
-        return this.httpClient.get<InvoiceDDO[]>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getInvoicesMapping}`);
+        return this.httpClient.get<InvoiceDDO[]>(`${ApiPaths.base}/${ApiPaths.getInvoicesMapping}`);
     }
     getInvoice(uuid: string): Observable<InvoiceDTO> {
 
-        return this.httpClient.get<InvoiceDTO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getInvoicesMapping}/${uuid}`);
+        return this.httpClient.get<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.getInvoicesMapping}/${uuid}`);
     }
     deleteInvoice(uuid: string) {
 
-        return this.httpClient.delete(`${InvoiceApiPaths.base}/${InvoiceApiPaths.getInvoicesMapping}/${uuid}`);
+        return this.httpClient.delete(`${ApiPaths.base}/${ApiPaths.getInvoicesMapping}/${uuid}`);
 
     }
     createInvoice(invoiceDPO: InvoiceDPO) {
 
-        return this.httpClient.post<InvoiceDTO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.postInvoicesMapping}`, invoiceDPO);
+        return this.httpClient.post<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.postInvoicesMapping}`, invoiceDPO);
     }
     updateInvoice(uuid: string, invoiceDTO: InvoiceDTO) {
 
-        return this.httpClient.put<InvoiceDTO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.putInvoicesMapping}/${uuid}`, invoiceDTO);
+        return this.httpClient.put<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.putInvoicesMapping}/${uuid}`, invoiceDTO);
 
     }
     createInvoiceFromPO(orderRequest: OrderResponse): Observable<InvoiceDTO> {
-        return this.httpClient.post<InvoiceDTO>(`${InvoiceApiPaths.base}/${InvoiceApiPaths.createInvoiceFromOR}`, orderRequest);
+        return this.httpClient.post<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.createInvoiceFromOR}`, orderRequest);
         
     }
 

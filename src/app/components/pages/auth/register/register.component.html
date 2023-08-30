@@ -1,0 +1,53 @@
+<mat-card>
+    <mat-card-title>Register</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="registerForm" (ngSubmit)="submit()">
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Username" formControlName="username">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <input type="password" matInput placeholder="Password" formControlName="password">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <mat-select formControlName="companyIdentifier" aria-required="true" placeholder="Company">
+                        <mat-option *ngFor="let company of companies"
+                            [value]="company.companyIdentifier">{{company.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <mat-label>User roles</mat-label>
+                    <mat-select [formControl]="userRoles" multiple>
+                        <mat-select-trigger>
+                          {{ registerForm.get('userRoles')?.value ? registerForm.get('userRoles')?.value[0] : '' }}
+                          <span *ngIf="registerForm.get('userRoles')?.value?.length > 1" class="example-additional-selection">
+                            (+{{ getNumberOfSelectedRoles() - 1 }} {{ getNumberOfSelectedRoles() === 2 ? 'other' : 'others' }})
+                          </span>
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </p>
+
+
+            <div class="socialMediaFlex">
+                <button style="width:50%" [disabled]="registerForm.invalid" type="submit" mat-raised-button
+                    color="primary">Submit</button>
+            </div>
+            <br>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </form>
+       
+    </mat-card-content>
+
+
+</mat-card>
