@@ -5,3 +5,16 @@
 .selected {
     background-color: rgb(110, 255, 110);
   }
+
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0px;
+}
+
+
+  mat-card-title,
+  mat-card-content {
+    display: flex;
+    justify-content: center;
+  }
