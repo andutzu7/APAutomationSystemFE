@@ -11,16 +11,15 @@
                     <mat-form-field>
                         <mat-label>Buyer</mat-label>
                         <mat-select formControlName="buyer" aria-required="true">
-                            <mat-option *ngFor="let company of companies"
-                                [value]="company">{{company.name}}</mat-option>
+                            <mat-option *ngFor="let company of companies" [value]="company">{{company.name}}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Seller</mat-label>
                         <mat-select formControlName="seller">
-                            <mat-option *ngFor="let company of companies"
-                                [value]="company">{{company.name}}</mat-option>
+                        <mat-option [value]="sellerCompany">{{sellerCompany?.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
 
@@ -115,9 +114,8 @@
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr class="custom-table-row" mat-row *matRowDef="let row;
-                 columns: this.displayedColumns;"(click)="toggleSelectedPO(row)"
-                 [ngClass]="{ 'selected': row === selectedOrder }"
-                 ></tr>
+                 columns: this.displayedColumns;" (click)="toggleSelectedPO(row)"
+                    [ngClass]="{ 'selected': row === selectedOrder }"></tr>
             </table>
 
         </mat-list>
