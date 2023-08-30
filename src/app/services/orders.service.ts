@@ -17,13 +17,6 @@ export class OrdersService {
         )
     }
 
-    savePurchaseOrder(identifier: string): Observable<OrderResponse> {
-        return this.httpClient.patch<OrderResponse>(
-            `${ApiPaths.base}/${ApiPaths.ordersMapping}/${identifier}`,
-            {}
-        )
-    }
-
     updatePurchaseOrder(identifier: string, orderRequest: OrderRequest) {
         return this.httpClient.put<OrderResponse>(
             `${ApiPaths.base}/${ApiPaths.ordersMapping}/${identifier}`,
@@ -36,7 +29,6 @@ export class OrdersService {
             `${ApiPaths.base}/${ApiPaths.ordersMapping}/${id}`
         )
     }
-
 
     getPurchaseOrders(): Observable<OrderResponse[]> {
         return this.httpClient.get<OrderResponse[]>(
