@@ -20,6 +20,6 @@ export const rolesGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  router.navigateByUrl("/error");
+  router.navigateByUrl("/");
   return false;
 };
