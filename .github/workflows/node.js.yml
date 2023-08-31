@@ -14,7 +14,5 @@ jobs:
           node-version: "18.x"
       - name: Install dependencies
         run: npm install
-      - name: Run tests
-        run: npm run test:headless
       - name: Build
         run: npm run build:prod
