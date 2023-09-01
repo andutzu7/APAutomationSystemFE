@@ -9,11 +9,10 @@ import { LoginComponent } from "./components/pages/auth/login/login.component";
 import { RegisterComponent } from "./components/pages/auth/register/register.component";
 import { rolesGuard } from "./helpers/roles.guard";
 import { ViewInvoicesComponent } from "./components/pages/invoices/view-invoices/view-invoices.component";
-import { ErrorComponent } from "./components/pages/error/error/error.component";
+
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
-    { path: 'error', component: ErrorComponent},
     { path: 'register', component: RegisterComponent, canActivate: [rolesGuard], data:{expectedRoles: ['ADMIN']}  },
     { path: 'purchase-order', component: CreatePurchaseOrderComponent, canActivate: [rolesGuard], data:{expectedRoles: ['BUYER_CUSTOMER']} },
     { path: 'purchase-orders/:id', component: ViewPurchaseOrderComponent, canActivate: [rolesGuard], data:{expectedRoles: ['BUYER_CUSTOMER', 'SUPPLIER_ACCOUNTING', 'SUPPLIER_MANAGEMENT']} },
