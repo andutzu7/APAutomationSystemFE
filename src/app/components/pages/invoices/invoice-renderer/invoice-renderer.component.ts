@@ -66,10 +66,10 @@ export class InvoiceRenderer {
     }
   }
 
-  send() {
-
+  changeStatus(invoiceStatus:string) {
 
     this.individualInvoice.items=this.invoiceItemList;
+    this.individualInvoice.invoiceStatus=invoiceStatus;
 
       this.invoiceService.updateInvoice(this.individualInvoice.identifier, this.individualInvoice).subscribe(response => {
         this.itemsForm.reset(); 

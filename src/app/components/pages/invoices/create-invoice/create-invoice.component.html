@@ -4,7 +4,7 @@
     </mat-card-title>
 
     <mat-checkbox (change)="toggleForm()">Create from existing Purchase Order</mat-checkbox>
-    <div [hidden]="fromPO">
+    <div [hidden]="!fromPO">
         <mat-card>
             <mat-card-content>
                 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
@@ -87,7 +87,7 @@
         </mat-card>
     </div>
 
-    <div [hidden]="!fromPO">
+    <div [hidden]="fromPO">
 
         <mat-list>
             <table mat-table [dataSource]="this.purchaseOrdersDataSource" class="mat-elevation-z8">

@@ -19,7 +19,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CreateInvoiceComponent {
 
-  fromPO: boolean = false;
+  fromPO: boolean = true;
   companies!: Company[];
   items!: Item[];
   invoiceItemList: Item[] = [];
@@ -54,8 +54,9 @@ export class CreateInvoiceComponent {
 
   getFilteredPurchaseOrders(): void {
     this.ordersService.getPurchaseOrders().subscribe(answer => {
-      const sellerIdentifier = this.authService.getUserCompany();
+      const sellerIdentifier= this.authService.getUserCompany();
       let purchaseOrderFilteredList= answer.filter(purchaseOrder => purchaseOrder.seller.companyIdentifier == sellerIdentifier);
+      purchaseOrderFilteredList= purchaseOrderFilteredList.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED')
       this.purchaseOrdersDataSource = new MatTableDataSource<OrderResponse>(purchaseOrderFilteredList);
     });
 
