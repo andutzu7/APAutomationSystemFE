@@ -20,7 +20,6 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
 import { RegisterComponent } from './components/pages/auth/register/register.component';
 import { SidenavComponent } from './components/ui/sidenav/sidenav.component';
 import { ErrorsInterceptor } from './helpers/errors.interceptor';
-import { ErrorComponent } from './components/pages/error/error/error.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +35,6 @@ import { ErrorComponent } from './components/pages/error/error/error.component';
     LoginComponent,
     RegisterComponent,
     SidenavComponent,
-    ErrorComponent,
   ],
   imports: [
     BrowserModule,
