@@ -90,6 +90,19 @@ export class ViewPurchaseOrderComponent {
     );
   }
 
+  rejectOrder(): void{
+    const orderPayload: OrderRequest = this.createUpdateOrderRequest("REJECTED");
+
+    this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
+      {
+        next: (resp) => {
+          this.purchaseOrder = resp;
+          this.showSuccess("Successfully rejected!")
+        },
+      }
+    );
+  }
+
   private createUpdateOrderRequest(orderStatus: String): OrderRequest {
     const orderPayload: OrderRequest = new OrderRequest(
       this.purchaseOrder.identifier,

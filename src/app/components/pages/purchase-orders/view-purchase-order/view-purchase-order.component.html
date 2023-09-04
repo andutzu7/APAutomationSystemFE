@@ -29,6 +29,9 @@
     <mat-card>
         <button [disabled]="!userRoles.includes('SUPPLIER_MANAGEMENT') || purchaseOrder.orderStatus !== 'SAVED'" mat-button type="button" (click)="approveOrder()">Approve order</button>
     </mat-card>
+    <mat-card>
+        <button [disabled]="!userRoles.includes('SUPPLIER_MANAGEMENT') || purchaseOrder.orderStatus !== 'SAVED'" mat-button type="button" (click)="rejectOrder()">Reject order</button>
+    </mat-card>
 
 </mat-accordion>
 
