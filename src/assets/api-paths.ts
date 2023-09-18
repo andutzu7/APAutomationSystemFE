@@ -1,5 +1,5 @@
 export enum ApiPaths {
-    base = 'http://localhost:8080/api',
+    base = 'http://34.207.142.226:8080/api',
     getInvoicesMapping = 'invoices',
     postInvoicesMapping = 'invoices',
     putInvoicesMapping = 'invoices',
