@@ -1,0 +1,44 @@
+name: AWS-sandbox integration
+run-name: ${{ github.actor }} is learning GitHub AWS integration in sandbox env
+on: [ push, pull_request ]
+
+env:
+    AWS_REGION: us-east-1
+    S3BUCKET: backendstack-webappdeploymentbucket-111ykusahj0hh
+
+jobs:
+  build:
+    name: Build and Package
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout Repository
+
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.FRONTEND_IAMROLE_GITHUB }}
+          role-session-name: GitHub-Action-Role
+          aws-region: ${{ env.AWS_REGION }}
+
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      - name: chmod
+        run: chmod -R +x ./.github
+
+      - name: Build and Package Maven
+        id: package
+        run: $GITHUB_WORKSPACE/.github/scripts/build.sh
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Upload Artifact to s3
+        working-directory: dist
+        run: aws s3 cp * s3://${{ env.S3BUCKET }}/

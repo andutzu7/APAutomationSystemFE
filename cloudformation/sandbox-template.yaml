@@ -54,6 +54,7 @@ Parameters:
 
   GithubRepoName:
     Type: String
+    Default: andutzu7/APAutomationSystemFE
     Description: GitHub repository name Ex-TestUser/TestCodeDeploy
 
 Mappings:
@@ -137,11 +138,30 @@ Resources:
           !Sub |
           #!/bin/bash
           
+          sudo yum update -y
+          sudo yum install -y nodejs
+          sudo yum install -y npm
           sudo yum install -y nginx wget
 
           #  matches lines that start with optional whitespace characters, followed by "root," and then followed by anything
-          sudo sed -i 's/^\s*root\s.*$/  root \/home\/ec2-user\/dist\/apafinance-fe;/' /etc/nginx/nginx.conf
+          # sudo sed -i 's/^\s*root\s.*$/  root \/home\/ec2-user\/dist\/apafinance-fe;/' /etc/nginx/nginx.conf
 
+          appended_content=$(cat <<EOL
+            root /home/ec2-user/dist/apafinance-fe;
+            default_type application/octet-stream;
+            gzip on;
+            gzip_http_version 1.1;
+            gzip_disable "MSIE [1-6]\.";
+            gzip_min_length 256;
+            gzip_vary on;
+            gzip_proxied expired no-cache no-store private auth;
+            gzip_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+            gzip_comp_level 9;
+          EOL
+          )
+
+          sudo sed -i '/^\s*root\s.*$/ { r /dev/stdin
+          d }' /etc/nginx/nginx.conf <<<"$appended_content"
 
 
           yum install ruby -y
