@@ -21,7 +21,12 @@ export class ErrorsInterceptor implements HttpInterceptor {
 
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          this.authService.logout();
+          if (error.error.details) {
+            this.showError(error.error.details, "RETRY")
+          }
+          else{
+            this.authService.logout();
+          }
         }
         else if (error.status === 412) {
           this.showError(error.error.details, "RELOAD")
@@ -31,11 +36,11 @@ export class ErrorsInterceptor implements HttpInterceptor {
             this.showError(error.error.details, "CLOSE")
           }
           else {
-            if (error.error.error != ''){
+            if (error.error.error){
               this.showError(error.error.error, "CLOSE")
             }
             else{
-              this.showError("Unknown error", "CLOSE")
+              this.showError("Unknown error", "OK")
             }
             
           }
@@ -50,7 +55,7 @@ export class ErrorsInterceptor implements HttpInterceptor {
   showError(errorMessage: string, action: string) {
     let snackBarRef = this.snackBar.open(errorMessage, action)
 
-    if (action == "RELOAD") {
+    if (action == "RELOAD" || action == "RETRY" || action == "OK") {
       snackBarRef.onAction().subscribe(() => {
         window.location.reload()
       })
