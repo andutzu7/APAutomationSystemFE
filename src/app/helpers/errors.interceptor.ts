@@ -31,7 +31,13 @@ export class ErrorsInterceptor implements HttpInterceptor {
             this.showError(error.error.details, "CLOSE")
           }
           else {
-            this.showError(error.error.error, "CLOSE")
+            if (error.error.error != ''){
+              this.showError(error.error.error, "CLOSE")
+            }
+            else{
+              this.showError("Unknown error", "CLOSE")
+            }
+            
           }
         }
 

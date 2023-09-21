@@ -4,7 +4,7 @@ on: [ push, pull_request ]
 
 env:
     AWS_REGION: us-east-1
-    S3BUCKET: backendstack-webappdeploymentbucket-111ykusahj0hh
+    S3BUCKET: frontendstack-angularappdeploymentbucket-zx4kl57mv874
 
 jobs:
   build:
@@ -40,5 +40,4 @@ jobs:
         run: npm install
 
       - name: Upload Artifact to s3
-        working-directory: dist
-        run: aws s3 cp * s3://${{ env.S3BUCKET }}/
+        run: aws s3 cp --recursive dist s3://${{ env.S3BUCKET }}/
