@@ -1,0 +1,63 @@
+name: AWS-sandbox integration
+run-name: ${{ github.actor }} is learning GitHub AWS integration in sandbox env
+on: [ push, pull_request ]
+
+env:
+    AWS_REGION: us-east-1
+    S3BUCKET: frontendstack-angularappdeploymentbucket-ls6xy05xzn8v
+
+jobs:
+  build:
+    name: Build and Package
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout Repository
+
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.FRONTEND_IAMROLE_GITHUB }}
+          role-session-name: GitHub-Action-Role
+          aws-region: ${{ env.AWS_REGION }}
+
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: chmod
+        run: chmod -R +x ./.github
+
+      - name: Build and Package Maven
+        id: package
+        run: $GITHUB_WORKSPACE/.github/scripts/build.sh
+
+      - name: Upload Artifact to s3
+        run: aws s3 cp --recursive dist s3://${{ env.S3BUCKET }}/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: Dev
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.FRONTEND_IAMROLE_GITHUB }}
+          role-session-name: GitHub-Action-Role
+          aws-region: ${{ env.AWS_REGION }}
+      - run: |
+          echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
+          commit_hash=`git rev-parse HEAD`
+          aws deploy list-applications --region ${{ env.AWS_REGION }}
+          aws deploy create-deployment --region ${{ env.AWS_REGION }} --application-name AngularCodeDeployAppName --deployment-group-name AngularCodeDeployGroupName --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures

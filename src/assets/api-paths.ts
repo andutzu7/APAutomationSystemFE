@@ -1,5 +1,5 @@
 export enum ApiPaths {
-    base = 'http://localhost:8080/api',
+    base = 'http://api.pseudot.org/api',
     getInvoicesMapping = 'invoices',
     postInvoicesMapping = 'invoices',
     putInvoicesMapping = 'invoices',
