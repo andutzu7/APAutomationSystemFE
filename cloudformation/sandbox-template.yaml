@@ -91,6 +91,7 @@ Resources:
                 Effect: "Allow"
                 Action:
                   - "s3:getObject"
+                  - "s3:ListBucket"
                 Resource: !Sub arn:${AWS::Partition}:s3:::${AngularAppDeploymentBucket}/*
               -
                 Effect: "Allow"
