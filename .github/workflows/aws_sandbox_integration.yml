@@ -29,15 +29,15 @@ jobs:
         with:
           node-version: "18.x"
 
+      - name: Install dependencies
+        run: npm install
+
       - name: chmod
         run: chmod -R +x ./.github
 
       - name: Build and Package Maven
         id: package
         run: $GITHUB_WORKSPACE/.github/scripts/build.sh
-
-      - name: Install dependencies
-        run: npm install
 
       - name: Upload Artifact to s3
         run: aws s3 cp --recursive dist s3://${{ env.S3BUCKET }}/
