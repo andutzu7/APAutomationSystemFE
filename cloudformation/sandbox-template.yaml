@@ -92,6 +92,7 @@ Resources:
                 Action:
                   - "s3:getObject"
                   - "s3:ListBucket"
+                  - "s3:ListBucketVersions"
                 Resource: !Sub arn:${AWS::Partition}:s3:::${AngularAppDeploymentBucket}/*
               -
                 Effect: "Allow"
@@ -177,7 +178,11 @@ Resources:
           systemctl enable amazon-ssm-agent
           systemctl start amazon-ssm-agent
 
-
+  MyEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref EC2Instance
+      
   AngularAppDeploymentBucket:
     Type: AWS::S3::Bucket
     Properties:
