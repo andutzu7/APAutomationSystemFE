@@ -1,8 +1,4 @@
 #!/bin/bash
 set -xe
 
-
-# Copy war file from S3 bucket to tomcat webapp folder
-aws s3 sync s3://frontendstack-angularappdeploymentbucket-ls6xy05xzn8v/apafinance-fe/ /home/ec2-user/dist/apafinance-fe/
-
-stack_name="FrontendStack"
+aws s3 sync s3://frontendstack-angularappdeploymentbucket-lgsp5xxe9py/apafinance-fe/ /home/ec2-user/dist/apafinance-fe/
