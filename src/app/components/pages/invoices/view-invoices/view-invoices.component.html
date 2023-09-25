@@ -19,6 +19,11 @@
         <td mat-cell *matCellDef="let invoiceDDO"> {{invoiceDDO.sellerName}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="statusColumn">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let invoiceDDO"> {{invoiceDDO.invoiceStatus}} </td>
+      </ng-container>
+      
       <ng-container matColumnDef="moreDetailsColumn">
         <th mat-header-cell *matHeaderCellDef> More Details </th>
         <td mat-cell *matCellDef="let invoiceDDO">

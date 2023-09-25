@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ViewPurchaseOrderComponent {
   purchaseOrder !: OrderResponse;
   userRoles: string[] = [];
+  totalAmount: number = 0;
 
   constructor(private route: ActivatedRoute,
     private ordersService: OrdersService,
@@ -26,10 +27,21 @@ export class ViewPurchaseOrderComponent {
 
   ngOnInit(): void {
     this.getPurchaseOrder();
+    
 
     this.authService.userRoles$.subscribe((roles) => {
       this.userRoles = roles;
     });
+  }
+
+  computeTotalAmount(items: Item[]): number{
+    let amount = 0;
+
+    items.forEach(item => {
+      amount += item.price! * item.quantity!
+    })
+
+    return amount;
   }
 
   getPurchaseOrder(): void {
@@ -37,7 +49,8 @@ export class ViewPurchaseOrderComponent {
 
     this.ordersService.getPurchaseOrder(id!).subscribe(
       order => {
-        this.purchaseOrder = order
+        this.purchaseOrder = order;
+        this.totalAmount = this.computeTotalAmount(this.purchaseOrder.items);
       });
   }
 
@@ -59,6 +72,7 @@ export class ViewPurchaseOrderComponent {
       {
         next: (resp) => {
           this.purchaseOrder = resp;
+          this.totalAmount = this.computeTotalAmount(this.purchaseOrder.items);
         },
       }
     );

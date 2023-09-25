@@ -57,6 +57,10 @@
 
         </form>
       </div>
+
+      <div >
+        <b>Total amount:</b>&nbsp; <span matPrefix>$</span> {{totalAmount}}
+    </div>
       <button mat-raised-button color="primary" [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button type="button"
         (click)="toggleForm()">Add
         more items</button>

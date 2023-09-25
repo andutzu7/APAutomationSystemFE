@@ -23,15 +23,15 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <!-- <mat-card-title>
+                    <mat-card-title>
                         Item List
-                    </mat-card-title> -->
+                    </mat-card-title>
                     <p>
                         <b>
                             Select item:
                         </b>
                     </p>
-                    <!-- <table mat-table [dataSource]="this.itemsTableDataSource">
+                    <table mat-table [dataSource]="this.itemsTableDataSource">
                         <ng-container matColumnDef="itemNameColumn">
                             <th mat-header-cell *matHeaderCellDef> Description</th>
                             <td mat-cell *matCellDef="let item"> {{item.description}} </td>
@@ -57,7 +57,7 @@
                         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
                         <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
 
-                    </table> -->
+                    </table>
 
                     <mat-card>
 
@@ -81,15 +81,17 @@
                     <div class="button">
                         <button mat-raised-button color="primary" mat-button type="submit">Submit</button>
                     </div>
+
+                    <mat-card *ngIf="error==true">
+                        <mat-card-header>
+                            <p>
+                                Please insert all required fields.
+                            </p>
+                        </mat-card-header>
+                    </mat-card>
                 </form>
 
-                <mat-card *ngIf="error==true">
-                    <mat-card-header>
-                        <p>
-                            Please insert all required fields.
-                        </p>
-                    </mat-card-header>
-                </mat-card>
+
 
             </mat-card-content>
         </mat-card>

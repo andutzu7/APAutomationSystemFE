@@ -11,7 +11,7 @@
       <span>AP automation</span>
     </a>
     <span class="example-spacer"></span>
-    <span *ngIf="isLoggedIn">{{username}}: {{company}}</span>
+    <span *ngIf="isLoggedIn">{{username}}{{company}}</span>
     <button *ngIf="isLoggedIn" mat-icon-button (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
     </button>

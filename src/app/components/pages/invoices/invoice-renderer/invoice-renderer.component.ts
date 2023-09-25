@@ -23,6 +23,7 @@ export class InvoiceRenderer {
   displayForm: boolean = false;
   itemsForm!: FormGroup;
   public itemListDataSource = new MatTableDataSource();
+  totalAmount: number = 0;
 
   constructor(private route: ActivatedRoute,
     private invoiceService: InvoiceService,
@@ -43,6 +44,7 @@ export class InvoiceRenderer {
       this.invoiceItemList = this.individualInvoice.items;
       this.itemListDataSource.data = this.invoiceItemList;
       this.isLoaded = true;
+      this.totalAmount=answer.totalAmount;
     });
 
   }
@@ -61,8 +63,12 @@ export class InvoiceRenderer {
   addItem() {
 
     if (Object.keys(this.itemsForm.value.item).length != 0) {
-      this.invoiceItemList.push(this.itemsForm.value.item)
+      const newItem = this.itemsForm.value.item;
+      newItem.quantity = this.itemsForm.value.quantity;
+
+      this.invoiceItemList.push(newItem)
       this.itemListDataSource.data = this.invoiceItemList;
+      this.totalAmount=this.computeTotalAmount(this.invoiceItemList);
     }
   }
 
@@ -85,14 +91,23 @@ export class InvoiceRenderer {
     if (itemIndex != -1) {
 
       this.invoiceItemList.splice(itemIndex, 1);
-
       this.itemListDataSource.data = this.invoiceItemList;
-
+      this.totalAmount=this.computeTotalAmount(this.invoiceItemList);
     }
   }
 
   toggleForm() {
     this.displayForm = !this.displayForm;
+  }
+
+  computeTotalAmount(items: Item[]): number{
+    let amount = 0;
+
+    items.forEach(item => {
+      amount += item.price! * item.quantity!
+    })
+
+    return amount;
   }
 }
 

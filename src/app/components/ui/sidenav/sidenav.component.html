@@ -11,9 +11,6 @@
             routerLink="/purchase-order">Create</button>
         <button mat-raised-button routerLink="/purchase-orders">View</button>
     </div>
-
-
-
 </mat-expansion-panel>
 
 <mat-expansion-panel hideToggle
@@ -28,9 +25,8 @@
             routerLink="/invoices/create">Create</button>
         <button mat-raised-button routerLink="/invoices/view">View</button>
     </div>
-
 </mat-expansion-panel>
 
 <button mat-raised-button *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))" mat-raised-button
-    routerLink="/register">Register new
-    user</button>
+    routerLink="/register">Register new user
+</button>

@@ -83,7 +83,10 @@ export class CreateInvoiceComponent {
   addItem() {
 
     if (Object.keys(this.orderForm.value.item).length != 0) {
-      this.invoiceItemList.push(this.orderForm.value.item)
+      const newItem = this.orderForm.value.item;
+      newItem.quantity = this.orderForm.value.quantity;
+
+      this.invoiceItemList.push(newItem)
     }
     this.itemsTableDataSource.data = this.invoiceItemList;
   }

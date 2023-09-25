@@ -25,7 +25,7 @@ export class ViewInvoicesComponent {
     private dialog: MatDialog
   ) { }
 
-  public columnsToDisplay = ['idColumn', 'buyerColumn', 'sellerColumn', 'newTabColumn', 'deleteColumn'];
+  public columnsToDisplay = ['idColumn', 'buyerColumn', 'sellerColumn', 'statusColumn', 'newTabColumn', 'deleteColumn'];
 
   @Output() invoiceCommand = new EventEmitter<any>();
 
