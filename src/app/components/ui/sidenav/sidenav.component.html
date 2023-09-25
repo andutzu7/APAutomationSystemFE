@@ -5,9 +5,15 @@
             Purchase Orders
         </mat-panel-title>
     </mat-expansion-panel-header>
-    <button *ngIf="userRoles != undefined && (userRoles.includes('BUYER_CUSTOMER'))" mat-button
-      routerLink="/purchase-order">Create</button>
-    <button mat-button routerLink="/purchase-orders">View</button>
+
+    <div class="button-list">
+        <button *ngIf="userRoles != undefined && (userRoles.includes('BUYER_CUSTOMER'))" mat-raised-button
+            routerLink="/purchase-order">Create</button>
+        <button mat-raised-button routerLink="/purchase-orders">View</button>
+    </div>
+
+
+
 </mat-expansion-panel>
 
 <mat-expansion-panel hideToggle
@@ -17,9 +23,14 @@
             Invoices
         </mat-panel-title>
     </mat-expansion-panel-header>
-    <button *ngIf="userRoles != undefined && (userRoles.includes('SUPPLIER_ACCOUNTING'))" mat-button
-      routerLink="/invoices/create">Create</button>
-    <button mat-button routerLink="/invoices/view">View</button>
+    <div class="button-list">
+        <button *ngIf="userRoles != undefined && (userRoles.includes('SUPPLIER_ACCOUNTING'))" mat-raised-button
+            routerLink="/invoices/create">Create</button>
+        <button mat-raised-button routerLink="/invoices/view">View</button>
+    </div>
+
 </mat-expansion-panel>
 
-<button  *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))" mat-button routerLink="/register">Register new user</button>
+<button mat-raised-button *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))" mat-raised-button
+    routerLink="/register">Register new
+    user</button>

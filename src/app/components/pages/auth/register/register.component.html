@@ -39,12 +39,16 @@
             </p>
 
 
-            <div class="socialMediaFlex">
-                <button style="width:50%" [disabled]="registerForm.invalid" type="submit" mat-raised-button
-                    color="primary">Submit</button>
+            <div  class="button">
+                <button [disabled]="registerForm.invalid" type="submit" mat-raised-button color="primary">
+                    Submit
+                </button>
             </div>
-            <br>
-            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+            <div class="progress-bar-container">
+                <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+            </div>
+            
         </form>
        
     </mat-card-content>

@@ -1,43 +1,47 @@
-<h1>Invoices</h1>
-<table mat-table [dataSource]="this.invoiceDataSource">
+<mat-card>
+  <mat-card-title>Invoices</mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="this.invoiceDataSource">
 
 
-  <ng-container matColumnDef="idColumn">
-    <th mat-header-cell *matHeaderCellDef> Identifier </th>
-    <td mat-cell *matCellDef="let invoiceDDO"> {{invoiceDDO.identifier}} </td>
-  </ng-container>
+      <ng-container matColumnDef="idColumn">
+        <th mat-header-cell *matHeaderCellDef> Identifier </th>
+        <td mat-cell *matCellDef="let invoiceDDO"> {{invoiceDDO.identifier}} </td>
+      </ng-container>
 
-  <ng-container matColumnDef="buyerColumn">
-    <th mat-header-cell *matHeaderCellDef> Buyer </th>
-    <td mat-cell *matCellDef="let invoiceDDO"> {{invoiceDDO.buyerName}} </td>
-  </ng-container>
+      <ng-container matColumnDef="buyerColumn">
+        <th mat-header-cell *matHeaderCellDef> Buyer </th>
+        <td mat-cell *matCellDef="let invoiceDDO"> {{invoiceDDO.buyerName}} </td>
+      </ng-container>
 
-  <ng-container matColumnDef="sellerColumn">
-    <th mat-header-cell *matHeaderCellDef> Seller </th>
-    <td mat-cell *matCellDef="let invoiceDDO"> {{invoiceDDO.sellerName}} </td>
-  </ng-container>
+      <ng-container matColumnDef="sellerColumn">
+        <th mat-header-cell *matHeaderCellDef> Seller </th>
+        <td mat-cell *matCellDef="let invoiceDDO"> {{invoiceDDO.sellerName}} </td>
+      </ng-container>
 
-  <ng-container matColumnDef="moreDetailsColumn">
-    <th mat-header-cell *matHeaderCellDef> More Details </th>
-    <td mat-cell *matCellDef="let invoiceDDO">
-     <button mat-button >Show</button>
-    </td>
-  </ng-container>
+      <ng-container matColumnDef="moreDetailsColumn">
+        <th mat-header-cell *matHeaderCellDef> More Details </th>
+        <td mat-cell *matCellDef="let invoiceDDO">
+          <button mat-button>Show</button>
+        </td>
+      </ng-container>
 
-  <ng-container matColumnDef="newTabColumn">
-    <th mat-header-cell *matHeaderCellDef> </th>
-    <td mat-cell *matCellDef="let invoiceDDO">
-     <button mat-button routerLink="/invoices/view/{{invoiceDDO.identifier}}" >View in separate tab</button>
-    </td>
-  </ng-container>
+      <ng-container matColumnDef="newTabColumn">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let invoiceDDO">
+          <button mat-raised-button routerLink="/invoices/view/{{invoiceDDO.identifier}}">View in separate tab</button>
+        </td>
+      </ng-container>
 
-  <ng-container matColumnDef="deleteColumn">
-    <th mat-header-cell *matHeaderCellDef> </th>
-    <td mat-cell *matCellDef="let invoiceDDO">
-     <button mat-button (click)="deleteInvoice(invoiceDDO.identifier)">Delete</button>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      <ng-container matColumnDef="deleteColumn">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let invoiceDDO">
+          <button mat-raised-button (click)="deleteInvoice(invoiceDDO.identifier)">Delete</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+</table>
 
-    
+  </mat-card-content>
+</mat-card>
