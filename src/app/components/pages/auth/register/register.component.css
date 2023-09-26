@@ -11,11 +11,16 @@
 
 mat-card {
   width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 100%; 
 }
 
 mat-card-content > form {
   justify-content: center;
-  width: 100%;
+  width: 90%;
 }
 
 mat-card-content > form > p {
@@ -25,7 +30,7 @@ mat-card-content > form > p {
 }
 
 p > mat-form-field{
-  width: 93%;
+  width: 100%;
 }
 
 
@@ -34,6 +39,14 @@ mat-card-content {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+mat-card-title {
+  font-size: 24px; 
+  font-weight: bold; 
+  
+  text-align: center; /* Center-align the text */
+  padding: 16px 5px; /* Add padding to the top and bottom */
 }
 
 .error {
@@ -48,6 +61,7 @@ mat-card-content {
   justify-content: flex-end;
 }
 
-mat-progress-bar {
-  width: 90%;
+.progress-bar-container {
+  margin-top: 16px; /* Add margin to create space above the progress bar */
 }
+

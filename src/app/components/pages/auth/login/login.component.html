@@ -19,10 +19,13 @@
   </p> -->
 
       <div class="button">
-        <button type="submit" mat-button>Login</button>
+        <button type="submit" mat-raised-button color="primary">Submit</button>
       </div>
 
-      <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+      <div class="progress-bar-container">
+        <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+      </div>
+      
     </form>
   </mat-card-content>
 </mat-card>

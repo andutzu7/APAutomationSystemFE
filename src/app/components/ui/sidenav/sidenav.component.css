@@ -30,3 +30,30 @@
     flex: 1 0 auto;
   }
   
+  .mat-expansion-panel {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .mat-expansion-panel-header:hover {
+    background-color: #b5b6be; /* Change this to the desired hover color */
+  }
+
+  .mat-expansion-panel-content {
+    background-color: #fff; /* White background color */
+  }
+
+  .button-list {
+    display: flex;
+    flex-direction: column; /* Align buttons vertically */
+    gap: 8px;
+  }
+  
+  /* Optional: Center-align buttons horizontally */
+  .button-list button {
+    align-self: center;
+  }
+  
+button{
+  width: 100%;
+}

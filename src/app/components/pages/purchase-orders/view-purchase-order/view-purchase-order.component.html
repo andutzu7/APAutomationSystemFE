@@ -1,38 +1,57 @@
-<mat-accordion *ngIf="purchaseOrder">
-    <mat-expansion-panel *ngFor="let item of purchaseOrder.items">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                {{item.description}}
+<mat-card>
+    <mat-card-title>Order to {{purchaseOrder.seller.name}}</mat-card-title>
+    <mat-card-content>
+        <mat-accordion *ngIf="purchaseOrder">
+            <mat-expansion-panel *ngFor="let item of purchaseOrder.items">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{item.description}}
 
-            </mat-panel-title>
-            <mat-panel-description>
-                Price:
-                <b><span matPrefix>$&nbsp;</span>{{item.price}}</b>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Price:
+                        <b><span matPrefix>$</span>{{item.price}}</b>
 
-            </mat-panel-description>
-            <mat-panel-description>
-                x
-                <b>{{item.quantity}}</b>
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        x
+                        <b>{{item.quantity}}</b>
 
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="removeOrderItem(item)">Remove</button>
-    </mat-expansion-panel>
-
-    <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="addOrderItem()">Add more items</button>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
 
 
-    <mat-card>
-        <button [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button" (click)="saveOrder()">Send order</button>
-    </mat-card>
-    <mat-card>
-        <button [disabled]="!userRoles.includes('SUPPLIER_MANAGEMENT') || purchaseOrder.orderStatus !== 'SAVED'" mat-button type="button" (click)="approveOrder()">Approve order</button>
-    </mat-card>
-    <mat-card>
-        <button [disabled]="!userRoles.includes('SUPPLIER_MANAGEMENT') || purchaseOrder.orderStatus !== 'SAVED'" mat-button type="button" (click)="rejectOrder()">Reject order</button>
-    </mat-card>
+                <button mat-raised-button [disabled]="purchaseOrder.orderStatus !== 'CREATED'"
+                    type="button" (click)="removeOrderItem(item)">Remove</button>
 
-</mat-accordion>
+            </mat-expansion-panel>
 
 
+
+            <div class="button">
+                <button  mat-raised-button color="primary" [disabled]="purchaseOrder.orderStatus !== 'CREATED'" type="button"
+                (click)="addOrderItem()">Add
+                more items</button>
+            </div>
+
+
+            <div >
+                <b>Total amount:</b>&nbsp; <span matPrefix>$</span> {{totalAmount}}
+            </div>
+            <mat-card class="button">
+                <button mat-raised-button color="primary" [disabled]="purchaseOrder.orderStatus !== 'CREATED'" mat-button type="button"
+                    (click)="saveOrder()">Send
+                    order</button>
+            </mat-card>
+            <mat-card class="button">
+                <button mat-raised-button color="primary" [disabled]="!userRoles.includes('SUPPLIER_MANAGEMENT') || purchaseOrder.orderStatus !== 'SAVED'"
+                    mat-button type="button" (click)="approveOrder()">Approve order</button>
+            </mat-card>
+            <mat-card class="button">
+                <button mat-raised-button color="primary" [disabled]="!userRoles.includes('SUPPLIER_MANAGEMENT') || purchaseOrder.orderStatus !== 'SAVED'"
+                    mat-button type="button" (click)="rejectOrder()">Reject order</button>
+            </mat-card>
+
+        </mat-accordion>
+    </mat-card-content>
+</mat-card>

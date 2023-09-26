@@ -2,7 +2,7 @@
     <mat-card-title>
         Create purchase order
     </mat-card-title>
-    
+
     <mat-card-content>
         <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
             <mat-form-field>
@@ -15,36 +15,46 @@
             <mat-form-field>
                 <mat-label>Seller</mat-label>
                 <mat-select formControlName="seller">
-                    <mat-option *ngFor="let company of companies" [value]="company.companyIdentifier">{{company.name}}</mat-option>
+                    <mat-option *ngFor="let company of companies"
+                        [value]="company.companyIdentifier">{{company.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            
+
             <mat-card>
-                Items
+                
                 <mat-form-field>
                     <mat-label>Item</mat-label>
                     <mat-select formControlName="item">
-                        <mat-option *ngFor="let item of items" [value]="item">{{item.description}}: 
+                        <mat-option *ngFor="let item of items" [value]="item">{{item.description}}:
                             <span matPrefix>$&nbsp;</span>{{item.price}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Quantity</mat-label>
-                    <input formControlName="quantity" matInput type="number" placeholder="Item quantity" min="1" max="10">
+                    <input formControlName="quantity" matInput type="number" placeholder="Item quantity" min="1"
+                        max="10">
                 </mat-form-field>
             </mat-card>
 
+            <div class="button">
+                <button type="submit" mat-raised-button color="primary">Create</button>
+            </div>
 
-            <button mat-button type="submit">Create</button>
+            <div class="error-container" *ngIf="error==true">
+                <p>
+                    Please introduce all required fields.
+                </p>
+            </div>
         </form>
 
-        <mat-card *ngIf="error==true">
+
+        <!-- <mat-card *ngIf="error==true">
             <mat-card-header>
                 <p>
                     Please introduce all required fields.
                 </p>
             </mat-card-header>
-        </mat-card>
+        </mat-card> -->
 
     </mat-card-content>
 </mat-card>

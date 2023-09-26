@@ -6,4 +6,5 @@ export class InvoiceDDO{
     identifier!: string;
     buyerName!: string;
     sellerName!: string;
+    invoiceStatus!: string;
 }

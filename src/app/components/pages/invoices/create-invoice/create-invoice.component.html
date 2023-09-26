@@ -3,7 +3,7 @@
         Create invoice
     </mat-card-title>
 
-    <mat-checkbox (change)="toggleForm()">Create from existing Purchase Order</mat-checkbox>
+    <mat-checkbox (change)="toggleForm()"><b>Create from existing Purchase Order</b></mat-checkbox>
     <div [hidden]="!fromPO">
         <mat-card>
             <mat-card-content>
@@ -19,13 +19,18 @@
                     <mat-form-field>
                         <mat-label>Seller</mat-label>
                         <mat-select formControlName="seller">
-                        <mat-option [value]="sellerCompany">{{sellerCompany?.name}}</mat-option>
+                            <mat-option [value]="sellerCompany">{{sellerCompany?.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
 
                     <mat-card-title>
                         Item List
                     </mat-card-title>
+                    <p>
+                        <b>
+                            Select item:
+                        </b>
+                    </p>
                     <table mat-table [dataSource]="this.itemsTableDataSource">
                         <ng-container matColumnDef="itemNameColumn">
                             <th mat-header-cell *matHeaderCellDef> Description</th>
@@ -55,7 +60,7 @@
                     </table>
 
                     <mat-card>
-                        Select item
+
                         <mat-form-field>
                             <mat-label>Item</mat-label>
                             <mat-select formControlName="item">
@@ -68,20 +73,25 @@
                             <input formControlName="quantity" matInput type="number" placeholder="Item quantity" min="1"
                                 max="10">
                         </mat-form-field>
+
+                        <button mat-raised-button color="primary" type='button' (click)="addItem()">Add</button>
                     </mat-card>
 
-                    <button mat-button type='button' (click)="addItem()">Add</button>
 
-                    <button mat-button type="submit">Submit</button>
+                    <div class="button">
+                        <button mat-raised-button color="primary" mat-button type="submit">Submit</button>
+                    </div>
+
+                    <mat-card *ngIf="error==true">
+                        <mat-card-header>
+                            <p>
+                                Please insert all required fields.
+                            </p>
+                        </mat-card-header>
+                    </mat-card>
                 </form>
 
-                <mat-card *ngIf="error==true">
-                    <mat-card-header>
-                        <p>
-                            Please insert all required fields.
-                        </p>
-                    </mat-card-header>
-                </mat-card>
+
 
             </mat-card-content>
         </mat-card>
@@ -120,6 +130,9 @@
 
         </mat-list>
 
-        <button mat-button type="submit" (click)="sendInvoiceFromOR()">Create</button>
+        <div class="button">
+            <button  mat-raised-button color="primary" type="submit" (click)="sendInvoiceFromOR()">Create</button>
+        </div>
 
     </div>
+</mat-card>

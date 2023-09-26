@@ -10,3 +10,22 @@
     display: flex;
     justify-content: center;
   }
+
+
+  .button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px; 
+  }
+
+  mat-card-title {
+    font-size: 24px; 
+    font-weight: bold; 
+    
+    text-align: center; /* Center-align the text */
+    padding: 16px 5px; /* Add padding to the top and bottom */
+  }
+
+  .error-container {
+    margin-top: 16px; /* Add margin to create space above the progress bar */
+  }

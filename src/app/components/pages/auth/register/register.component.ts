@@ -4,6 +4,7 @@ import { Company } from 'src/app/models/company';
 import { AuthService } from 'src/app/services/auth.service';
 import { CompaniesService } from 'src/app/services/companies.service';
 import { RolesService } from 'src/app/services/roles.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +21,7 @@ export class RegisterComponent {
 
   constructor(private authService: AuthService,
     private companiesService: CompaniesService,
+    private snackBar: MatSnackBar,
     private rolesService: RolesService) {
     this.registerForm = new FormGroup({
       username: new FormControl<string>('', [Validators.required]),
@@ -63,11 +65,20 @@ export class RegisterComponent {
     .subscribe({
       next: () => {
         console.log("Successfully registered new user")
-        window.location.reload()
+        this.showSuccess("Successfully registered!")
       },
       error: (e) =>{
         console.log(e.error)
       }
     })
   }
+
+  showSuccess(successMessage: string) {
+    let snackBarRef = this.snackBar.open(successMessage,  "OK");
+
+    snackBarRef.onAction().subscribe(() => {
+      window.location.reload()
+    })
+  }
+
 }

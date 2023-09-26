@@ -54,9 +54,9 @@ export class CreateInvoiceComponent {
 
   getFilteredPurchaseOrders(): void {
     this.ordersService.getPurchaseOrders().subscribe(answer => {
-      const sellerIdentifier= this.authService.getUserCompany();
-      let purchaseOrderFilteredList= answer.filter(purchaseOrder => purchaseOrder.seller.companyIdentifier == sellerIdentifier);
-      purchaseOrderFilteredList= purchaseOrderFilteredList.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED')
+      const sellerIdentifier = this.authService.getUserCompany();
+      let purchaseOrderFilteredList = answer.filter(purchaseOrder => purchaseOrder.seller.companyIdentifier == sellerIdentifier);
+      purchaseOrderFilteredList = purchaseOrderFilteredList.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED')
       this.purchaseOrdersDataSource = new MatTableDataSource<OrderResponse>(purchaseOrderFilteredList);
     });
 
@@ -81,11 +81,29 @@ export class CreateInvoiceComponent {
   }
 
   addItem() {
-
     if (Object.keys(this.orderForm.value.item).length != 0) {
-      this.invoiceItemList.push(this.orderForm.value.item)
+      const newItem = Object.assign({}, this.orderForm.value.item);
+      newItem.quantity = this.orderForm.value.quantity;
+
+      this.appendItem(this.invoiceItemList, newItem);
     }
     this.itemsTableDataSource.data = this.invoiceItemList;
+  }
+
+
+  appendItem(existingItems: Item[], newItem: Item) {
+    let alreadyExistent: boolean = false;
+
+    existingItems.forEach(item => {
+      if (item.description == newItem.description) {
+        alreadyExistent = true;
+        item.quantity! = item.quantity! + newItem.quantity!;
+      }
+    })
+
+    if (alreadyExistent == false) {
+      existingItems.push(newItem);
+    }
   }
 
   onSubmit() {
@@ -100,7 +118,7 @@ export class CreateInvoiceComponent {
       const invoiceDPO: InvoiceDPO = new InvoiceDPO(newInvoice.buyer.companyIdentifier, newInvoice.seller.companyIdentifier, this.invoiceItemList);
 
       this.invoiceService.createInvoice(invoiceDPO).subscribe(response => {
-         console.log(response)
+        console.log(response)
         this.router.navigateByUrl('/invoices/view/' + response.identifier);
       }
       )
