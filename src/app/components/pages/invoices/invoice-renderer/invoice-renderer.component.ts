@@ -44,7 +44,7 @@ export class InvoiceRenderer {
       this.invoiceItemList = this.individualInvoice.items;
       this.itemListDataSource.data = this.invoiceItemList;
       this.isLoaded = true;
-      this.totalAmount=answer.totalAmount;
+      this.totalAmount = answer.totalAmount;
     });
 
   }
@@ -66,22 +66,23 @@ export class InvoiceRenderer {
       const newItem = this.itemsForm.value.item;
       newItem.quantity = this.itemsForm.value.quantity;
 
-      this.invoiceItemList.push(newItem)
+      this.invoiceItemList.push(this.itemsForm.value.item)
       this.itemListDataSource.data = this.invoiceItemList;
-      this.totalAmount=this.computeTotalAmount(this.invoiceItemList);
+      this.totalAmount = this.computeTotalAmount(this.invoiceItemList);
     }
   }
 
-  changeStatus(invoiceStatus:string) {
 
-    this.individualInvoice.items=this.invoiceItemList;
-    this.individualInvoice.invoiceStatus=invoiceStatus;
+  changeStatus(invoiceStatus: string) {
 
-      this.invoiceService.updateInvoice(this.individualInvoice.identifier, this.individualInvoice).subscribe(response => {
-        this.itemsForm.reset(); 
-        this.individualInvoice = response;
-      }
-      );
+    this.individualInvoice.items = this.invoiceItemList;
+    this.individualInvoice.invoiceStatus = invoiceStatus;
+
+    this.invoiceService.updateInvoice(this.individualInvoice.identifier, this.individualInvoice).subscribe(response => {
+      this.itemsForm.reset();
+      this.individualInvoice = response;
+    }
+    );
 
   }
 
@@ -92,7 +93,7 @@ export class InvoiceRenderer {
 
       this.invoiceItemList.splice(itemIndex, 1);
       this.itemListDataSource.data = this.invoiceItemList;
-      this.totalAmount=this.computeTotalAmount(this.invoiceItemList);
+      this.totalAmount = this.computeTotalAmount(this.invoiceItemList);
     }
   }
 
@@ -100,7 +101,7 @@ export class InvoiceRenderer {
     this.displayForm = !this.displayForm;
   }
 
-  computeTotalAmount(items: Item[]): number{
+  computeTotalAmount(items: Item[]): number {
     let amount = 0;
 
     items.forEach(item => {
