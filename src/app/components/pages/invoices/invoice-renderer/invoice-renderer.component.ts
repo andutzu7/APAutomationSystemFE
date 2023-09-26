@@ -63,15 +63,30 @@ export class InvoiceRenderer {
   addItem() {
 
     if (Object.keys(this.itemsForm.value.item).length != 0) {
-      const newItem = this.itemsForm.value.item;
+      const newItem = Object.assign({}, this.itemsForm.value.item);
       newItem.quantity = this.itemsForm.value.quantity;
 
-      this.invoiceItemList.push(this.itemsForm.value.item)
+      this.appendItem(this.invoiceItemList, newItem);
+
       this.itemListDataSource.data = this.invoiceItemList;
       this.totalAmount = this.computeTotalAmount(this.invoiceItemList);
     }
   }
 
+  appendItem(existingItems: Item[], newItem: Item) {
+    let alreadyExistent: boolean = false;
+
+    existingItems.forEach(item => {
+      if (item.description == newItem.description) {
+        alreadyExistent = true;
+        item.quantity! = item.quantity! + newItem.quantity!;
+      }
+    })
+
+    if (alreadyExistent == false) {
+      existingItems.push(newItem);
+    }
+  }
 
   changeStatus(invoiceStatus: string) {
 
