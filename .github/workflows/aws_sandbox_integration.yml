@@ -35,7 +35,7 @@ jobs:
       - name: chmod
         run: chmod -R +x ./.github
 
-      - name: Build and Package Maven
+      - name: Build 
         id: package
         run: $GITHUB_WORKSPACE/.github/scripts/build.sh
 
