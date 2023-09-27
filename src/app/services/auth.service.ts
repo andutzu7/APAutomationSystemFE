@@ -7,6 +7,8 @@ import { RegisterRequest } from '../models/register';
 import { Router } from '@angular/router';
 import decode from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
+import { User } from '../models/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +63,15 @@ export class AuthService {
     window.location.reload()
   }
 
+  getUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>(
+      `${ApiPaths.base}/${ApiPaths.authMapping}`
+    )
+  }
+
+  deleteUser(identifier: string){
+    return this.httpClient.delete(`${ApiPaths.base}/${ApiPaths.authMapping}/${identifier}`);
+  }
 
   private setSession(loginResponse: LoginResponse) {
     console.log(loginResponse)
@@ -78,7 +89,7 @@ export class AuthService {
 
 
   public getUserRoles(): string[] {
-    if(this.isLoggedIn$){
+    if (this.isLoggedIn$) {
       const tokenPayload: { [key: string]: any } = this.getUserToken();
       const userRoles: string[] = tokenPayload['roles'];
 
@@ -89,8 +100,8 @@ export class AuthService {
   }
 
 
-  public getUserCompany(): string  {
-    if(this.isLoggedIn$){
+  public getUserCompany(): string {
+    if (this.isLoggedIn$) {
       const tokenPayload: { [key: string]: any } = this.getUserToken();
       const companyIdentifier: string = tokenPayload['company'];
 
@@ -101,7 +112,7 @@ export class AuthService {
   }
 
   public getUsername(): string {
-    if(this.isLoggedIn$){
+    if (this.isLoggedIn$) {
       const tokenPayload: { [key: string]: any } = this.getUserToken();
       const username: string = tokenPayload['sub'];
 
@@ -112,7 +123,7 @@ export class AuthService {
   }
 
 
-  private getUserToken():{ [key: string]: any }{
+  private getUserToken(): { [key: string]: any } {
     const token = localStorage.getItem('jwt');
 
     if (!token) {

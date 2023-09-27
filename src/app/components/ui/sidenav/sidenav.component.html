@@ -27,6 +27,17 @@
     </div>
 </mat-expansion-panel>
 
-<button mat-raised-button *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))" mat-raised-button
+<!-- <button mat-raised-button *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))" mat-raised-button
     routerLink="/register">Register new user
-</button>
+</button> -->
+<!-- <button mat-raised-button *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))" mat-raised-button
+    routerLink="/users">View all users
+</button> -->
+<div class="button-list" *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))">
+    <button mat-raised-button
+        routerLink="/register">Register new user
+    </button>
+    <button mat-raised-button
+        routerLink="/users">View all users
+    </button>
+</div>

@@ -1,0 +1,30 @@
+
+
+
+<mat-card>
+    <mat-card-title>All users</mat-card-title>
+    <mat-card-content>
+        <mat-accordion>
+            <mat-expansion-panel hideToggle *ngFor="let user of users" (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>User:&nbsp;</b> {{user.username}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <b>Company:&nbsp;</b>  {{user.company}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p><b>Roles:</b></p>
+                <ul>
+                    <li *ngFor="let role of user.roles" role="listitem">{{role}}</li>
+                </ul>
+
+                
+
+                <button mat-raised-button
+                    type="button" (click)="removeUser(user.identifier)">Remove user</button>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+</mat-card>
