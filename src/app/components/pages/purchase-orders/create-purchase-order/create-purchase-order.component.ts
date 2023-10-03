@@ -82,10 +82,16 @@ export class CreatePurchaseOrderComponent implements OnInit {
 
       const orderItems: Item[] = [newItem];
 
-      console.log("file: " + JSON.stringify(this.file))
-      const orderPayload: OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null, this.file)
-      console.log("orderPayload: " + JSON.stringify(orderPayload))
-      this.ordersService.createPurchaseOrder(orderPayload).subscribe(
+
+      const orderPayload: OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null)
+
+      let input = new FormData();
+      input.append('file', this.file!, this.file!.name);
+      input.append('order',new Blob([JSON.stringify(orderPayload)], {
+            type: "application/json"
+        }));
+
+      this.ordersService.createPurchaseOrder(input).subscribe(
         response => {
           this.router.navigateByUrl('/purchase-orders/' + response.identifier);
         }

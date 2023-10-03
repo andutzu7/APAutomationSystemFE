@@ -8,15 +8,13 @@ export class OrderRequest {
     items: Item[];
     orderStatus: any;
     version?: number;
-    file: File | null;
 
-    constructor(identifier: any, buyer: string, seller: string, items: Item[], orderStatus: any, file: File | null){
+    constructor(identifier: any, buyer: string, seller: string, items: Item[], orderStatus: any){
         this.identifier = identifier;
         this.buyer = buyer;
         this.seller = seller;
         this.items = items;
         this.orderStatus = orderStatus;
-        this.file = file;
     }
 }
 
