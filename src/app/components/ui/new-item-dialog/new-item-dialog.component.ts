@@ -101,7 +101,8 @@ export class NewItemDialogComponent {
       existingOrder.buyer.companyIdentifier,
       existingOrder.seller.companyIdentifier,
       updatedOrderItems,
-      existingOrder.orderStatus
+      existingOrder.orderStatus,
+      null
     )
 
     return orderPayload;

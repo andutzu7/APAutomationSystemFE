@@ -123,7 +123,8 @@ export class ViewPurchaseOrderComponent {
       this.purchaseOrder.buyer.companyIdentifier,
       this.purchaseOrder.seller.companyIdentifier,
       this.purchaseOrder.items,
-      orderStatus
+      orderStatus,
+      null
     )
     orderPayload.version = this.purchaseOrder.version;
 
@@ -139,7 +140,8 @@ export class ViewPurchaseOrderComponent {
       this.purchaseOrder.buyer.companyIdentifier,
       this.purchaseOrder.seller.companyIdentifier,
       updatedItems,
-      this.purchaseOrder.orderStatus
+      this.purchaseOrder.orderStatus,
+      null
     );
 
     updatedOrderPayload.version = this.purchaseOrder.version;

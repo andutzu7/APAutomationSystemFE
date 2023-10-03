@@ -4,7 +4,7 @@
     </mat-card-title>
 
     <mat-card-content>
-        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
             <mat-form-field>
                 <mat-label>Buyer</mat-label>
                 <mat-select formControlName="buyer" aria-required="true">
@@ -21,7 +21,7 @@
             </mat-form-field>
 
             <mat-card>
-                
+
                 <mat-form-field>
                     <mat-label>Item</mat-label>
                     <mat-select formControlName="item">
@@ -34,6 +34,12 @@
                     <input formControlName="quantity" matInput type="number" placeholder="Item quantity" min="1"
                         max="10">
                 </mat-form-field>
+            </mat-card>
+
+            <mat-card>
+                <mat-label>File</mat-label>
+                <!-- <input type="file" (click)="onFileSelected()"> -->
+                <input type="file" class="file-input" (change)="onFileSelected($event)">
             </mat-card>
 
             <div class="button">

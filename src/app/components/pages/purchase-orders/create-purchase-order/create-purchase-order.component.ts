@@ -23,6 +23,8 @@ export class CreatePurchaseOrderComponent implements OnInit {
   orderForm !: FormGroup
   error: boolean = false;
 
+  file: File | null = null;
+
   constructor(
     private router: Router,
     private companiesService: CompaniesService,
@@ -60,6 +62,11 @@ export class CreatePurchaseOrderComponent implements OnInit {
       });
   }
 
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    console.log(typeof (event.target.files[0]))
+    console.log(this.file)
+  }
 
   onSubmit() {
     const newOrder = this.orderForm.value;
@@ -74,8 +81,10 @@ export class CreatePurchaseOrderComponent implements OnInit {
       newItem.quantity = newOrder.quantity;
 
       const orderItems: Item[] = [newItem];
-      const orderPayload: OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null)
 
+      console.log("file: " + JSON.stringify(this.file))
+      const orderPayload: OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null, this.file)
+      console.log("orderPayload: " + JSON.stringify(orderPayload))
       this.ordersService.createPurchaseOrder(orderPayload).subscribe(
         response => {
           this.router.navigateByUrl('/purchase-orders/' + response.identifier);
