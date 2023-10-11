@@ -38,7 +38,7 @@
 
             <mat-card>
                 <mat-label>File</mat-label>
-                <input type="file" class="file-input" (change)="onFileSelected($event)">
+                <input type="file" class="file-input" (change)="onFileSelected($event)" required accept=".pdf">
             </mat-card>
 
             <div class="button">
@@ -51,15 +51,5 @@
                 </p>
             </div>
         </form>
-
-
-        <!-- <mat-card *ngIf="error==true">
-            <mat-card-header>
-                <p>
-                    Please introduce all required fields.
-                </p>
-            </mat-card-header>
-        </mat-card> -->
-
     </mat-card-content>
 </mat-card>

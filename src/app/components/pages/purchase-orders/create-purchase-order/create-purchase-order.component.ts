@@ -71,7 +71,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
   onSubmit() {
     const newOrder = this.orderForm.value;
 
-    if (newOrder.buyer == '' || newOrder.seller == '' || newOrder.item.description == null) {
+    if (newOrder.buyer == '' || newOrder.seller == '' || newOrder.item.description == null || this.file == null) {
       this.error = true;
     }
     else {
