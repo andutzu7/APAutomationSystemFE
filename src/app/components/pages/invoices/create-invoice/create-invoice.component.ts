@@ -26,6 +26,8 @@ export class CreateInvoiceComponent {
   public itemsTableDataSource = new MatTableDataSource();
   public selectedOrder!: OrderResponse;
 
+  file: File | null = null;
+
 
   public columnsToDisplay = ['itemNameColumn', 'priceColumn', 'itemQuantityColumn', 'deleteColumn'];
   displayedColumns: string[] = ['identifier', 'buyer', 'seller', 'status'];
@@ -115,9 +117,16 @@ export class CreateInvoiceComponent {
     else {
       this.error = false;
 
+
       const invoiceDPO: InvoiceDPO = new InvoiceDPO(newInvoice.buyer.companyIdentifier, newInvoice.seller.companyIdentifier, this.invoiceItemList);
 
-      this.invoiceService.createInvoice(invoiceDPO).subscribe(response => {
+      let input = new FormData();
+      input.append('invoiceDPO',new Blob([JSON.stringify(invoiceDPO)], {
+            type: "application/json"
+        }));
+      input.append('file', this.file!, this.file!.name);
+
+      this.invoiceService.createInvoice(input).subscribe(response => {
         console.log(response)
         this.router.navigateByUrl('/invoices/view/' + response.identifier);
       }
@@ -148,5 +157,9 @@ export class CreateInvoiceComponent {
       this.itemsTableDataSource.data = this.invoiceItemList;
     }
   }
-
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    console.log(typeof (event.target.files[0]))
+    console.log(this.file)
+  }
 }

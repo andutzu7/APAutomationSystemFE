@@ -78,6 +78,10 @@
                     </mat-card>
 
 
+            <mat-card>
+                <mat-label>File</mat-label>
+                <input type="file" class="file-input" (change)="onFileSelected($event)">
+            </mat-card>
                     <div class="button">
                         <button mat-raised-button color="primary" mat-button type="submit">Submit</button>
                     </div>

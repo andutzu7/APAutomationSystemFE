@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrderRequest, OrderResponse } from 'src/app/models/order';
 import { OrdersService } from 'src/app/services/orders.service';
+import { FileTransferService } from 'src/app/services/filetransfer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Item } from '../../../../models/item';
 import { NewItemDialogComponent } from '../../../ui/new-item-dialog/new-item-dialog.component';
@@ -20,6 +21,7 @@ export class ViewPurchaseOrderComponent {
 
   constructor(private route: ActivatedRoute,
     private ordersService: OrdersService,
+    private fileTrnasferService: FileTransferService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private authService: AuthService
@@ -118,7 +120,7 @@ export class ViewPurchaseOrderComponent {
   }
 
   downloadOrder(): void{
-    this.ordersService.getOrderFile(this.purchaseOrder.uri).subscribe(
+    this.fileTrnasferService.getFile(this.purchaseOrder.uri).subscribe(
       {
         next: (resp) => {
           const file = new Blob([resp], {type: 'application/pdf'});

@@ -42,15 +42,4 @@ export class OrdersService {
         )
     }
 
-    getOrderFile(fileName: string): Observable<File> {
-        const headers = new HttpHeaders().set('Content-Type', 'application/pdf; charset=utf-8');
-        const requestOptions: Object = {
-          headers: headers,
-          responseType: 'blob'
-        }
-
-        return this.httpClient.get<File>(
-            `${ApiPaths.base}/files/${fileName}`, requestOptions
-        )
-    }
 }
