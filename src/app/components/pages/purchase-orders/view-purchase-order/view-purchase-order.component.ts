@@ -117,6 +117,20 @@ export class ViewPurchaseOrderComponent {
     );
   }
 
+  downloadOrder(): void{
+    this.ordersService.getOrderFile(this.purchaseOrder.uri).subscribe(
+      {
+        next: (resp) => {
+          const file = new Blob([resp], {type: 'application/pdf'});
+          const fileURL = URL.createObjectURL(file);
+          window.open(fileURL, '_blank', 'width=1000, height=800');
+          console.log(resp)
+       
+        },
+      }
+    );
+  }
+
   private createUpdateOrderRequest(orderStatus: String): OrderRequest {
     const orderPayload: OrderRequest = new OrderRequest(
       this.purchaseOrder.identifier,

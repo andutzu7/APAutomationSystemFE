@@ -26,9 +26,9 @@
 
             </mat-expansion-panel>
 
-
             <div class="button">
-                <a [href]="purchaseOrder.uri" mat-raised-button color="primary" type="button">Download pdf</a>
+                <button  mat-raised-button color="primary" type="button"
+                (click)="downloadOrder()">Download pdf</button>
             </div>
             <div class="button">
                 <button  mat-raised-button color="primary" [disabled]="purchaseOrder.orderStatus !== 'CREATED'" type="button"
