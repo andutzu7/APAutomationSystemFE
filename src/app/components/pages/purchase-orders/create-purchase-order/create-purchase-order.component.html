@@ -21,7 +21,7 @@
             </mat-form-field>
 
             <mat-card>
-                
+
                 <mat-form-field>
                     <mat-label>Item</mat-label>
                     <mat-select formControlName="item">
@@ -36,6 +36,11 @@
                 </mat-form-field>
             </mat-card>
 
+            <mat-card>
+                <mat-label>File</mat-label>
+                <input type="file" class="file-input" (change)="onFileSelected($event)" required accept=".pdf">
+            </mat-card>
+
             <div class="button">
                 <button type="submit" mat-raised-button color="primary">Create</button>
             </div>
@@ -46,15 +51,5 @@
                 </p>
             </div>
         </form>
-
-
-        <!-- <mat-card *ngIf="error==true">
-            <mat-card-header>
-                <p>
-                    Please introduce all required fields.
-                </p>
-            </mat-card-header>
-        </mat-card> -->
-
     </mat-card-content>
 </mat-card>

@@ -23,6 +23,8 @@ export class CreatePurchaseOrderComponent implements OnInit {
   orderForm !: FormGroup
   error: boolean = false;
 
+  file: File | null = null;
+
   constructor(
     private router: Router,
     private companiesService: CompaniesService,
@@ -60,11 +62,16 @@ export class CreatePurchaseOrderComponent implements OnInit {
       });
   }
 
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    console.log(typeof (event.target.files[0]))
+    console.log(this.file)
+  }
 
   onSubmit() {
     const newOrder = this.orderForm.value;
 
-    if (newOrder.buyer == '' || newOrder.seller == '' || newOrder.item.description == null) {
+    if (newOrder.buyer == '' || newOrder.seller == '' || newOrder.item.description == null || this.file == null) {
       this.error = true;
     }
     else {
@@ -74,9 +81,17 @@ export class CreatePurchaseOrderComponent implements OnInit {
       newItem.quantity = newOrder.quantity;
 
       const orderItems: Item[] = [newItem];
+
+
       const orderPayload: OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null)
 
-      this.ordersService.createPurchaseOrder(orderPayload).subscribe(
+      let input = new FormData();
+      input.append('file', this.file!, this.file!.name);
+      input.append('order',new Blob([JSON.stringify(orderPayload)], {
+            type: "application/json"
+        }));
+
+      this.ordersService.createPurchaseOrder(input).subscribe(
         response => {
           this.router.navigateByUrl('/purchase-orders/' + response.identifier);
         }

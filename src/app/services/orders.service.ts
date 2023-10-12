@@ -9,13 +9,19 @@ import { ApiPaths } from "src/assets/api-paths";
 })
 export class OrdersService {
     constructor(private httpClient: HttpClient) { }
-
-    createPurchaseOrder(orderRequest: OrderRequest): Observable<OrderResponse> {
+    createPurchaseOrder(orderRequest: FormData): Observable<OrderResponse> {
         return this.httpClient.post<OrderResponse>(
             `${ApiPaths.base}/${ApiPaths.ordersMapping}`,
             orderRequest
         )
     }
+
+    // createPurchaseOrder(orderRequest: OrderRequest): Observable<OrderResponse> {
+    //     return this.httpClient.post<OrderResponse>(
+    //         `${ApiPaths.base}/${ApiPaths.ordersMapping}`,
+    //         orderRequest
+    //     )
+    // }
 
     updatePurchaseOrder(identifier: string, orderRequest: OrderRequest) {
         return this.httpClient.put<OrderResponse>(
