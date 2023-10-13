@@ -83,7 +83,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
       const orderItems: Item[] = [newItem];
 
 
-      const orderPayload: OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null)
+      const orderPayload: OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null, null)
 
       let input = new FormData();
       input.append('file', this.file!, this.file!.name);

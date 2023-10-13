@@ -8,13 +8,15 @@ export class OrderRequest {
     items: Item[];
     orderStatus: any;
     version?: number;
+    uri!: string | null;
 
-    constructor(identifier: any, buyer: string, seller: string, items: Item[], orderStatus: any) {
+    constructor(identifier: any, buyer: string, seller: string, items: Item[], orderStatus: any, uri: string | null) {
         this.identifier = identifier;
         this.buyer = buyer;
         this.seller = seller;
         this.items = items;
         this.orderStatus = orderStatus;
+        this.uri = uri;
     }
 }
 
