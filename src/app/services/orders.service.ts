@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { OrderRequest, OrderResponse } from "../models/order";
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { ApiPaths } from "src/assets/api-paths";
 
@@ -41,4 +41,5 @@ export class OrdersService {
             `${ApiPaths.base}/${ApiPaths.ordersMapping}`
         )
     }
+
 }

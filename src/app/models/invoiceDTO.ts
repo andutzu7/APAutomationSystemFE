@@ -11,6 +11,7 @@ export class InvoiceDTO{
     totalAmount!: number;
     invoiceStatus!: string;
     version!: number;
+    uri!: string;
 
     constructor(buyer: Company, seller: Company, items: Item[]){
         this.buyer = buyer;

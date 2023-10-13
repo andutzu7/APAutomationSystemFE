@@ -7,6 +7,7 @@ import { ItemsService } from 'src/app/services/items.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { FileTransferService } from 'src/app/services/filetransfer.service';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -28,6 +29,7 @@ export class InvoiceRenderer {
   constructor(private route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private itemsService: ItemsService,
+    private fileTransferService: FileTransferService,
   ) { }
 
   public columnsToDisplay = ['descriptionColumn', 'quantityColumn', 'priceColumn', 'deleteColumn'];
@@ -125,5 +127,18 @@ export class InvoiceRenderer {
 
     return amount;
   }
-}
 
+  downloadInvoice(): void{
+    this.fileTransferService.getFile(this.individualInvoice.uri).subscribe(
+      {
+        next: (resp) => {
+          const file = new Blob([resp], {type: 'application/pdf'});
+          const fileURL = URL.createObjectURL(file);
+          window.open(fileURL, '_blank', 'width=1000, height=800');
+          console.log(resp)
+       
+        },
+      }
+    );
+  }
+}

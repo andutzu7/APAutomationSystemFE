@@ -27,6 +27,7 @@ export class InvoiceService {
         return this.httpClient.delete(`${ApiPaths.base}/${ApiPaths.getInvoicesMapping}/${uuid}`);
 
     }
+
     createInvoice(invoiceData: FormData) {
 
         return this.httpClient.post<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.postInvoicesMapping}`,invoiceData);

@@ -28,8 +28,8 @@
         <ng-container matColumnDef="deleteColumn">
           <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let item">
-            <button mat-raised-button [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" type="button" mat-button
-              (click)="removeItem(item)">Remove</button>
+            <button mat-raised-button [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" type="button"
+              mat-button (click)="removeItem(item)">Remove</button>
           </td>
         </ng-container>
       </table>
@@ -53,25 +53,29 @@
             </mat-form-field>
           </mat-card>
 
-          <button  mat-raised-button color="primary"  type='button' (click)="addItem()">Add</button>
+          <button mat-raised-button color="primary" type='button' (click)="addItem()">Add</button>
 
         </form>
       </div>
 
-      <div >
+      <div>
         <b>Total amount:</b>&nbsp; <span matPrefix>$</span> {{totalAmount}}
-    </div>
-      <button mat-raised-button color="primary" [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button type="button"
-        (click)="toggleForm()">Add
+      </div>
+      <button mat-raised-button color="primary" [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button
+        type="button" (click)="toggleForm()">Add
         more items</button>
 
 
+      <div class="button">
+        <button mat-raised-button color="primary" type="button" (click)="downloadInvoice()">Download pdf</button>
+      </div>
       <mat-card>
-        <button class="button" mat-raised-button color="primary" [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button type="button"
+        <button class="button" mat-raised-button color="primary"
+          [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button type="button"
           (click)="changeStatus('SENT')" routerLink="/invoices/view/{{individualInvoice.identifier}}">Send
           invoice</button>
-        <button mat-raised-button color="primary" [disabled]="individualInvoice.invoiceStatus !== 'SENT'" mat-button type="button"
-          (click)="changeStatus('PAID')" routerLink="/invoices/view/{{individualInvoice.identifier}}">Pay
+        <button mat-raised-button color="primary" [disabled]="individualInvoice.invoiceStatus !== 'SENT'" mat-button
+          type="button" (click)="changeStatus('PAID')" routerLink="/invoices/view/{{individualInvoice.identifier}}">Pay
           invoice</button>
       </mat-card>
     </div>
