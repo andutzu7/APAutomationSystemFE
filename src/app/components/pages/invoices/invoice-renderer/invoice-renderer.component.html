@@ -62,13 +62,9 @@
         <b>Total amount:</b>&nbsp; <span matPrefix>$</span> {{totalAmount}}
       </div>
       <button mat-raised-button color="primary" [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button
-        type="button" (click)="toggleForm()">Add
-        more items</button>
+        type="button" (click)="toggleForm()">Add more items</button>
 
-
-      <div class="button">
-        <button mat-raised-button color="primary" type="button" (click)="downloadInvoice()">Download pdf</button>
-      </div>
+      <button mat-raised-button color="primary" type="button" id="down_pdf" (click)="downloadInvoice()">Download pdf</button>
       <mat-card>
         <button class="button" mat-raised-button color="primary"
           [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button type="button"

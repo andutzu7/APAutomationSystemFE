@@ -2,7 +2,7 @@
 <div class="example-container">
     <app-toolbar [sidenav]="drawer"></app-toolbar>
 
-    <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav-container class="example-sidenav-container" [hasBackdrop]="true" >
         <mat-sidenav #drawer mode="side" opened="true">
             <app-sidenav></app-sidenav>
         </mat-sidenav>

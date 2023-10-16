@@ -1,7 +1,7 @@
 export enum ApiPaths {
     //base = 'https://api.pseudot.org/api',
-    base = 'http://Backen-LoadB-trxy0ysamSy6-1916069205.us-east-1.elb.amazonaws.com/api',
-    //base = 'http://localhost:8080/api',
+    base = 'http://Backen-LoadB-iM3Wx98oJkAh-609797833.us-east-1.elb.amazonaws.com/api',
+    // base = 'http://localhost:8080/api',
     getInvoicesMapping = 'invoices',
     postInvoicesMapping = 'invoices',
     putInvoicesMapping = 'invoices',
