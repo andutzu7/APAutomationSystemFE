@@ -16,7 +16,6 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./invoice-renderer.component.css'],
 })
 export class InvoiceRenderer {
-
   public individualInvoice!: InvoiceDTO
   public isLoaded: boolean = false;
   items: Item[] = [];
@@ -25,15 +24,13 @@ export class InvoiceRenderer {
   itemsForm!: FormGroup;
   public itemListDataSource = new MatTableDataSource();
   totalAmount: number = 0;
+  public columnsToDisplay = ['descriptionColumn', 'quantityColumn', 'priceColumn', 'deleteColumn'];
 
   constructor(private route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private itemsService: ItemsService,
     private fileTransferService: FileTransferService,
   ) { }
-
-  public columnsToDisplay = ['descriptionColumn', 'quantityColumn', 'priceColumn', 'deleteColumn'];
-
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -48,7 +45,6 @@ export class InvoiceRenderer {
       this.isLoaded = true;
       this.totalAmount = answer.totalAmount;
     });
-
   }
 
   private createForm() {
@@ -57,13 +53,12 @@ export class InvoiceRenderer {
       quantity: new FormControl<number>(1, [Validators.required])
     });
   }
-  getInvoice(id: any) {
 
+  getInvoice(id: any) {
     return this.invoiceService.getInvoice(id);
   }
 
   addItem() {
-
     if (Object.keys(this.itemsForm.value.item).length != 0) {
       const newItem = Object.assign({}, this.itemsForm.value.item);
       newItem.quantity = this.itemsForm.value.quantity;
@@ -100,11 +95,9 @@ export class InvoiceRenderer {
       this.individualInvoice = response;
     }
     );
-
   }
 
   removeItem(item: Item) {
-
     const itemIndex = this.invoiceItemList.indexOf(item)
     if (itemIndex != -1) {
 
@@ -128,15 +121,14 @@ export class InvoiceRenderer {
     return amount;
   }
 
-  downloadInvoice(): void{
+  downloadInvoice(): void {
     this.fileTransferService.getFile(this.individualInvoice.uri).subscribe(
       {
         next: (resp) => {
-          const file = new Blob([resp], {type: 'application/pdf'});
+          const file = new Blob([resp], { type: 'application/pdf' });
           const fileURL = URL.createObjectURL(file);
           window.open(fileURL, '_blank', 'width=1000, height=800');
           console.log(resp)
-       
         },
       }
     );

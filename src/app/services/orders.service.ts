@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { OrderRequest, OrderResponse } from "../models/order";
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { ApiPaths } from "src/assets/api-paths";
 
@@ -15,13 +15,6 @@ export class OrdersService {
             orderRequest
         )
     }
-
-    // createPurchaseOrder(orderRequest: OrderRequest): Observable<OrderResponse> {
-    //     return this.httpClient.post<OrderResponse>(
-    //         `${ApiPaths.base}/${ApiPaths.ordersMapping}`,
-    //         orderRequest
-    //     )
-    // }
 
     updatePurchaseOrder(identifier: string, orderRequest: OrderRequest) {
         return this.httpClient.put<OrderResponse>(
@@ -41,5 +34,4 @@ export class OrdersService {
             `${ApiPaths.base}/${ApiPaths.ordersMapping}`
         )
     }
-
 }

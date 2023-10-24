@@ -20,10 +20,7 @@ export class AuthService {
   private userRolesSubject = new BehaviorSubject<string[]>([]);
   userRoles$ = this.userRolesSubject.asObservable();
 
-
-  constructor(private httpClient: HttpClient, private router: Router) {
-  }
-
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   updateLoggedInStatus(status: boolean) {
     this.isLoggedInSubject.next(status);
@@ -69,7 +66,7 @@ export class AuthService {
     )
   }
 
-  deleteUser(identifier: string){
+  deleteUser(identifier: string) {
     return this.httpClient.delete(`${ApiPaths.base}/${ApiPaths.authMapping}/${identifier}`);
   }
 
@@ -77,7 +74,6 @@ export class AuthService {
     console.log(loginResponse)
     localStorage.setItem('jwt', loginResponse.jwsToken)
   }
-
 
   public isUserLoggedIn(): boolean {
     if (localStorage.getItem('jwt')) {
@@ -87,7 +83,6 @@ export class AuthService {
     return false;
   }
 
-
   public getUserRoles(): string[] {
     if (this.isLoggedIn$) {
       const tokenPayload: { [key: string]: any } = this.getUserToken();
@@ -95,7 +90,6 @@ export class AuthService {
 
       return userRoles;
     }
-
     return [];
   }
 
@@ -107,7 +101,6 @@ export class AuthService {
 
       return companyIdentifier;
     }
-
     return "";
   }
 
@@ -118,10 +111,8 @@ export class AuthService {
 
       return username;
     }
-
     return ""
   }
-
 
   private getUserToken(): { [key: string]: any } {
     const token = localStorage.getItem('jwt');
@@ -134,5 +125,3 @@ export class AuthService {
     return tokenPayload;
   }
 }
-
-

@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ViewUsersComponent {
   panelOpenState = false;
-  users: User[]= [];
+  users: User[] = [];
 
   constructor(
     private authService: AuthService,
@@ -28,14 +28,14 @@ export class ViewUsersComponent {
       });
   }
 
-  removeUser(identifier: string){
-    this.authService.deleteUser(identifier).subscribe(answer => {
+  removeUser(identifier: string) {
+    this.authService.deleteUser(identifier).subscribe(() => {
       this.showSuccess("Successfully deleted!")
     });
   }
 
   showSuccess(successMessage: string) {
-    let snackBarRef = this.snackBar.open(successMessage,  "OK");
+    let snackBarRef = this.snackBar.open(successMessage, "OK");
 
     snackBarRef.onAction().subscribe(() => {
       window.location.reload()

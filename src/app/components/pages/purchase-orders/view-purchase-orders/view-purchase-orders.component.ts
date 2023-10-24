@@ -26,5 +26,4 @@ export class ViewPurchaseOrdersComponent {
         this.dataSource = new MatTableDataSource<OrderResponse>(orders);
       });
   }
-
 }

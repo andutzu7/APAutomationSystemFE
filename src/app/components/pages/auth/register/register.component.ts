@@ -12,8 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  loading: boolean= false;
-  
+  loading: boolean = false;
   registerForm: FormGroup;
   companies!: Company[];
   roles!: string[];
@@ -61,24 +60,22 @@ export class RegisterComponent {
     let userRoles: string[] = this.registerForm.value.userRoles;
 
     this.authService
-    .register(username, password, companyIdentifier, userRoles)
-    .subscribe({
-      next: () => {
-        console.log("Successfully registered new user")
-        this.showSuccess("Successfully registered!")
-      },
-      error: (e) =>{
-        console.log(e.error)
-      }
-    })
+      .register(username, password, companyIdentifier, userRoles)
+      .subscribe({
+        next: () => {
+          this.showSuccess("Successfully registered!")
+        },
+        error: (e) => {
+          console.log(e.error)
+        }
+      })
   }
 
   showSuccess(successMessage: string) {
-    let snackBarRef = this.snackBar.open(successMessage,  "OK");
+    let snackBarRef = this.snackBar.open(successMessage, "OK");
 
     snackBarRef.onAction().subscribe(() => {
       window.location.reload()
     })
   }
-
 }

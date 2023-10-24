@@ -39,15 +39,15 @@ export class ErrorsInterceptor implements HttpInterceptor {
             if (error.error.error){
               this.showError(error.error.error, "CLOSE")
             }
-            else{
+            else if(error.status >= 500){
               this.showError("Unknown error", "OK")
             }
-            
+            else{
+              this.showError(error.status.toString(), "OK")
+            } 
           }
         }
-
         return throwError(error);
-
       })
     )
   }
@@ -65,6 +65,5 @@ export class ErrorsInterceptor implements HttpInterceptor {
         this.location.back()
       })
     }
-
   }
 }

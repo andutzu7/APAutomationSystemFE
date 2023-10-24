@@ -26,14 +26,12 @@ export class ToolbarComponent {
         this.companyService.getCompany(companyUUID).subscribe(
           {
             next: (resp) => {
-              this.company = " : "+resp.name;
+              this.company = " : " + resp.name;
             },
           }
         );
       }
-
-    }
-    )
+    })
   }
 
   logout() {

@@ -11,12 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   loginForm !: FormGroup
-  loading: boolean= false;
+  loading: boolean = false;
 
   constructor(
     private router: Router,
     private authService: AuthService) { }
-
 
   ngOnInit(): void {
     this.createForm();
@@ -29,7 +28,6 @@ export class LoginComponent {
     });
   }
 
-
   submit() {
     if (this.loginForm.valid) {
       this.loading = true;
@@ -40,15 +38,12 @@ export class LoginComponent {
         .login(username, password)
         .subscribe({
           next: () => {
-            console.log("User is logged in")
             this.router.navigateByUrl('/');
           },
-          error: (e) =>{
+          error: (e) => {
             console.log(e)
           }
         })
-
     }
   }
-
 }

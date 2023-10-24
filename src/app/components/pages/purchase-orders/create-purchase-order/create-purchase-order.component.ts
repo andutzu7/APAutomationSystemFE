@@ -19,10 +19,8 @@ export class CreatePurchaseOrderComponent implements OnInit {
   companies!: Company[];
   items!: Item[];
   buyerCompany!: Company;
-
   orderForm !: FormGroup
   error: boolean = false;
-
   file: File | null = null;
 
   constructor(
@@ -33,14 +31,11 @@ export class CreatePurchaseOrderComponent implements OnInit {
     private authService: AuthService
   ) { }
 
-
   ngOnInit(): void {
     this.getCompanies();
     this.items = this.itemsService.getAllItems()
-
     this.createForm();
   }
-
 
   private createForm() {
     this.orderForm = new FormGroup({
@@ -50,7 +45,6 @@ export class CreatePurchaseOrderComponent implements OnInit {
       quantity: new FormControl<number>(1, [Validators.required])
     });
   }
-
 
   getCompanies(): void {
     this.companiesService.getCompanies().subscribe(
@@ -81,15 +75,13 @@ export class CreatePurchaseOrderComponent implements OnInit {
       newItem.quantity = newOrder.quantity;
 
       const orderItems: Item[] = [newItem];
-
-
       const orderPayload: OrderRequest = new OrderRequest(null, newOrder.buyer, newOrder.seller, orderItems, null, null)
 
       let input = new FormData();
       input.append('file', this.file!, this.file!.name);
-      input.append('order',new Blob([JSON.stringify(orderPayload)], {
-            type: "application/json"
-        }));
+      input.append('order', new Blob([JSON.stringify(orderPayload)], {
+        type: "application/json"
+      }));
 
       this.ordersService.createPurchaseOrder(input).subscribe(
         response => {
@@ -97,6 +89,5 @@ export class CreatePurchaseOrderComponent implements OnInit {
         }
       )
     }
-
   }
 }

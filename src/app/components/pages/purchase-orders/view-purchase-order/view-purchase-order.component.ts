@@ -29,14 +29,12 @@ export class ViewPurchaseOrderComponent {
 
   ngOnInit(): void {
     this.getPurchaseOrder();
-    
-
     this.authService.userRoles$.subscribe((roles) => {
       this.userRoles = roles;
     });
   }
 
-  computeTotalAmount(items: Item[]): number{
+  computeTotalAmount(items: Item[]): number {
     let amount = 0;
 
     items.forEach(item => {
@@ -93,7 +91,7 @@ export class ViewPurchaseOrderComponent {
     );
   }
 
-  approveOrder(): void{
+  approveOrder(): void {
     const orderPayload: OrderRequest = this.createUpdateOrderRequest("APPROVED");
 
     this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
@@ -106,7 +104,7 @@ export class ViewPurchaseOrderComponent {
     );
   }
 
-  rejectOrder(): void{
+  rejectOrder(): void {
     const orderPayload: OrderRequest = this.createUpdateOrderRequest("REJECTED");
 
     this.ordersService.updatePurchaseOrder(this.purchaseOrder.identifier, orderPayload).subscribe(
@@ -119,15 +117,14 @@ export class ViewPurchaseOrderComponent {
     );
   }
 
-  downloadOrder(): void{
+  downloadOrder(): void {
     this.fileTrnasferService.getFile(this.purchaseOrder.uri).subscribe(
       {
         next: (resp) => {
-          const file = new Blob([resp], {type: 'application/pdf'});
+          const file = new Blob([resp], { type: 'application/pdf' });
           const fileURL = URL.createObjectURL(file);
           window.open(fileURL, '_blank', 'width=1000, height=800');
           console.log(resp)
-       
         },
       }
     );
@@ -170,6 +167,4 @@ export class ViewPurchaseOrderComponent {
       duration: 1000,
     });
   }
-
 }
-

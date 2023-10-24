@@ -1,9 +1,7 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { InvoiceDDO } from 'src/app/models/invoiceDDO';
 import { InvoiceDTO } from 'src/app/models/invoiceDTO';
 import { Output, EventEmitter } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -18,19 +16,14 @@ export class ViewInvoicesComponent {
   public invoiceDDOList!: InvoiceDDO[];
   public individualInvoice!: InvoiceDTO;
   public invoiceDataSource = new MatTableDataSource();
-
-
-  constructor(private invoiceService: InvoiceService,
-    private router: Router,
-    private dialog: MatDialog
-  ) { }
-
   public columnsToDisplay = ['idColumn', 'buyerColumn', 'sellerColumn', 'statusColumn', 'newTabColumn', 'deleteColumn'];
+
+  constructor(private invoiceService: InvoiceService) { }
 
   @Output() invoiceCommand = new EventEmitter<any>();
 
   ngOnInit() {
-  this.getInvoices();
+    this.getInvoices();
   }
 
   getInvoices() {
@@ -40,13 +33,12 @@ export class ViewInvoicesComponent {
     })
   }
 
-
   deleteInvoice(invoiceId: string) {
     this.invoiceService.deleteInvoice(invoiceId).subscribe(answer => {
 
-      this.invoiceDDOList=this.invoiceDDOList.filter((invoice)=>(invoice.identifier != invoiceId))
+      this.invoiceDDOList = this.invoiceDDOList.filter((invoice) => (invoice.identifier != invoiceId))
       //de filtrat lista
-      this.invoiceDataSource.data=this.invoiceDDOList;
+      this.invoiceDataSource.data = this.invoiceDDOList;
     });
   }
 }

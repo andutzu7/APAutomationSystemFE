@@ -18,24 +18,18 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./create-invoice.component.css'],
 })
 export class CreateInvoiceComponent {
-
   fromPO: boolean = true;
   companies!: Company[];
   items!: Item[];
   invoiceItemList: Item[] = [];
   public itemsTableDataSource = new MatTableDataSource();
   public selectedOrder!: OrderResponse;
-
   file: File | null = null;
-
-
   public columnsToDisplay = ['itemNameColumn', 'priceColumn', 'itemQuantityColumn', 'deleteColumn'];
   displayedColumns: string[] = ['identifier', 'buyer', 'seller', 'status'];
-
   orderForm !: FormGroup;
   sellerCompany!: Company;
   error: boolean = false;
-
   purchaseOrdersDataSource!: MatTableDataSource<OrderResponse>
 
   constructor(
@@ -61,8 +55,8 @@ export class CreateInvoiceComponent {
       purchaseOrderFilteredList = purchaseOrderFilteredList.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED')
       this.purchaseOrdersDataSource = new MatTableDataSource<OrderResponse>(purchaseOrderFilteredList);
     });
-
   }
+
   private createForm() {
     this.orderForm = new FormGroup({
       buyer: new FormControl<string>("", [Validators.required]),
@@ -71,27 +65,23 @@ export class CreateInvoiceComponent {
       quantity: new FormControl<number>(1, [Validators.required])
     });
   }
+
   getCompanies() {
     this.companiesService.getCompanies().subscribe(answer => {
-
       const sellerIdentifier = this.authService.getUserCompany();
       this.sellerCompany = answer.filter(company => company.companyIdentifier == sellerIdentifier)[0];
       this.companies = answer.filter(company => company.companyIdentifier != sellerIdentifier)
-
     })
-
   }
 
   addItem() {
     if (Object.keys(this.orderForm.value.item).length != 0) {
       const newItem = Object.assign({}, this.orderForm.value.item);
       newItem.quantity = this.orderForm.value.quantity;
-
       this.appendItem(this.invoiceItemList, newItem);
     }
     this.itemsTableDataSource.data = this.invoiceItemList;
   }
-
 
   appendItem(existingItems: Item[], newItem: Item) {
     let alreadyExistent: boolean = false;
@@ -116,14 +106,12 @@ export class CreateInvoiceComponent {
     }
     else {
       this.error = false;
-
-
       const invoiceDPO: InvoiceDPO = new InvoiceDPO(newInvoice.buyer.companyIdentifier, newInvoice.seller.companyIdentifier, this.invoiceItemList);
-
       let input = new FormData();
-      input.append('invoiceDPO',new Blob([JSON.stringify(invoiceDPO)], {
-            type: "application/json"
-        }));
+
+      input.append('invoiceDPO', new Blob([JSON.stringify(invoiceDPO)], {
+        type: "application/json"
+      }));
       input.append('file', this.file!, this.file!.name);
 
       this.invoiceService.createInvoice(input).subscribe(response => {
@@ -133,30 +121,31 @@ export class CreateInvoiceComponent {
       )
     }
   }
-  sendInvoiceFromOR() {
 
+  sendInvoiceFromOR() {
     if (this.selectedOrder != null) {
       this.invoiceService.createInvoiceFromPO(this.selectedOrder).subscribe(response => {
         this.router.navigateByUrl('/invoices/view/' + response.identifier);
       });
     }
   }
+
   toggleForm() {
     this.fromPO = !this.fromPO;
   }
+
   toggleSelectedPO(order: OrderResponse) {
     this.selectedOrder = order;
   }
+
   removeItem(item: Item) {
     const itemIndex = this.invoiceItemList.indexOf(item)
     if (itemIndex != -1) {
-
       this.invoiceItemList.splice(itemIndex, 1);
-
-
       this.itemsTableDataSource.data = this.invoiceItemList;
     }
   }
+
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     console.log(typeof (event.target.files[0]))
