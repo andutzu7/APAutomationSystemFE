@@ -34,10 +34,12 @@
     routerLink="/users">View all users
 </button> -->
 <div class="button-list" *ngIf="userRoles != undefined && (userRoles.includes('ADMIN'))">
-    <button mat-raised-button
-        routerLink="/register">Register new user
+    <button mat-raised-button routerLink="/register">Register new user
     </button>
-    <button mat-raised-button
-        routerLink="/users">View all users
+    <button mat-raised-button routerLink="/users">View all users
+    </button>
+    <button mat-raised-button routerLink="/companies">View all companies
+    </button>
+    <button mat-raised-button routerLink="/company">Create new company
     </button>
 </div>

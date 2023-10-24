@@ -21,9 +21,9 @@ export class CompaniesService {
 
     }
 
-    createCompany(invoiceDPO: Company) {
+    createCompany(company: Company) {
 
-        return this.httpClient.post<Company>(`${ApiPaths.base}/${ApiPaths.companiesMapping}`, invoiceDPO);
+        return this.httpClient.post<Company>(`${ApiPaths.base}/${ApiPaths.companiesMapping}`, company);
     }
 
     getCompanies(): Observable<Company[]> {
