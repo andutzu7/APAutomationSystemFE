@@ -1,0 +1,68 @@
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0px;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+    min-width: 300px;
+  }
+  
+  mat-card {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 100%; 
+  }
+  
+  mat-card-content > form {
+    justify-content: center;
+    width: 90%;
+  }
+  
+  mat-card-content > form > p {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  p > mat-form-field{
+    width: 100%;
+  }
+  
+  
+  mat-card-title,
+  mat-card-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  mat-card-title {
+    font-size: 24px; 
+    font-weight: bold; 
+    
+    text-align: center; /* Center-align the text */
+    padding: 16px 5px; /* Add padding to the top and bottom */
+  }
+  
+  .error {
+    padding: 16px;
+    width: 300px;
+    color: white;
+    background-color: red;
+  }
+  
+  .button {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .progress-bar-container {
+    margin-top: 16px; /* Add margin to create space above the progress bar */
+  }
+  
+  

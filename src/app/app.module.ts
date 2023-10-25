@@ -21,6 +21,8 @@ import { RegisterComponent } from './components/pages/auth/register/register.com
 import { SidenavComponent } from './components/ui/sidenav/sidenav.component';
 import { ErrorsInterceptor } from './helpers/errors.interceptor';
 import { ViewUsersComponent } from './components/pages/auth/view-users/view-users.component';
+import { ViewCompaniesComponent } from './components/pages/companies/view-companies/view-companies.component';
+import { CreateCompaniesComponent } from './components/pages/companies/create-companies/create-companies.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { ViewUsersComponent } from './components/pages/auth/view-users/view-user
     RegisterComponent,
     SidenavComponent,
     ViewUsersComponent,
+    ViewCompaniesComponent,
+    CreateCompaniesComponent,
   ],
   imports: [
     BrowserModule,
