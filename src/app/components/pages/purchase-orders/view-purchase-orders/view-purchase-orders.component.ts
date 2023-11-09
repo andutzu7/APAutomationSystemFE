@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OrderResponse } from 'src/app/models/order';
+import { SimpleOrderResponse } from 'src/app/models/order';
 import { OrdersService } from 'src/app/services/orders.service';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ViewPurchaseOrdersComponent {
   displayedColumns: string[] = ['identifier', 'buyer', 'seller', 'status'];
-  dataSource !: MatTableDataSource<OrderResponse>
+  dataSource !: MatTableDataSource<SimpleOrderResponse>
 
   constructor(
     private ordersService: OrdersService) {
@@ -23,7 +23,7 @@ export class ViewPurchaseOrdersComponent {
   getPurchaseOrders(): void {
     this.ordersService.getPurchaseOrders().subscribe(
       orders => {
-        this.dataSource = new MatTableDataSource<OrderResponse>(orders);
+        this.dataSource = new MatTableDataSource<SimpleOrderResponse>(orders);
       });
   }
 }

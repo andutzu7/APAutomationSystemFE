@@ -37,3 +37,16 @@ export class OrderResponse {
         this.uri = uri;
     }
 }
+
+export class SimpleOrderResponse {
+    identifier!: string;
+    buyer: string;
+    seller: string;
+    orderStatus!: string;
+
+    constructor(identifier:string, buyer: string, seller: string) {
+        this.identifier = identifier;
+        this.buyer = buyer;
+        this.seller = seller;
+    }
+}

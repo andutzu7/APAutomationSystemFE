@@ -9,7 +9,7 @@ import { InvoiceDPO } from 'src/app/models/invoiceDPO';
 import { MatTableDataSource } from '@angular/material/table';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { OrdersService } from 'src/app/services/orders.service';
-import { OrderResponse } from 'src/app/models/order';
+import { OrderResponse, SimpleOrderResponse } from 'src/app/models/order';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -23,14 +23,14 @@ export class CreateInvoiceComponent {
   items!: Item[];
   invoiceItemList: Item[] = [];
   public itemsTableDataSource = new MatTableDataSource();
-  public selectedOrder!: OrderResponse;
+  public selectedOrder!: SimpleOrderResponse;
   file: File | null = null;
   public columnsToDisplay = ['itemNameColumn', 'priceColumn', 'itemQuantityColumn', 'deleteColumn'];
   displayedColumns: string[] = ['identifier', 'buyer', 'seller', 'status'];
   orderForm !: FormGroup;
   sellerCompany!: Company;
   error: boolean = false;
-  purchaseOrdersDataSource!: MatTableDataSource<OrderResponse>
+  purchaseOrdersDataSource!: MatTableDataSource<SimpleOrderResponse>
 
   constructor(
     private router: Router,
@@ -50,10 +50,12 @@ export class CreateInvoiceComponent {
 
   getFilteredPurchaseOrders(): void {
     this.ordersService.getPurchaseOrders().subscribe(answer => {
-      const sellerIdentifier = this.authService.getUserCompany();
-      let purchaseOrderFilteredList = answer.filter(purchaseOrder => purchaseOrder.seller.companyIdentifier == sellerIdentifier);
-      purchaseOrderFilteredList = purchaseOrderFilteredList.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED')
-      this.purchaseOrdersDataSource = new MatTableDataSource<OrderResponse>(purchaseOrderFilteredList);
+      //const sellerIdentifier = this.authService.getUserCompany();
+      //let purchaseOrderFilteredList = answer.filter(purchaseOrder => purchaseOrder.seller.companyIdentifier == sellerIdentifier);
+      //purchaseOrderFilteredList = purchaseOrderFilteredList.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED')
+
+      let purchaseOrderFilteredList = answer.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED');
+      this.purchaseOrdersDataSource = new MatTableDataSource<SimpleOrderResponse>(purchaseOrderFilteredList);
     });
   }
 
@@ -100,7 +102,6 @@ export class CreateInvoiceComponent {
 
   onSubmit() {
     const newInvoice = this.orderForm.value;
-
     if (newInvoice.buyer.companyIdentifier == null || newInvoice.seller.companyIdentifier == null || newInvoice.item.description == null) {
       this.error = true;
     }
@@ -124,9 +125,14 @@ export class CreateInvoiceComponent {
 
   sendInvoiceFromOR() {
     if (this.selectedOrder != null) {
-      this.invoiceService.createInvoiceFromPO(this.selectedOrder).subscribe(response => {
-        this.router.navigateByUrl('/invoices/view/' + response.identifier);
-      });
+      this.ordersService.getPurchaseOrder(this.selectedOrder.identifier).subscribe(
+        order => {
+          let targetedOrder: OrderResponse = order;
+
+          this.invoiceService.createInvoiceFromPO(targetedOrder).subscribe(response => {
+            this.router.navigateByUrl('/invoices/view/' + response.identifier);
+          });
+        });
     }
   }
 
@@ -134,7 +140,7 @@ export class CreateInvoiceComponent {
     this.fromPO = !this.fromPO;
   }
 
-  toggleSelectedPO(order: OrderResponse) {
+  toggleSelectedPO(order: SimpleOrderResponse) {
     this.selectedOrder = order;
   }
 

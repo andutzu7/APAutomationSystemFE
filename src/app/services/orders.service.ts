@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { OrderRequest, OrderResponse } from "../models/order";
+import { OrderRequest, OrderResponse, SimpleOrderResponse } from "../models/order";
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { ApiPaths } from "src/assets/api-paths";
@@ -29,8 +29,8 @@ export class OrdersService {
         )
     }
 
-    getPurchaseOrders(): Observable<OrderResponse[]> {
-        return this.httpClient.get<OrderResponse[]>(
+    getPurchaseOrders(): Observable<SimpleOrderResponse[]> {
+        return this.httpClient.get<SimpleOrderResponse[]>(
             `${ApiPaths.base}/${ApiPaths.ordersMapping}`
         )
     }
