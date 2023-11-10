@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { OrderRequest, OrderResponse, SimpleOrderResponse } from "../models/order";
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { ApiPaths } from "src/assets/api-paths";
 
@@ -29,9 +29,12 @@ export class OrdersService {
         )
     }
 
-    getPurchaseOrders(): Observable<SimpleOrderResponse[]> {
+    getPurchaseOrders(page: number, pageSize:number): Observable<SimpleOrderResponse[]> {
+        let params = new HttpParams().set('page', page).append('pageSize', pageSize);
+
         return this.httpClient.get<SimpleOrderResponse[]>(
-            `${ApiPaths.base}/${ApiPaths.ordersMapping}`
+            `${ApiPaths.base}/${ApiPaths.ordersMapping}`,
+            { params: params }
         )
     }
 }

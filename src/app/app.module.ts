@@ -23,6 +23,7 @@ import { ErrorsInterceptor } from './helpers/errors.interceptor';
 import { ViewUsersComponent } from './components/pages/auth/view-users/view-users.component';
 import { ViewCompaniesComponent } from './components/pages/companies/view-companies/view-companies.component';
 import { CreateCompaniesComponent } from './components/pages/companies/create-companies/create-companies.component';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { CreateCompaniesComponent } from './components/pages/companies/create-co
     BrowserModule,
     BrowserAnimationsModule,
     BuyerModule,
+    MatPaginatorModule
   ],
   providers: [
     CompaniesService, 

@@ -11,6 +11,8 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ViewPurchaseOrdersComponent {
   displayedColumns: string[] = ['identifier', 'buyer', 'seller', 'status'];
   dataSource !: MatTableDataSource<SimpleOrderResponse>
+  page: number = 0;
+  pageSize: number = 5
 
   constructor(
     private ordersService: OrdersService) {
@@ -21,9 +23,16 @@ export class ViewPurchaseOrdersComponent {
   }
 
   getPurchaseOrders(): void {
-    this.ordersService.getPurchaseOrders().subscribe(
+    this.ordersService.getPurchaseOrders(this.page, this.pageSize).subscribe(
       orders => {
         this.dataSource = new MatTableDataSource<SimpleOrderResponse>(orders);
       });
+  }
+
+  onPageChanged(event:any){
+    this.page = event.pageIndex
+    this.pageSize = event.pageSize
+    
+    this.getPurchaseOrders();
   }
 }
