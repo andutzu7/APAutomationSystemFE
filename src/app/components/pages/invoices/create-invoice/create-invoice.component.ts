@@ -49,7 +49,7 @@ export class CreateInvoiceComponent {
   }
 
   getFilteredPurchaseOrders(): void {
-    this.ordersService.getPurchaseOrders().subscribe(answer => {
+    this.ordersService.getPurchaseOrders(1, 100).subscribe(answer => {
       //const sellerIdentifier = this.authService.getUserCompany();
       //let purchaseOrderFilteredList = answer.filter(purchaseOrder => purchaseOrder.seller.companyIdentifier == sellerIdentifier);
       //purchaseOrderFilteredList = purchaseOrderFilteredList.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED')

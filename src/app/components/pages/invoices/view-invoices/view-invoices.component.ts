@@ -17,6 +17,8 @@ export class ViewInvoicesComponent {
   public individualInvoice!: InvoiceDTO;
   public invoiceDataSource = new MatTableDataSource();
   public columnsToDisplay = ['idColumn', 'buyerColumn', 'sellerColumn', 'statusColumn', 'newTabColumn', 'deleteColumn'];
+  page: number = 0;
+  pageSize: number = 5
 
   constructor(private invoiceService: InvoiceService) { }
 
@@ -27,7 +29,7 @@ export class ViewInvoicesComponent {
   }
 
   getInvoices() {
-    this.invoiceService.getInvoices().subscribe(invoiceList => {
+    this.invoiceService.getInvoices(this.page, this.pageSize).subscribe(invoiceList => {
       this.invoiceDDOList = invoiceList;
       this.invoiceDataSource.data = invoiceList;
     })
@@ -40,6 +42,13 @@ export class ViewInvoicesComponent {
       //de filtrat lista
       this.invoiceDataSource.data = this.invoiceDDOList;
     });
+  }
+
+  onPageChanged(event:any){
+    this.page = event.pageIndex
+    this.pageSize = event.pageSize
+    
+    this.getInvoices();
   }
 }
 

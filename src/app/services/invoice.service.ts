@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { InvoiceDDO } from "../models/invoiceDDO";
 import { InvoiceDTO } from "../models/invoiceDTO";
@@ -15,8 +15,12 @@ export class InvoiceService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getInvoices(): Observable<InvoiceDDO[]> {
-        return this.httpClient.get<InvoiceDDO[]>(`${ApiPaths.base}/${ApiPaths.getInvoicesMapping}`);
+    getInvoices(page: number, pageSize:number): Observable<InvoiceDDO[]> {
+        let params = new HttpParams().set('page', page).append('pageSize', pageSize);
+        
+        return this.httpClient.get<InvoiceDDO[]>(
+            `${ApiPaths.base}/${ApiPaths.getInvoicesMapping}`,
+            { params: params });
     }
     getInvoice(uuid: string): Observable<InvoiceDTO> {
 
