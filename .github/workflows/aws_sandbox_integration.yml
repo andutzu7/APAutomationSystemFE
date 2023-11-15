@@ -4,7 +4,7 @@ on: [ push, pull_request ]
 
 env:
     AWS_REGION: us-east-1
-    S3BUCKET: frontendstack-angularappdeploymentbucket-wf6myh60vg03 
+    S3BUCKET: frontendstack-angularappdeploymentbucket-aa0ierwtloqh 
 
 jobs:
   build:

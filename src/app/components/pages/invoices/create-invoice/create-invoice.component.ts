@@ -49,12 +49,12 @@ export class CreateInvoiceComponent {
   }
 
   getFilteredPurchaseOrders(): void {
-    this.ordersService.getPurchaseOrders(1, 100).subscribe(answer => {
+    this.ordersService.getPurchaseOrders(undefined, undefined).subscribe(answer => {
       //const sellerIdentifier = this.authService.getUserCompany();
       //let purchaseOrderFilteredList = answer.filter(purchaseOrder => purchaseOrder.seller.companyIdentifier == sellerIdentifier);
       //purchaseOrderFilteredList = purchaseOrderFilteredList.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED')
-
-      let purchaseOrderFilteredList = answer.filter(purchaseOrder => purchaseOrder.orderStatus == 'APPROVED');
+      let purchaseOrders: SimpleOrderResponse[] = answer.content
+      let purchaseOrderFilteredList = purchaseOrders.filter(purchaseOrder  => purchaseOrder.orderStatus == 'APPROVED');
       this.purchaseOrdersDataSource = new MatTableDataSource<SimpleOrderResponse>(purchaseOrderFilteredList);
     });
   }

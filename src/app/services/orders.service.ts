@@ -29,12 +29,18 @@ export class OrdersService {
         )
     }
 
-    getPurchaseOrders(page: number, pageSize:number): Observable<SimpleOrderResponse[]> {
-        let params = new HttpParams().set('page', page).append('pageSize', pageSize);
+    getPurchaseOrders(page?: number, pageSize?:number): Observable<any> {
+        if(page != undefined && pageSize != undefined){
+            let params = new HttpParams().set('page', page!).append('pageSize', pageSize!);
 
-        return this.httpClient.get<SimpleOrderResponse[]>(
-            `${ApiPaths.base}/${ApiPaths.ordersMapping}`,
-            { params: params }
+            return this.httpClient.get<any>(
+                `${ApiPaths.base}/${ApiPaths.ordersMapping}`,
+                { params: params }
+            )
+        }
+        
+        return this.httpClient.get<any>(
+            `${ApiPaths.base}/${ApiPaths.ordersMapping}`
         )
     }
 }

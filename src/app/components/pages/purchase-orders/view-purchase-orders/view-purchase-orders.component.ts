@@ -13,6 +13,7 @@ export class ViewPurchaseOrdersComponent {
   dataSource !: MatTableDataSource<SimpleOrderResponse>
   page: number = 0;
   pageSize: number = 5
+  totalLength: number = 10;
 
   constructor(
     private ordersService: OrdersService) {
@@ -24,8 +25,9 @@ export class ViewPurchaseOrdersComponent {
 
   getPurchaseOrders(): void {
     this.ordersService.getPurchaseOrders(this.page, this.pageSize).subscribe(
-      orders => {
-        this.dataSource = new MatTableDataSource<SimpleOrderResponse>(orders);
+      response => {
+        this.dataSource = new MatTableDataSource<SimpleOrderResponse>(response.content);
+        this.totalLength = response.totalElements
       });
   }
 
