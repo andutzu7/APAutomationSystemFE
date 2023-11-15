@@ -15,35 +15,32 @@ export class InvoiceService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getInvoices(page: number, pageSize:number): Observable<InvoiceDDO[]> {
+    getInvoices(page: number, pageSize: number): Observable<any> {
         let params = new HttpParams().set('page', page).append('pageSize', pageSize);
-        
-        return this.httpClient.get<InvoiceDDO[]>(
+
+        return this.httpClient.get<any>(
             `${ApiPaths.base}/${ApiPaths.getInvoicesMapping}`,
             { params: params });
     }
+    
     getInvoice(uuid: string): Observable<InvoiceDTO> {
-
         return this.httpClient.get<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.getInvoicesMapping}/${uuid}`);
     }
+
     deleteInvoice(uuid: string) {
-
         return this.httpClient.delete(`${ApiPaths.base}/${ApiPaths.getInvoicesMapping}/${uuid}`);
-
     }
 
     createInvoice(invoiceData: FormData) {
-
-        return this.httpClient.post<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.postInvoicesMapping}`,invoiceData);
+        return this.httpClient.post<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.postInvoicesMapping}`, invoiceData);
     }
+
     updateInvoice(uuid: string, invoiceDTO: InvoiceDTO) {
-
         return this.httpClient.put<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.putInvoicesMapping}/${uuid}`, invoiceDTO);
-
     }
+
     createInvoiceFromPO(orderRequest: OrderResponse): Observable<InvoiceDTO> {
         return this.httpClient.post<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.createInvoiceFromOR}`, orderRequest);
-        
     }
 
 }

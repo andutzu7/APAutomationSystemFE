@@ -19,6 +19,7 @@ export class ViewInvoicesComponent {
   public columnsToDisplay = ['idColumn', 'buyerColumn', 'sellerColumn', 'statusColumn', 'newTabColumn', 'deleteColumn'];
   page: number = 0;
   pageSize: number = 5
+  totalLength: number = 10;
 
   constructor(private invoiceService: InvoiceService) { }
 
@@ -29,9 +30,11 @@ export class ViewInvoicesComponent {
   }
 
   getInvoices() {
-    this.invoiceService.getInvoices(this.page, this.pageSize).subscribe(invoiceList => {
-      this.invoiceDDOList = invoiceList;
-      this.invoiceDataSource.data = invoiceList;
+    this.invoiceService.getInvoices(this.page, this.pageSize).subscribe(response => {
+      this.invoiceDDOList = response.content;
+      this.invoiceDataSource.data = response.content;
+
+      this.totalLength = response.totalElements
     })
   }
 
@@ -44,10 +47,10 @@ export class ViewInvoicesComponent {
     });
   }
 
-  onPageChanged(event:any){
+  onPageChanged(event: any) {
     this.page = event.pageIndex
     this.pageSize = event.pageSize
-    
+
     this.getInvoices();
   }
 }
