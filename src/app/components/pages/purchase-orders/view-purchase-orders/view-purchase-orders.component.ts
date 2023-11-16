@@ -28,7 +28,7 @@ export class ViewPurchaseOrdersComponent {
     const now = new Date();
     this.selectedMonth = now.getMonth();
     this.selectedYear = now.getFullYear();
-    this.computeInvoiceTax();
+    this.computeOrderTax();
   }
 
   getPurchaseOrders(): void {
@@ -46,7 +46,7 @@ export class ViewPurchaseOrdersComponent {
     this.getPurchaseOrders();
   }
 
-  computeInvoiceTax() {
+  computeOrderTax() {
     this.ordersService.getTaxAmount(this.selectedMonth, this.selectedYear).subscribe(response => {
 
       this.taxAmount = response.valueOf();
@@ -60,7 +60,7 @@ export class ViewPurchaseOrdersComponent {
     } else {
       this.selectedYear = Number(selection);
     }
-    this.computeInvoiceTax();
+    this.computeOrderTax();
   }
 }
 
