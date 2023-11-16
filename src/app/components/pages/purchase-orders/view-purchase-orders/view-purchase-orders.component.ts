@@ -28,7 +28,7 @@ export class ViewPurchaseOrdersComponent {
     const now = new Date();
     this.selectedMonth = now.getMonth();
     this.selectedYear = now.getFullYear();
-    this.ordersService.getTaxAmount(this.selectedMonth, this.selectedYear);
+    this.computeInvoiceTax();
   }
 
   getPurchaseOrders(): void {
