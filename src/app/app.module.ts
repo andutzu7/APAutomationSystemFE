@@ -24,6 +24,7 @@ import { ViewUsersComponent } from './components/pages/auth/view-users/view-user
 import { ViewCompaniesComponent } from './components/pages/companies/view-companies/view-companies.component';
 import { CreateCompaniesComponent } from './components/pages/companies/create-companies/create-companies.component';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { DatePickerComponent } from './components/ui/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
     ViewUsersComponent,
     ViewCompaniesComponent,
     CreateCompaniesComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,

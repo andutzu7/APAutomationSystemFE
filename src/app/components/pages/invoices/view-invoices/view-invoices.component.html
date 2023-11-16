@@ -47,8 +47,13 @@
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
       <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
 </table>
+
+<mat-card> 
 <mat-paginator #paginator [length]="totalLength" [pageIndex]="0" [pageSizeOptions]="[5, 10, 25, 1000]"
 (page)="onPageChanged($event)">
 </mat-paginator>
+ Invoice tax amount for <date-picker t (newItemEvent)="parseInputDate($event)" ></date-picker>: {{this.taxAmount}}$
+</mat-card>
+
   </mat-card-content>
 </mat-card>

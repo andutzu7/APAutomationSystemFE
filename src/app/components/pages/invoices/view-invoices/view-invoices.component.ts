@@ -20,13 +20,20 @@ export class ViewInvoicesComponent {
   page: number = 0;
   pageSize: number = 5
   totalLength: number = 10;
+  taxAmount!: number;
+  selectedMonth!: number;
+  selectedYear!: number;
 
   constructor(private invoiceService: InvoiceService) { }
 
-  @Output() invoiceCommand = new EventEmitter<any>();
-
   ngOnInit() {
     this.getInvoices();
+
+    const now = new Date();
+    this.selectedMonth = now.getMonth();
+    this.selectedYear = now.getFullYear();
+    this.invoiceService.getTaxAmount(this.selectedMonth, this.selectedYear);
+    this.computeInvoiceTax();
   }
 
   getInvoices() {
@@ -52,6 +59,22 @@ export class ViewInvoicesComponent {
     this.pageSize = event.pageSize
 
     this.getInvoices();
+  }
+  parseInputDate(selection: string) {
+    if (Number(selection) >= 1 && Number(selection) <= 12) {
+      this.selectedMonth = Number(selection);
+    }else{
+      this.selectedYear = Number(selection);
+    }
+    this.computeInvoiceTax();
+  }
+
+  computeInvoiceTax() {
+    this.invoiceService.getTaxAmount(this.selectedMonth, this.selectedYear).subscribe(response => {
+
+      this.taxAmount = response.valueOf();
+
+    });
   }
 }
 

@@ -27,8 +27,11 @@
       <tr class="custom-table-row" mat-row *matRowDef="let row; columns: displayedColumns;"
         routerLink="/purchase-orders/{{row.identifier}}"></tr>
     </table>
-    <mat-paginator #paginator [length]="totalLength" [pageIndex]="0" [pageSizeOptions]="[5, 10, 25, 100]"
-      (page)="onPageChanged($event)">
-    </mat-paginator>
+    <mat-card>
+      <mat-paginator #paginator [length]="totalLength" [pageIndex]="0" [pageSizeOptions]="[5, 10, 25, 1000]"
+        (page)="onPageChanged($event)">
+      </mat-paginator>
+      Invoice tax amount for <date-picker t (newItemEvent)="parseInputDate($event)"></date-picker>: {{this.taxAmount}}$
+    </mat-card>
   </mat-card-content>
 </mat-card>
