@@ -22,7 +22,7 @@ export class InvoiceService {
             `${ApiPaths.base}/${ApiPaths.getInvoicesMapping}`,
             { params: params });
     }
-    
+
     getInvoice(uuid: string): Observable<InvoiceDTO> {
         return this.httpClient.get<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.getInvoicesMapping}/${uuid}`);
     }
@@ -41,6 +41,9 @@ export class InvoiceService {
 
     createInvoiceFromPO(orderRequest: OrderResponse): Observable<InvoiceDTO> {
         return this.httpClient.post<InvoiceDTO>(`${ApiPaths.base}/${ApiPaths.createInvoiceFromOR}`, orderRequest);
+    }
+    getTaxAmount(month: number, year: number): Observable<number> {
+        return this.httpClient.get<number>(`${ApiPaths.base}/${ApiPaths.getInvoiceTax}/?month=${month}&year=${year}`);
     }
 
 }

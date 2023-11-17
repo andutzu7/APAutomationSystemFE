@@ -14,6 +14,9 @@ export class ViewPurchaseOrdersComponent {
   page: number = 0;
   pageSize: number = 5
   totalLength: number = 10;
+  taxAmount!: number;
+  selectedMonth!: number;
+  selectedYear!: number;
 
   constructor(
     private ordersService: OrdersService) {
@@ -21,6 +24,11 @@ export class ViewPurchaseOrdersComponent {
 
   ngOnInit(): void {
     this.getPurchaseOrders();
+
+    const now = new Date();
+    this.selectedMonth = now.getMonth()+1;
+    this.selectedYear = now.getFullYear();
+    this.computeOrderTax();
   }
 
   getPurchaseOrders(): void {
@@ -31,10 +39,28 @@ export class ViewPurchaseOrdersComponent {
       });
   }
 
-  onPageChanged(event:any){
+  onPageChanged(event: any) {
     this.page = event.pageIndex
     this.pageSize = event.pageSize
-    
+
     this.getPurchaseOrders();
   }
+
+  computeOrderTax() {
+    this.ordersService.getTaxAmount(this.selectedMonth, this.selectedYear).subscribe(response => {
+
+      this.taxAmount = response.valueOf();
+
+    });
+  }
+
+  parseInputDate(selection: string) {
+    if (Number(selection) >= 1 && Number(selection) <= 12) {
+      this.selectedMonth = Number(selection);
+    } else {
+      this.selectedYear = Number(selection);
+    }
+    this.computeOrderTax();
+  }
 }
+

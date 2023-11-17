@@ -1,0 +1,6 @@
+<select [(ngModel)]="selectedMonth" (change)="emitValueChange($event)">
+    <option *ngFor="let month of months" [value]="month">{{month}}</option>
+</select>
+<select [(ngModel)]="selectedYear" (change)="emitValueChange($event)">
+    <option *ngFor="let year of years" [value]="year">{{year}}</option>
+</select>
