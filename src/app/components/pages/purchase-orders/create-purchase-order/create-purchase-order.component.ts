@@ -22,6 +22,8 @@ export class CreatePurchaseOrderComponent implements OnInit {
   orderForm !: FormGroup
   error: boolean = false;
   file: File | null = null;
+  loading: boolean = false;
+  submitEnabled: boolean = true;
 
   constructor(
     private router: Router,
@@ -58,11 +60,10 @@ export class CreatePurchaseOrderComponent implements OnInit {
 
   onFileSelected(event: any) {
     this.file = event.target.files[0];
-    console.log(typeof (event.target.files[0]))
-    console.log(this.file)
   }
 
   onSubmit() {
+    this.loading = true;
     const newOrder = this.orderForm.value;
 
     if (newOrder.buyer == '' || newOrder.seller == '' || newOrder.item.description == null || this.file == null) {
@@ -70,6 +71,7 @@ export class CreatePurchaseOrderComponent implements OnInit {
     }
     else {
       this.error = false;
+      this.submitEnabled = false;
 
       const newItem = newOrder.item;
       newItem.quantity = newOrder.quantity;

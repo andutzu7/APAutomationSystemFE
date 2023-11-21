@@ -42,13 +42,17 @@
             </mat-card>
 
             <div class="button">
-                <button type="submit" mat-raised-button color="primary">Create</button>
+                <button [disabled]="!submitEnabled" type="submit" mat-raised-button color="primary">Create</button>
             </div>
 
             <div class="error-container" *ngIf="error==true">
                 <p>
                     Please introduce all required fields.
                 </p>
+            </div>
+
+            <div class="progress-bar-container">
+                <mat-progress-bar *ngIf="loading && !error" mode="indeterminate"></mat-progress-bar>
             </div>
         </form>
     </mat-card-content>

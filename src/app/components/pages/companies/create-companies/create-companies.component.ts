@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class CreateCompaniesComponent {
   loading: boolean = false;
+  submitEnabled: boolean = true;
   newCompanyForm: FormGroup;
 
   constructor(
@@ -25,6 +26,7 @@ export class CreateCompaniesComponent {
 
   submit() {
     this.loading = true;
+    this.submitEnabled = false;
 
     let name: string = this.newCompanyForm.value.name;
     let newCompany = new Company("", name);
