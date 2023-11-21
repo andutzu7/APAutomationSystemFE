@@ -17,7 +17,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ViewPurchaseOrderComponent {
   purchaseOrder !: OrderResponse;
   userRoles: string[] = [];
-  totalAmount: number = 0;
+  totalAmount: string = "0";
 
   constructor(private route: ActivatedRoute,
     private ordersService: OrdersService,
@@ -34,14 +34,14 @@ export class ViewPurchaseOrderComponent {
     });
   }
 
-  computeTotalAmount(items: Item[]): number {
+  computeTotalAmount(items: Item[]): string {
     let amount = 0;
 
     items.forEach(item => {
       amount += item.price! * item.quantity!
     })
 
-    return amount;
+    return amount.toFixed(2);
   }
 
   getPurchaseOrder(): void {
