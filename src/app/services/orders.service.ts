@@ -3,6 +3,7 @@ import { OrderRequest, OrderResponse, SimpleOrderResponse } from "../models/orde
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { ApiPaths } from "src/assets/api-paths";
+import { StatusTaxMap } from "../models/statusTaxMap";
 
 @Injectable({
     providedIn: 'root'
@@ -38,7 +39,7 @@ export class OrdersService {
                 { params: params }
             )
         }
-        
+
         return this.httpClient.get<any>(
             `${ApiPaths.base}/${ApiPaths.ordersMapping}`
         )
@@ -46,5 +47,9 @@ export class OrdersService {
 
     getTaxAmount(month: number, year: number): Observable<number> {
         return this.httpClient.get<number>(`${ApiPaths.base}/${ApiPaths.getOrdersTax}/?month=${month}&year=${year}`);
+    }
+
+    getOrdersCompanyTaxAmount(month: number, year: number): Observable<any> {
+        return this.httpClient.get<any>(`${ApiPaths.base}/${ApiPaths.getOrdersTotalTax}/?month=${month}&year=${year}`);
     }
 }

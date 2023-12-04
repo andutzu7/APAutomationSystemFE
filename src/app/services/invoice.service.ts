@@ -6,6 +6,7 @@ import { InvoiceDTO } from "../models/invoiceDTO";
 import { OrderResponse } from "../models/order";
 import { InvoiceDPO } from "../models/invoiceDPO";
 import { ApiPaths } from "src/assets/api-paths";
+import { StatusTaxMap } from "../models/statusTaxMap";
 
 
 @Injectable({
@@ -46,5 +47,8 @@ export class InvoiceService {
         return this.httpClient.get<number>(`${ApiPaths.base}/${ApiPaths.getInvoiceTax}/?month=${month}&year=${year}`);
     }
 
+    getInvoicesTotalTaxAmount(month: number, year: number): Observable<any> {
+        return this.httpClient.get<any>(`${ApiPaths.base}/${ApiPaths.getInvoicesTotalTax}/?month=${month}&year=${year}`);
+    }
 }
 

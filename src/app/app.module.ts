@@ -25,6 +25,8 @@ import { ViewCompaniesComponent } from './components/pages/companies/view-compan
 import { CreateCompaniesComponent } from './components/pages/companies/create-companies/create-companies.component';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { DatePickerComponent } from './components/ui/date-picker/date-picker.component';
+import { InvoiceService } from './services/invoice.service';
+import { ViewCompaniesTaxComponent } from './components/pages/companies/view-companies-tax/view-companies-tax.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { DatePickerComponent } from './components/ui/date-picker/date-picker.com
     SidenavComponent,
     ViewUsersComponent,
     ViewCompaniesComponent,
+    ViewCompaniesTaxComponent,
     CreateCompaniesComponent,
     DatePickerComponent,
   ],
@@ -52,8 +55,9 @@ import { DatePickerComponent } from './components/ui/date-picker/date-picker.com
     MatPaginatorModule
   ],
   providers: [
-    CompaniesService, 
-    ItemsService, 
+    CompaniesService,
+    ItemsService,
+    InvoiceService,
     OrdersService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true }],
