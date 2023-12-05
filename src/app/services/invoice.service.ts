@@ -6,8 +6,6 @@ import { InvoiceDTO } from "../models/invoiceDTO";
 import { OrderResponse } from "../models/order";
 import { InvoiceDPO } from "../models/invoiceDPO";
 import { ApiPaths } from "src/assets/api-paths";
-import { StatusTaxMap } from "../models/statusTaxMap";
-
 
 @Injectable({
     providedIn: 'root'

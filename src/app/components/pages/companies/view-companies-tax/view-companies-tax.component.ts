@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Company } from 'src/app/models/company';
-import { StatusTaxMap } from 'src/app/models/statusTaxMap';
 import { CompaniesService } from 'src/app/services/companies.service';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { OrdersService } from 'src/app/services/orders.service';

@@ -3,7 +3,6 @@ import { OrderRequest, OrderResponse, SimpleOrderResponse } from "../models/orde
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { ApiPaths } from "src/assets/api-paths";
-import { StatusTaxMap } from "../models/statusTaxMap";
 
 @Injectable({
     providedIn: 'root'
