@@ -7,13 +7,22 @@
             <mat-expansion-panel hideToggle *ngFor="let company of companies" (opened)="panelOpenState = true"
                 (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <b>UUID:&nbsp;</b> {{company.companyIdentifier}}
-                    </mat-panel-title>
                     <mat-panel-description>
-                        <b>Name:&nbsp;</b>  {{company.name}}
+                        <b>Name:&nbsp;</b> {{company.name}}
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        <b>Purchase Order Tax:&nbsp;</b> {{getPurchaseOrderTax(company.companyIdentifier)}}
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        <b>Invoice Tax:&nbsp;</b> {{getInvoiceTax(company.companyIdentifier)}}
                     </mat-panel-description>
                 </mat-expansion-panel-header>
+                <div>
+                    <p><b>Purchase Order Transaction Details:&nbsp;</b>
+                       {{ getPurchaseOrderTransactionString(company.companyIdentifier)}}</p>
+                    <p><b>Invoice Tax Transaction Details:&nbsp;</b>
+                       {{ getInvoiceTransactionString(company.companyIdentifier) }}</p>
+                </div>
             </mat-expansion-panel>
         </mat-accordion>
     </mat-card-content>

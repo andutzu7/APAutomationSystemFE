@@ -79,7 +79,6 @@ export class ViewCompaniesTaxComponent {
 
       this.updateTaxMap(this.companiesOrdersTax, "purchaseOrder")
 
-      console.log(this.companiesTaxMap)
     });
   }
 
@@ -112,6 +111,59 @@ export class ViewCompaniesTaxComponent {
     this.computeCompaniesTax();
   }
 
+  getPurchaseOrderTax(companyIdentifier: string): number {
+
+    const companyTaxMap = this.companiesTaxMap.get(companyIdentifier).orderStatusTax;
+    if (companyTaxMap != undefined) {
+      const taxAmount = companyTaxMap.reduce((sum: number, element: any) => sum + element.taxAmount, 0)
+      return taxAmount
+    } else {
+      return 0.0
+    }
+  }
+  getInvoiceTax(companyIdentifier: string): number {
+
+    const companyTaxMap = this.companiesTaxMap.get(companyIdentifier).invoiceStatusTax;
+    if (companyTaxMap != undefined) {
+      const taxAmount = companyTaxMap.reduce((sum: number, element: any) => sum + element.taxAmount, 0)
+      return taxAmount
+    } else {
+      return 0.0
+    }
+
+  }
+
+  getPurchaseOrderTransactionString(companyIdentifier: string): string {
+
+    const companyTaxMap = this.companiesTaxMap.get(companyIdentifier).orderStatusTax;
+    if (companyTaxMap != undefined) {
+
+      companyTaxMap.sort(function (elem1: any, elem2: any) {
+
+        return elem1.orderStatus.localeCompare(elem2.orderStatus)
+      });
+      const statusString = companyTaxMap.reduce((transactionString: string, element: any) => transactionString + `${element.orderStatus} : ${element.taxAmount} | `," | ")
+      return statusString
+    } else {
+      return "-"
+    }
+  }
+
+  getInvoiceTransactionString(companyIdentifier: string): string {
+
+    const companyTaxMap = this.companiesTaxMap.get(companyIdentifier).invoiceStatusTax;
+    if (companyTaxMap != undefined) {
+
+      companyTaxMap.sort(function (elem1: any, elem2: any) {
+
+        return elem1.invoiceStatus.localeCompare(elem2.invoiceStatus)
+      });
+      const statusString = companyTaxMap.reduce((transactionString: string, element: any) => transactionString + `${element.invoiceStatus} : ${element.taxAmount} | `," | ")
+      return statusString
+    } else {
+      return "-"
+    }
+  }
 }
 
 
