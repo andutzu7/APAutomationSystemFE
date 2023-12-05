@@ -10,6 +10,7 @@ export enum ApiPaths {
     getInvoiceTax = 'invoices/companyTax',
     getInvoicesTotalTax = 'invoices/totalTax',
 
+
     ordersMapping = 'orders',
     companiesMapping = 'companies',
     authMapping = "users",
