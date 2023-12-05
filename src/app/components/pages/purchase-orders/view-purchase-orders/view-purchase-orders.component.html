@@ -28,7 +28,7 @@
         routerLink="/purchase-orders/{{row.identifier}}"></tr>
     </table>
     <mat-card>
-      <mat-paginator #paginator [length]="totalLength" [pageIndex]="0" [pageSizeOptions]="[5, 10, 25, 1000]"
+      <mat-paginator #paginator [length]="totalLength" [pageIndex]="page" [pageSize]="pageSize" [pageSizeOptions]="[25, 50, 100, 1000]"
         (page)="onPageChanged($event)">
       </mat-paginator>
       Purchase order tax amount for period <date-picker (newItemEvent)="parseInputDate($event)"></date-picker>=> {{taxAmount}}$

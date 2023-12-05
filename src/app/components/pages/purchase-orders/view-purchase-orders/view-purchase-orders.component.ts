@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SimpleOrderResponse } from 'src/app/models/order';
 import { OrdersService } from 'src/app/services/orders.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-purchase-orders',
@@ -11,19 +12,26 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ViewPurchaseOrdersComponent {
   displayedColumns: string[] = ['identifier', 'buyer', 'seller', 'status'];
   dataSource !: MatTableDataSource<SimpleOrderResponse>
-  page: number = 0;
-  pageSize: number = 5
+  page!: number;
+  pageSize!: number;
   totalLength: number = 10;
   taxAmount!: number;
   selectedMonth!: number;
   selectedYear!: number;
 
   constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
     private ordersService: OrdersService) {
   }
 
-  ngOnInit(): void {
-    this.getPurchaseOrders();
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.page = +params['page']-1 || 0;
+      this.pageSize = +params['pageSize'] || 25;
+  
+      this.getPurchaseOrders();
+    });
 
     const now = new Date();
     this.selectedMonth = now.getMonth()+1;
@@ -44,6 +52,15 @@ export class ViewPurchaseOrdersComponent {
     this.pageSize = event.pageSize
 
     this.getPurchaseOrders();
+    this.updateUrl();
+  }
+
+  private updateUrl() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.page + 1, pageSize: this.pageSize },
+      queryParamsHandling: 'merge',
+    });
   }
 
   computeOrderTax() {
