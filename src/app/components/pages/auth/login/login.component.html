@@ -19,7 +19,7 @@
   </p> -->
 
       <div class="button">
-        <button type="submit" mat-raised-button color="primary">Submit</button>
+        <button [disabled]="!submitEnabled" type="submit" mat-raised-button color="primary">Submit</button>
       </div>
 
       <div class="progress-bar-container">

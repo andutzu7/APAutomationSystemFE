@@ -28,6 +28,9 @@ export class ErrorsInterceptor implements HttpInterceptor {
             this.authService.logout();
           }
         }
+        else if (error.status === 409) {
+          this.showError(error.error.details, "RETRY")
+        }
         else if (error.status === 412) {
           this.showError(error.error.details, "RELOAD")
         }

@@ -29,3 +29,7 @@
   .error-container {
     margin-top: 16px; /* Add margin to create space above the progress bar */
   }
+
+  .progress-bar-container {
+    margin-top: 16px; /* Add margin to create space above the progress bar */
+  }

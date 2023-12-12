@@ -31,6 +31,8 @@ export class CreateInvoiceComponent {
   sellerCompany!: Company;
   error: boolean = false;
   purchaseOrdersDataSource!: MatTableDataSource<SimpleOrderResponse>
+  loading: boolean = false;
+  submitEnabled: boolean = true;
 
   constructor(
     private router: Router,
@@ -101,11 +103,14 @@ export class CreateInvoiceComponent {
   }
 
   onSubmit() {
+    this.loading = true;
+   
     const newInvoice = this.orderForm.value;
-    if (newInvoice.buyer.companyIdentifier == null || newInvoice.seller.companyIdentifier == null || newInvoice.item.description == null) {
+    if (newInvoice.buyer.companyIdentifier == null || newInvoice.seller.companyIdentifier == null || newInvoice.item.description == null || this.file == null) {
       this.error = true;
     }
     else {
+      this.submitEnabled = false;
       this.error = false;
       const invoiceDPO: InvoiceDPO = new InvoiceDPO(newInvoice.buyer.companyIdentifier, newInvoice.seller.companyIdentifier, this.invoiceItemList);
       let input = new FormData();

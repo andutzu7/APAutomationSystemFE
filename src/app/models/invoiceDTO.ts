@@ -9,6 +9,8 @@ export class InvoiceDTO{
     items!: Item[];
     taxes!: number;
     totalAmount!: number;
+    discountRate!:number;
+    finalAmount!:number;
     invoiceStatus!: string;
     version!: number;
     uri!: string;
