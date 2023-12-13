@@ -38,7 +38,7 @@ export class OrdersService {
                 { params: params }
             )
         }
-        
+
         return this.httpClient.get<any>(
             `${ApiPaths.base}/${ApiPaths.ordersMapping}`
         )
@@ -46,5 +46,9 @@ export class OrdersService {
 
     getTaxAmount(month: number, year: number): Observable<number> {
         return this.httpClient.get<number>(`${ApiPaths.base}/${ApiPaths.getOrdersTax}/?month=${month}&year=${year}`);
+    }
+
+    getOrdersCompanyTaxAmount(month: number, year: number): Observable<any> {
+        return this.httpClient.get<any>(`${ApiPaths.base}/${ApiPaths.getOrdersTotalTax}/?month=${month}&year=${year}`);
     }
 }

@@ -7,12 +7,15 @@ export enum ApiPaths {
     putInvoicesMapping = 'invoices',
     createInvoiceFromBody = '',
     createInvoiceFromOR = 'invoices/fromOR',
-    getInvoiceTax = 'invoices/tax',
+    getInvoiceTax = 'invoices/companyTax',
+    getInvoicesTotalTax = 'invoices/totalTax',
+
 
     ordersMapping = 'orders',
     companiesMapping = 'companies',
     authMapping = "users",
     loginMapping = "login",
-    getOrdersTax = 'orders/tax',
+    getOrdersTax = 'orders/companyTax',
+    getOrdersTotalTax = 'orders/totalTax',
     registerMapping = "register"
  }
