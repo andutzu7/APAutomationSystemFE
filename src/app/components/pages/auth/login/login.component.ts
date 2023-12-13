@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent {
   loginForm !: FormGroup
   loading: boolean = false;
+  submitEnabled: boolean = true;
 
   constructor(
     private router: Router,
@@ -30,6 +31,7 @@ export class LoginComponent {
 
   submit() {
     if (this.loginForm.valid) {
+      this.submitEnabled = false;
       this.loading = true;
       let username: string = this.loginForm.value.username;
       let password: string = this.loginForm.value.password;

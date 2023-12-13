@@ -1,7 +1,14 @@
 <mat-card>
-    <mat-card-title>Order to {{purchaseOrder.seller.name}}</mat-card-title>
+    <mat-card-title>Order details</mat-card-title>
     <mat-card-content>
         <mat-accordion *ngIf="purchaseOrder">
+            <h3><b>Transaction ID:</b> {{purchaseOrder.identifier }}</h3>
+            <h3><b>Buyer Name:</b> {{ purchaseOrder.buyer.name }}</h3>
+            <h3><b>Seller Name:</b> {{ purchaseOrder.seller.name }}</h3>
+            <h3><b>Order status:</b> {{ purchaseOrder.orderStatus }}</h3>
+            <br>
+            <h3><b>Items</b></h3>
+
             <mat-expansion-panel *ngFor="let item of purchaseOrder.items">
                 <mat-expansion-panel-header>
                     <mat-panel-title>

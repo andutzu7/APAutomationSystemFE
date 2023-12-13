@@ -9,7 +9,7 @@
             </p>
 
             <div  class="button">
-                <button [disabled]="newCompanyForm.invalid" type="submit" mat-raised-button color="primary">
+                <button [disabled]="newCompanyForm.invalid || !submitEnabled" type="submit" mat-raised-button color="primary">
                     Submit
                 </button>
             </div>

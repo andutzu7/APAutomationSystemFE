@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegisterComponent {
   loading: boolean = false;
+  submitEnabled: boolean = true;
   registerForm: FormGroup;
   companies!: Company[];
   roles!: string[];
@@ -53,6 +54,7 @@ export class RegisterComponent {
 
   submit() {
     this.loading = true;
+    this.submitEnabled = false;
 
     let username: string = this.registerForm.value.username;
     let password: string = this.registerForm.value.password;

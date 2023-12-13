@@ -61,6 +61,12 @@
       <div>
         <b>Total amount:</b>&nbsp; <span matPrefix>$</span> {{totalAmount}}
       </div>
+      <div *ngIf="individualInvoice.discountRate">
+        <b>Discount rate:</b>&nbsp; <span matPrefix></span> {{ individualInvoice.discountRate }}
+      </div>
+      <div *ngIf="individualInvoice.finalAmount">
+        <b>Final amount:</b>&nbsp; <span matPrefix>$</span> {{individualInvoice.finalAmount}}
+      </div>
       <button mat-raised-button color="primary" [disabled]="individualInvoice.invoiceStatus !== 'CREATED'" mat-button
         type="button" (click)="toggleForm()">Add more items</button>
 
