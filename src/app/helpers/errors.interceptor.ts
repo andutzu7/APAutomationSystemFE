@@ -43,10 +43,10 @@ export class ErrorsInterceptor implements HttpInterceptor {
               this.showError(error.error.error, "CLOSE")
             }
             else if(error.status >= 500){
-              this.showError("Unknown error", "OK")
+              this.showError("Server error", "OK")
             }
             else{
-              this.showError(error.status.toString(), "OK")
+              this.showError("Unknown error", "CLOSE")
             } 
           }
         }
